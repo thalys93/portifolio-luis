@@ -1,4 +1,4 @@
-import { Circuitry, Hamburger, List } from '@phosphor-icons/react'
+import { Circuitry, List } from '@phosphor-icons/react'
 import { useContext } from 'react'
 import { Container, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'

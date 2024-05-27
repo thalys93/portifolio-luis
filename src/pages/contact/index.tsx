@@ -54,7 +54,7 @@ function Contact() {
 
   return (
     <Container>
-      <Row className='bg-slate-50 lg:mt-5 mb-3 lg:mb-0 rounded flex justify-center items-center lg:ml-[5rem] lg:mr-[5rem] pb-2'>
+      <Row className='bg-slate-50 lg:mt-[5rem] mb-3 lg:mb-0 rounded flex justify-center items-center lg:ml-[5rem] lg:mr-[5rem] pb-2'>
         <Col xs={winSize > 768 ? 5 : 10}>
           <img src='/svg/contact-art.svg' alt='Contact Art' />
         </Col>
