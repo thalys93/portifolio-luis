@@ -1,12 +1,17 @@
-import { Card, Col, Container, Row } from 'react-bootstrap'
-import { CompaniesThatIWorked, CompaniesThatIWorkedInterface, projects } from '../../utils/api/Consts'
+import { Col, Container, Row } from 'react-bootstrap'
+
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+
+import { CompaniesThatIWorked, projects } from '../../utils/api/Consts'
 import ProjectCard from '../../components/projectCard'
 
 function Projects() {
-
-  function limitedTimeline(array: CompaniesThatIWorkedInterface[], start: number, end: number) {
-    return array.slice(start, end)
-  }
+  const colorList = [ 'yellow', 'purple', 'orange', 'pink', 'cyan', 'teal', 'lime', 'lightBlue']
 
   return (
     <Container fluid>
@@ -44,11 +49,29 @@ function Projects() {
           </span>
         </section>
 
-        <section className='flex flex-col justify-center items-center pl-[5rem]'>
-         
+        <section className='flex flex-col select-none'>
+          <Timeline position='alternate'>
+            {CompaniesThatIWorked.map((company, index) => {
+              const randomColor = colorList[Math.floor(Math.random() * colorList.length)]
+              return (
+                <TimelineItem key={index} >
+                  <TimelineSeparator>
+                    <TimelineDot style={{ padding: 7, backgroundColor: randomColor }} />
+                    <TimelineConnector />
+                  </TimelineSeparator>
+                  <TimelineContent>
+                    <h2 className='text-slate-200 font-monts font-bold'>{company.name}</h2>
+                    <span className='text-slate-300 font-monts font-medium'>{company.position}</span>
+                    <p className='text-slate-400 font-monts font-light'>{company.startDate} a {company.endDate}</p>
+                    <p className='text-slate-500 font-monts font-light normal-case'>{company.description}</p>
+                  </TimelineContent>
+                </TimelineItem>
+              )
+            })}
+          </Timeline>
         </section>
       </Row>
-    </Container>
+    </Container >
   )
 }
 
