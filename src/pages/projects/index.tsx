@@ -10,7 +10,7 @@ import TimelineDot from '@mui/lab/TimelineDot';
 import { CompaniesThatIWorked, projects } from '../../utils/api/Consts'
 import ProjectCard from '../../components/projectCard'
 
-import { Parallax, ParallaxBanner, ParallaxBannerLayer } from 'react-scroll-parallax'
+import { Parallax, ParallaxBanner } from 'react-scroll-parallax'
 
 function Projects() {
   const colorList = ['yellow', 'purple', 'orange', 'pink', 'cyan', 'teal', 'lime', 'lightBlue']
