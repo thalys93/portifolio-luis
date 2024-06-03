@@ -13,7 +13,7 @@ interface ProjectCardProps {
 function ProjectCard({ ...props }: ProjectCardProps) {
     return (
         <Card className="bg-slate-950 border-slate-500 rounded-none text-slate-50 w-[15rem] h-[22rem] select-none group transition-all rounded-b ">
-            <Triangle className="absolute top-[9.3rem] left-[6.7rem] text-yellow-500 group-hover:text-emerald-300 text-2xl rotate-180 transition-all" weight="fill"/>
+            <Triangle className="absolute top-[9.3rem] left-[6.7rem] text-sky-500 group-hover:text-emerald-300 text-2xl rotate-180 transition-all" weight="fill"/>
             {props.image == null ? (
                 <div className="flex justify-center items-center h-[10rem]">
                     {props.name === 'Portifólio' ? (
@@ -33,7 +33,7 @@ function ProjectCard({ ...props }: ProjectCardProps) {
                     </span>
                 </div>
             </Card.Body>
-            <button className="p-3 bg-yellow-200 hover:bg-yellow-400 transition-all rounded-b">
+            <button className={props.link ? "p-3 bg-sky-300 hover:bg-sky-100 transition-all rounded-b" : "p-3 bg-stone-400 select-none pointer-events-none transition-all rounded-b"}>
                 {props.link ? (
                     <a href={props.link} target='_blank' className="text-slate-800 hover:text-slate-600">Ver Projeto</a>
                 ) : (

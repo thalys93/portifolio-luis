@@ -13,7 +13,7 @@ interface InfoButtonProps {
 function InfoButton({ infoKey, infoValue, copyValue }: InfoButtonProps) {
     const [showPopup, setShowPopup] = React.useState(false)
 
-    const commonClass = "flex flex-row gap-1 items-center text-slate-400 select-none cursor-pointer hover:text-yellow-200 transition-all group"
+    const commonClass = "flex flex-row gap-1 items-center text-slate-400 select-none cursor-pointer hover:text-emerald-200 transition-all group"
 
     function copyToClipboard(text: string) {
         setShowPopup(true)
@@ -52,7 +52,7 @@ function InfoButton({ infoKey, infoValue, copyValue }: InfoButtonProps) {
             <button className={commonClass} onClick={() => copyToClipboard(copyValue)}>
                 <Copy />
                 <b>{informationsMap[infoKey]}</b>
-                <span className='text-slate-500 group-hover:text-yellow-300'>{infoValue}</span>
+                <span className='text-slate-500 group-hover:text-emerald-300'>{infoValue}</span>
             </button>
 
         </OverlayTrigger>

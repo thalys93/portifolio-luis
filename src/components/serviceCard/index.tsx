@@ -10,7 +10,7 @@ interface serviceCard {
 
 function ServiceCard({ ...props }: serviceCard) {
     return (
-        <Card className='bg-slate-950 border-slate-500 rounded-none text-slate-50 w-[15rem] h-[15rem] select-none group transition-all hover:bg-slate-500 hover:scale-95'>
+        <Card className='bg-slate-950 border-slate-500 rounded-none text-slate-50 w-[15rem] h-[15rem] select-none group transition-all hover:bg-slate-500 '>
             <Card.Header className='flex flex-col justify-center items-center mb-2'>
                 {React.cloneElement(props.icon, { className: 'text-4xl' })}
             </Card.Header>

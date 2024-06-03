@@ -49,10 +49,10 @@ function About() {
     <Container fluid>
       <Row className='bg-darkSection mt-5 pt-2'>
         <section className='flex flex-col justify-center items-center pb-[1rem] select-none'>
-          <h1 className='text-xl underline underline-offset-4 uppercase text-yellow-200 font-monts z-10'>
+          <h1 className='text-xl underline underline-offset-4 uppercase text-emerald-300 font-monts z-10 animate__animated animate__fadeInDown'>
             Sobre Mim
           </h1>
-          <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-65'>
+          <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-65 animate__animated animate__fadeIn animate__slower'>
             Sobre Mim
           </span>
         </section>
@@ -70,10 +70,10 @@ function About() {
           {myInformations.map((info) => (
             <section>
               <h1 className='text-slate-200 font-monts'>Olá!, Me Chamo {info.fullName.slice(5, 12)}</h1>
-              <h3 className='font-redsans text-yellow-200 font-medium'> Desenvolvedor Full-Stack </h3>
+              <h3 className='font-redsans text-emerald-300 font-medium'> Desenvolvedor Full-Stack </h3>
               <p className='font-redsans text-slate-200'> Sou um desenvolvedor full-stack com expertise em <br /> diversas tecnologias sendo algumas delas:</p>
               {getRandomElements(languageThatIuse, 5).map((lang, index, array) => (
-                <span className='text-yellow-200 font-medium'>{lang.name}{index < array.length - 1 ? ', ' : ''}</span>
+                <span className='text-emerald-300 font-medium'>{lang.name}{index < array.length - 1 ? ', ' : ''}</span>
               ))}
               <article>
                 <InfoButton
@@ -123,11 +123,11 @@ function About() {
 
           <section className={winSize < 768 ? 'flex justify-center' : ''}>
             {loading ? (
-              <button className='w-[6.2rem] m-5 p-2 bg-yellow-200 text-slate-800 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
+              <button className='w-[6.2rem] m-5 p-2 bg-emerald-200 text-slate-800 rounded-lg uppercase font-robt font-bold hover:bg-sky-400 hover:text-sky-50 transition-all hover:rounded-md'>
                 <Spinner animation='border' className='text-sm' size="sm" />
               </button>
             ) : (
-              <button onClick={() => downloadCurriculum()} className='m-5 p-2 bg-yellow-200 text-slate-800 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
+                <button onClick={() => downloadCurriculum()} className='m-5 p-2 bg-emerald-200 text-slate-800 rounded-lg uppercase font-monts font-bold hover:bg-sky-400 hover:text-sky-50 transition-all hover:rounded-md'>
                 Baixar CV
               </button>
             )}
@@ -137,10 +137,10 @@ function About() {
       </Row>
       <Row className='bg-darkSection pb-4'>
         <section className='flex flex-col justify-center items-center pb-[1rem] select-none'>
-          <h1 className='text-xl underline underline-offset-4 uppercase text-yellow-200 font-monts z-10'>
+          <h1 className='text-xl underline underline-offset-4 uppercase text-emerald-300 font-monts z-10 animate__animated animate__fadeInDown'>
             Serviços
           </h1>
-          <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-65'>
+          <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-65 animate__animated animate__fadeIn animate__slower'>
             Serviços
           </span>
         </section>
@@ -158,10 +158,10 @@ function About() {
       </Row>
       <Row>
         <section className='flex flex-col justify-center items-center pb-[1rem] select-none'>
-          <h1 className='text-xl underline underline-offset-4 uppercase text-yellow-200 font-monts z-10'>
+          <h1 className='text-xl underline underline-offset-4 uppercase text-emerald-300 font-monts z-10 animate__animated animate__fadeInDown'>
             Minhas Skills
           </h1>
-          <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-65'>
+          <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-65 animate__animated animate__fadeIn animate__slower'>
             Minhas Skills
           </span>
         </section>
@@ -195,17 +195,17 @@ function About() {
                     <h1 className='font-monts text-slate-200'>{lang.name}</h1>
                   </div>
                   <div className='flex flex-row gap-2 items-center'>
-                    <ProgressBar now={lang.percent} variant='warning' className='mb-2 w-[35rem] h-[0.9rem]' />
+                    <ProgressBar now={lang.percent} variant='success' className='mb-2 w-[35rem] h-[0.9rem]' />
                     <span className='text-sm font-monts text-slate-200 mb-2'>{lang.percent}% </span>
                   </div>
                 </div>
               ))}
               <div className='flex flex-row justify-end items-end mr-[8rem] mt-4 gap-3 mb-5'>
-                <button onClick={() => setDefaultCount(defaultCount + 3)} className='bg-yellow-200 text-slate-800 p-2 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
-                  <PlusCircle className='w-5 h-5' weight='bold' />
+                <button onClick={() => setDefaultCount(defaultCount + 3)} className='bg-emerald-300 text-slate-800 p-2 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
+                  <PlusCircle className='w-5 h-5 text-stone-700' weight='bold' />
                 </button>
-                <button onClick={() => setDefaultCount(defaultCount - 3)} className='bg-yellow-200 text-slate-800 p-2 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
-                  <MinusCircle className='w-5 h-5' weight='bold' />
+                <button onClick={() => setDefaultCount(defaultCount - 3)} className='bg-emerald-300 text-slate-800 p-2 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
+                  <MinusCircle className='w-5 h-5 text-stone-700' weight='bold' />
                 </button>
               </div>
             </article>

@@ -10,11 +10,14 @@ import 'animate.css';
 
 import Routes from './utils/routes.jsx'
 import { WindowSizeProvider } from './utils/context/Responsive.js'
+import { ParallaxProvider } from 'react-scroll-parallax'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <WindowSizeProvider>
-      <Routes/>
-    </WindowSizeProvider>
+    <ParallaxProvider>
+      <WindowSizeProvider>
+        <Routes />
+      </WindowSizeProvider>
+    </ParallaxProvider>
   </React.StrictMode>,
 )
