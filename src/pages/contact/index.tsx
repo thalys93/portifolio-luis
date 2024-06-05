@@ -61,7 +61,7 @@ function Contact() {
         <Container>
           <Row className='bg-slate-50 lg:mt-[7rem] mb-3 lg:mb-0 rounded flex justify-center items-center lg:ml-[5rem] lg:mr-[5rem] pb-2'>
             <section className='animate__animated animate__fadeIn -z-50'>
-              <ParallaxBannerLayer image="/public/jpg/parallax4.jpg" speed={-30} className='opacity-10 ' />
+              <ParallaxBannerLayer image="/jpg/parallax4.jpg" speed={-30} className='opacity-10 ' />
             </section>
             <Col xs={winSize > 768 ? 5 : 10}>
               <img src='/svg/contact-art.svg' alt='Contact Art' className='animate__animated animate__fadeInLeft'/>

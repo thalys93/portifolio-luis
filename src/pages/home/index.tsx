@@ -13,7 +13,7 @@ function Home() {
         <Container>
           <Row className='m-2 pt-[3rem] lg:m-5 lg:pt-10 '>
             <section className='animate__animated animate__fadeIn -z-50'>
-              <ParallaxBannerLayer image="/public/jpg/parallax2.jpg" speed={-30} className='opacity-10 ' />
+              <ParallaxBannerLayer image="/jpg/parallax2.jpg" speed={-30} className='opacity-10 ' />
             </section>
             <Col sm>
               <section className='justify-center items-center flex lg:mt-[15rem] select-none animate__animated animate__fadeInDown'>

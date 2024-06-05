@@ -54,7 +54,7 @@ function About() {
         <Container>
           <Row className='mt-5 pt-2'>            
             <section className='animate__animated animate__fadeIn -z-50'>
-              <ParallaxBannerLayer image='/public/jpg/parallax1.jpg' speed={-30} className='opacity-10' />
+              <ParallaxBannerLayer image='/jpg/parallax1.jpg' speed={-30} className='opacity-10' />
             </section>
             <section className='flex flex-col justify-center items-center pb-[1rem] select-none'>
               <h1 className='text-xl underline underline-offset-4 uppercase text-emerald-300 font-monts z-10 animate__animated animate__fadeInDown'>

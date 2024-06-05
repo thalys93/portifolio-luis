@@ -23,7 +23,7 @@ function Projects() {
         <Container>
           <Row className='mt-5 pt-2'>
             <section className='animate__animated animate__fadeIn -z-50'>
-              <ParallaxBannerLayer image="/public/jpg/parallax3.jpg" speed={-25} className='opacity-20' />
+              <ParallaxBannerLayer image="/jpg/parallax3.jpg" speed={-25} className='opacity-20' />
             </section>
             <section className='flex flex-col justify-center items-center pb-[1rem] select-none'>
               <h1 className='text-xl underline underline-offset-4 uppercase text-sky-200 font-monts z-10 animate__animated animate__fadeInDown'>
