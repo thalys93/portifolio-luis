@@ -10,16 +10,21 @@ import TimelineDot from '@mui/lab/TimelineDot';
 import { CompaniesThatIWorked, projects } from '../../utils/api/Consts'
 import ProjectCard from '../../components/projectCard'
 
-import { Parallax, ParallaxBanner } from 'react-scroll-parallax'
+import { Parallax, ParallaxBannerLayer } from 'react-scroll-parallax'
+import Navigation from '../../components/navbar';
 
 function Projects() {
   const colorList = ['yellow', 'purple', 'orange', 'pink', 'cyan', 'teal', 'lime', 'lightBlue']
 
   return (
-    <Parallax>
-      <Container fluid>
-        <Row className='bg-darkSection mt-5 pt-2'>
-          <ParallaxBanner>            
+    <>
+      <Parallax>
+        <Navigation />
+        <Container>
+          <Row className='mt-5 pt-2'>
+            <section className='animate__animated animate__fadeIn -z-50'>
+              <ParallaxBannerLayer image="/public/jpg/parallax3.jpg" speed={-25} className='opacity-20' />
+            </section>
             <section className='flex flex-col justify-center items-center pb-[1rem] select-none'>
               <h1 className='text-xl underline underline-offset-4 uppercase text-sky-200 font-monts z-10 animate__animated animate__fadeInDown'>
                 Projetos
@@ -42,12 +47,10 @@ function Projects() {
                 />
               ))}
             </Col>
-          </ParallaxBanner>
-        </Row>
+          </Row>
 
-        <Row className='mt-5 pt-2'>
-          <ParallaxBanner>            
-            <section className='flex flex-col justify-center items-center pb-[1rem] select-none'>
+          <Row className='mt-2 pt-2'>
+            <section className='flex flex-col justify-center items-center pb-[1rem] select-none pt-[1rem]'>
               <h1 className='text-xl underline underline-offset-4 uppercase text-sky-200 font-monts z-10'>
                 Experiência
               </h1>
@@ -78,10 +81,10 @@ function Projects() {
                 })}
               </Timeline>
             </section>
-          </ParallaxBanner>
-        </Row>
-      </Container >
-    </Parallax >
+          </Row>
+        </Container >
+      </Parallax >
+    </>
   )
 }
 

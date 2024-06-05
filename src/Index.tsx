@@ -1,13 +1,11 @@
 import { Outlet } from 'react-router-dom'
 import Footer from './components/footer'
-import Navigation from './components/navbar'
 
-function Index() {
+function Index() {  
   return (
     <>
-      <Navigation/>
-      <Outlet/>    
-      <Footer/>
+      <Outlet />
+      <Footer />
     </>
   )
 }
