@@ -279,7 +279,7 @@ export const projects: projectsInterface[] = [
         link: null,
         image: null,
         description: "Site de portifólio",        
-    },
+    },    
     {
         id: 7, 
         name: "EC-Gestor",
@@ -287,6 +287,14 @@ export const projects: projectsInterface[] = [
         link: null,
         image: null,
         description: "Sistema de gestão de pequenos ecommerces",        
+    },
+    {
+        id: 8,
+        name: "Barber Pro",
+        type: "Mobile",
+        link: null,
+        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1718391971/Barber%20Pro/adaptive-icon_aakttu.png",
+        description: "Aplicativo de agendamento de barbearias",
     }
 ]
 
