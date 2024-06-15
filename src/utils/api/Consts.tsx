@@ -254,7 +254,7 @@ export const projects: projectsInterface[] = [
         type: "Web",
         link: "https://vida-sustentavel-61c19.web.app/",
         image: "https://camo.githubusercontent.com/da596dacf61cf9c75fc2c5cd7cc65a709091759a03a7df865aea0fc1600be892/68747470733a2f2f7265732e636c6f7564696e6172792e636f6d2f6468333961686d706a2f696d6167652f75706c6f61642f76313730363035383431332f4769746875622f4c6f676f5f335f71646a6273782e706e67",
-        description: "Site de uma empresa de produtos sustentáveis",                
+        description: "Site de uma empresa de produtos sustentáveis",
     },
     {
         id: 4,
@@ -265,7 +265,7 @@ export const projects: projectsInterface[] = [
         description: "Aplicativo de controle financeiro",
     },
     {
-        id: 5, 
+        id: 5,
         name: "Carteira de Saúde",
         type: "Mobile",
         link: null,
@@ -273,20 +273,20 @@ export const projects: projectsInterface[] = [
         description: "Aplicativo de controle de saúde",
     },
     {
-        id: 6, 
+        id: 6,
         name: "Portifólio",
         type: "Web",
         link: null,
         image: null,
-        description: "Site de portifólio",        
-    },    
+        description: "Site de portifólio",
+    },
     {
-        id: 7, 
+        id: 7,
         name: "EC-Gestor",
         type: "Web",
         link: null,
         image: null,
-        description: "Sistema de gestão de pequenos ecommerces",        
+        description: "Sistema de gestão de pequenos ecommerces",
     },
     {
         id: 8,
@@ -295,6 +295,14 @@ export const projects: projectsInterface[] = [
         link: null,
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1718391971/Barber%20Pro/adaptive-icon_aakttu.png",
         description: "Aplicativo de agendamento de barbearias",
+    },
+    {
+        id: 9,
+        name: "The Film DB",
+        type: "Web",
+        link: "https://the-film-db.web.app/",
+        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1718286930/the-film-db/metawallpapers_p9iimp.jpg",
+        description: "Aplicativo para buscar informações sobre filmes e séries",
     }
 ]
 
@@ -308,7 +316,7 @@ export const CompaniesThatIWorked: CompaniesThatIWorkedInterface[] = [
         endDate: "03/2022"
     },
     {
-        id: 2, 
+        id: 2,
         name: "DWU",
         position: "Estagio - Desenvolvedor Web",
         description: "Desenvolvimento de sites e sistemas web, além disso, criação de manuais utilizando o SAP",
@@ -324,7 +332,7 @@ export const CompaniesThatIWorked: CompaniesThatIWorkedInterface[] = [
         endDate: "11/2023"
     },
     {
-        id: 4, 
+        id: 4,
         name: "Meraking",
         position: "Desenvolvedor Mobile",
         description: "Desenvolvimento de aplicativos mobile utilizando React Native",
