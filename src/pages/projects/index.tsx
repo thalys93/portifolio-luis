@@ -44,6 +44,7 @@ function Projects() {
                   projectLive={pj.projectLive}
                   image={pj.image}
                   description={pj.description}
+                  details={pj.details}
                 />
               ))}
             </Col>
