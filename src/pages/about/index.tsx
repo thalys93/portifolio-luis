@@ -9,7 +9,11 @@ import { Parallax, ParallaxBannerLayer } from 'react-scroll-parallax';
 import Navigation from '../../components/navbar';
 
 function About() {
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState({
+    curriculumButton: false,
+    skillButtonAdd: false,
+    skillButtonRemove: false
+  })
   const winSize = useContext(WindowSizeContext)
   const [defaultCount, setDefaultCount] = React.useState(6)
 
@@ -27,13 +31,17 @@ function About() {
 
 
   function downloadCurriculum() {
-    setLoading(true)
-
+    setLoading({
+      ...loading,
+      curriculumButton: true
+    })
 
     setTimeout(() => {
-      setLoading(false)
+      setLoading({
+        ...loading,
+        curriculumButton: false
+      })
     }, 2000)
-
 
     setTimeout(() => {
       const link = document.createElement('a')
@@ -47,12 +55,37 @@ function About() {
     return array.slice(0, limit)
   }
 
+  const setNewLimit = (limit: number, type: string) => {
+    if(type === 'add')
+      {
+        setLoading({
+          ...loading,
+          skillButtonAdd: true,                
+        })
+      } else if(type === 'remove')
+      {
+        setLoading({
+          ...loading,
+          skillButtonRemove: true,                
+        })
+      }
+
+    setTimeout(() => {
+      setDefaultCount(limit)
+      setLoading({
+        ...loading,
+        skillButtonAdd: false,
+        skillButtonRemove: false
+      })
+    }, 650)
+  }
+
   return (
     <>
       <Parallax>
         <Navigation />
         <Container>
-          <Row className='mt-5 pt-2'>            
+          <Row className='mt-5 pt-2'>
             <section className='animate__animated animate__fadeIn -z-50'>
               <ParallaxBannerLayer image='/jpg/parallax1.jpg' speed={-30} className='opacity-10' />
             </section>
@@ -130,7 +163,7 @@ function About() {
               ))}
 
               <section className={winSize < 768 ? 'flex justify-center' : ''}>
-                {loading ? (
+                {loading.curriculumButton ? (
                   <button className='w-[6.2rem] m-5 p-2 bg-emerald-200 text-slate-800 rounded-lg uppercase font-robt font-bold hover:bg-sky-400 hover:text-sky-50 transition-all hover:rounded-md'>
                     <Spinner animation='border' className='text-sm' size="sm" />
                   </button>
@@ -209,11 +242,11 @@ function About() {
                     </div>
                   ))}
                   <div className='flex flex-row justify-end items-end mr-[8rem] mt-4 gap-3 mb-5'>
-                    <button onClick={() => setDefaultCount(defaultCount + 3)} className='bg-emerald-300 text-slate-800 p-2 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
-                      <PlusCircle className='w-5 h-5 text-stone-700' weight='bold' />
+                    <button onClick={() => setNewLimit(defaultCount + 3 , 'add')} className='bg-emerald-300 w-[2.3rem] h-[2.3rem] text-slate-800 p-2 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
+                      {!loading.skillButtonAdd ? <PlusCircle className='w-5 h-5 text-stone-700' weight='bold' /> : <Spinner animation='border' size="sm" className='w-5 h-5' />}
                     </button>
-                    <button onClick={() => setDefaultCount(defaultCount - 3)} className='bg-emerald-300 text-slate-800 p-2 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
-                      <MinusCircle className='w-5 h-5 text-stone-700' weight='bold' />
+                    <button onClick={() => setNewLimit(defaultCount - 3, 'remove')} className='bg-emerald-300 w-[2.3rem] h-[2.3rem] text-slate-800 p-2 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
+                      {!loading.skillButtonRemove ? <MinusCircle className='w-5 h-5 text-stone-700' weight='bold' /> : <Spinner animation='border' size="sm" className='w-5 h-5' />}
                     </button>
                   </div>
                 </article>

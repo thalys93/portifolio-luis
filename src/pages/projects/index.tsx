@@ -41,7 +41,7 @@ function Projects() {
                   id={pj.id}
                   name={pj.name}
                   type={pj.type}
-                  link={pj.link}
+                  projectLive={pj.projectLive}
                   image={pj.image}
                   description={pj.description}
                 />

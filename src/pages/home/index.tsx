@@ -2,12 +2,16 @@ import { Col, Container, Figure, Row } from 'react-bootstrap'
 import { socialMediaProfiles } from '../../utils/api/Consts'
 import { Parallax, ParallaxBannerLayer } from 'react-scroll-parallax'
 import Navigation from '../../components/navbar'
+import { Helmet } from 'react-helmet'
 
 function Home() {
   const hoverConst = 'hover:text-yellow-200 font-bold transition-all select-none'
 
   return (
     <>
+      <Helmet>
+        <title>Inicio - Thalys Dev</title>
+      </Helmet>
       <Parallax>
         <Navigation />
         <Container>
