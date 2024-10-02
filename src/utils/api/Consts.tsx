@@ -1,4 +1,5 @@
 import { Browser, DeviceMobile, Devices, Envelope, GithubLogo, InstagramLogo, LinkedinLogo, PipeWrench, Users, WebhooksLogo, WhatsappLogo } from '@phosphor-icons/react';
+import { STATUSES, Types } from '../enums';
 
 interface socialMediaInterface {
     id: number,
@@ -36,6 +37,7 @@ export interface projectsInterface {
     id: number | string,
     name: string,
     type: string,
+    status: string,
     projectLive: string | null,
     projectRepository?: string | null,
     image: string | null,
@@ -241,14 +243,15 @@ export const projects: projectsInterface[] = [
     {
         id: 1,
         name: "Cade Meu Rango",
-        type: "Web",
+        type: Types.WEB,
+        status: STATUSES.DESIGN,
         projectLive: "https://cade-meu-rango-front.web.app/",
         projectRepository: "https://github.com/thalys93/cade-meu-rango-front",
-        image: "https://camo.githubusercontent.com/2a5dabb558def59ac722c6a6d98aa15fce4fabb0a51688d33b06598af308f60f/68747470733a2f2f7265732e636c6f7564696e6172792e636f6d2f6468333961686d706a2f696d6167652f75706c6f61642f76313730363035383331382f4769746875622f4c6f676f5f315f6c383634746f2e706e67",
+        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1684280950/Cad%C3%AA%20Meu%20Rango/thumb_do_site_knjbzn.png",
         conceptArt: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1719691919/projects/Tela_1_Desktop_lj7px3.png",
-        description: "Plataforma de delivery de comida",
+        description: "Plataforma de Listagem de Receitas Culinárias",
         details: {
-            bigDescription: "O Cade Meu Rango é uma plataforma de delivery de comida, onde o usuário pode escolher o restaurante e o prato que deseja, além disso, o usuário pode ver o histórico de pedidos e avaliar o restaurante.",
+            bigDescription: "A Cade Meu Rango é uma plataforma de listagem de receitas culinárias, onde os usuários podem cadastrar suas receitas e compartilhar com outros usuários. A plataforma tem como objetivo ajudar os usuários a encontrar receitas de acordo com suas necessidades e preferências. Além disso, a plataforma tem como objetivo ajudar os usuários a manterem um registro de suas receitas e a compartilhar com outros usuários.",
             technologies: [
                 {
                     id: 1,
@@ -276,14 +279,15 @@ export const projects: projectsInterface[] = [
     {
         id: 2,
         name: "Dream Nexus Studios",
-        type: "Web",
+        type: Types.WEB,
+        status: STATUSES.DONE,
         projectLive: "https://dream-nexus-studios.web.app/",
         projectRepository: "https://github.com/thalys93/dreamNexus",
-        image: "https://camo.githubusercontent.com/f56f7f60ecc2084ccf644ae236c99714d3b21341a512ac107891fd48699d7e62/68747470733a2f2f7265732e636c6f7564696e6172792e636f6d2f6468333961686d706a2f696d6167652f75706c6f61642f76313730363035383239322f4769746875622f4c6f676f5f325f696d79747a6e2e706e67",
-        conceptArt: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1719692053/projects/Home_V2_zvsabo.png",
-        description: "Site de uma empresa de desenvolvimento de jogos",
+        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727896963/projects-images/dream-nexus-logo.jpg",
+        // conceptArt: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1719692053/projects/Home_V2_zvsabo.png",
+        description: "Landing Page de Empresa de Desenvolvimento de Jogos",
         details: {
-            bigDescription: "O Dream Nexus Studios é uma empresa de desenvolvimento de jogos, onde o usuário pode ver os jogos desenvolvidos pela empresa, além disso, o usuário pode ver as vagas de emprego disponíveis na empresa.",
+            bigDescription: "A Dream Nexus Studios é uma landing page de empresa de desenvolvimento de jogos, onde o usuário pode ver os jogos desenvolvidos pela empresa. A página tem como objetivo apresentar a empresa e seus jogos de forma mais atraente e interativa.",
             technologies: [
                 {
                     id: 1,
@@ -300,61 +304,9 @@ export const projects: projectsInterface[] = [
     },
     {
         id: 3,
-        name: "Vida Sustentável",
-        type: "Web",
-        projectLive: "https://vida-sustentavel-61c19.web.app/",
-        projectRepository: "https://github.com/thalys93/vida-sustentavel",
-        image: "https://camo.githubusercontent.com/da596dacf61cf9c75fc2c5cd7cc65a709091759a03a7df865aea0fc1600be892/68747470733a2f2f7265732e636c6f7564696e6172792e636f6d2f6468333961686d706a2f696d6167652f75706c6f61642f76313730363035383431332f4769746875622f4c6f676f5f335f71646a6273782e706e67",        
-        description: "Site de uma empresa de produtos sustentáveis",
-        details: {
-            bigDescription: "O Vida Sustentável é uma empresa de produtos sustentáveis, onde o usuário pode ver os produtos vendidos pela empresa, além disso, o usuário pode ver as informações sobre a empresa.",
-            technologies: [
-                {
-                    id: 1,
-                    name: "React",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-                },
-                {
-                    id: 4,
-                    name: "TypeScript",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg"
-                }
-            ]
-        }
-    },
-    {
-        id: 4,
-        name: "Tooth Wallet",
-        type: "Mobile",
-        projectLive: null,
-        projectRepository: "https://github.com/thalys93/tooth-walletV2",
-        image: "https://camo.githubusercontent.com/bed48af3367757526f2cc7b819cd4c45381af8663cc4ac0986cea62a51783049/68747470733a2f2f7265732e636c6f7564696e6172792e636f6d2f6468333961686d706a2f696d6167652f75706c6f61642f76313730363035383535342f4769746875622f4c6f676f5f345f6c78706a6d332e706e67",        
-        description: "Aplicativo de controle financeiro",
-        details: {
-            bigDescription: "O Tooth Wallet é um aplicativo de controle financeiro, onde o usuário pode adicionar as despesas e receitas, além disso, o usuário pode ver o saldo atual.",
-            technologies: [
-                {
-                    id: 1,
-                    name: "React Native",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-                },
-                {
-                    id: 2,
-                    name: "NodeJS",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg",
-                },
-                {
-                    id: 3,
-                    name: "Firebase",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-                }
-            ]
-        }
-    },
-    {
-        id: 5,
         name: "Carteira de Saúde",
-        type: "Mobile",
+        type: Types.MOBILE,
+        status: STATUSES.DEVELOPING,
         projectLive: null,
         projectRepository: null,
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1716829255/carteira_de_saude/adaptive-icon_pfyg0a.png",
@@ -381,15 +333,17 @@ export const projects: projectsInterface[] = [
         }
     },
     {
-        id: 6,
+        id: 4,
         name: "Portifólio",
-        type: "Web",
+        type: Types.WEB,
+        status: STATUSES.DONE,
         projectLive: "https://portifolio-luis-thalys.web.app/home",
         projectRepository: "https://github.com/thalys93/portifolio-luis",
-        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1719693913/projects/Perfil_2024_mvj0g9.jpg",
-        description: "Site de portifólio",
+        image: "https://avatars.githubusercontent.com/u/102838847?v=4",
+        conceptArt: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1716906633/portifolio.dev/Contact_-_WireFrame_tvspui.png",
+        description: "Site Atual, onde o usuário pode ver os projetos desenvolvidos por mim",
         details: {
-            bigDescription: "O Portifólio é um site de portifólio, onde o usuário pode ver os projetos desenvolvidos por mim, além disso, o usuário pode ver as informações sobre mim.",
+            bigDescription: "O Portifólio é um site de portifólio, onde o usuário pode ver os projetos desenvolvidos por mim, além disso, o usuário pode ver as informações sobre mim, e também pode entrar em contato comigo.",
             technologies: [
                 {
                     id: 1,
@@ -405,51 +359,13 @@ export const projects: projectsInterface[] = [
         }
     },
     {
-        id: 7,
-        name: "EC-Gestor",
-        type: "Web",
-        projectLive: null,
-        projectRepository: null,
-        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1719694037/projects/Login_-_Var_01_w2ss2l.png",
-        description: "Sistema de gestão de pequenos ecommerces",
-        details: {
-            bigDescription: "O EC-Gestor é um sistema de gestão de pequenos ecommerces, onde o usuário pode adicionar os produtos e gerenciar os pedidos, além disso, o usuário pode ver o histórico de pedidos.",
-            technologies: [
-                {
-                    id: 1,
-                    name: "React",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-                },
-                {
-                    id: 2,
-                    name: "NodeJS",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg",
-                },
-                {
-                    id: 3,
-                    name: "NestJS",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg",
-                },
-                {
-                    id: 4,
-                    name: "Typescript",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg",
-                },
-                {
-                    id: 5,
-                    name: "Firebase",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-                }
-            ]
-        }
-    },
-    {
-        id: 8,
+        id: 5,
         name: "Barber Pro",
-        type: "Mobile",
+        type: Types.MOBILE,
+        status: STATUSES.PAUSED,
         projectLive: null,
         projectRepository: null,
-        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1718391971/Barber%20Pro/adaptive-icon_aakttu.png",
+        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727900084/projects-images/barber-pro-logo.png",
         description: "Aplicativo de agendamento de barbearias",
         details: {
             bigDescription: "O Barber Pro é um aplicativo de agendamento de barbearias, onde o usuário pode agendar um horário, além disso, o usuário pode ver o histórico de agendamentos.",
@@ -473,9 +389,10 @@ export const projects: projectsInterface[] = [
         }
     },
     {
-        id: 9,
+        id: 6,
         name: "The Film DB",
-        type: "Web",
+        type: Types.WEB,
+        status: STATUSES.DESIGN,
         projectLive: "https://the-film-db.web.app/",
         projectRepository: "https://github.com/thalys93/the-film-db",
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1718286930/the-film-db/metawallpapers_p9iimp.jpg",
@@ -497,6 +414,88 @@ export const projects: projectsInterface[] = [
                     id: 3,
                     name: "Axios",
                     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/axios/axios-plain.svg",
+                }
+            ]
+        }
+    },
+    {
+        id: 7,
+        name: "Home Stock",
+        type: Types.MOBILE,
+        status: STATUSES.NEW,
+        projectLive: null,
+        projectRepository: null,
+        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727897477/projects-images/home-stock-logo.png",
+        description: "Aplicativo de Controle de Estoques e Contas Pessoais",
+        details: {
+            bigDescription: "O Home Stock é um aplicativo de Controle de Estoques e Contas Pessoais, onde o usuário pode adicionar as compras e vendas, o usuário pode ver o historico de compras e vendas.",
+            technologies: [
+                {
+                    id: 1,
+                    name: "React Native",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+                },
+                {
+                    id: 2,
+                    name: "NestJS",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg",
+                },
+                {
+                    id: 3,
+                    name: "Firebase",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+                }
+            ]
+        }
+    },
+    {
+        id: 8,
+        name: "Crypto Currency",
+        type: Types.WEB,
+        status: STATUSES.DONE,
+        projectLive: "https://crypto-currency-33a47.web.app/home",
+        projectRepository: "https://github.com/thalys93/crypto-currency",
+        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727902070/projects-images/crypto-currency-logo.png",
+        conceptArt: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727902107/projects-images/crypto-currency-concept_tnsuec.png",
+        description: "Website de Listagem de Cripto Moedas",
+        details: {
+            bigDescription: "O Crypto Currency é um website de Listagem de Cripto Moedas, onde o usuário pode ver as informações sobre as cripto moedas.",
+            technologies: [
+                {
+                    id: 1,
+                    name: "React",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+                },
+            ]
+        }
+    },
+    {
+        id: 9,
+        name: "Gerenciamento de Clientes",
+        type: Types.SYSTEM,
+        status: STATUSES.DONE,
+        projectLive: null,
+        projectRepository: "https://github.com/thalys93/Desafio-Gerenciamento_de_clientes",
+        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727902411/projects-images/gerenciamento-clientes-logo_w2lkm3.jpg",
+        conceptArt: "https://private-user-images.githubusercontent.com/102838847/310619547-61c75638-a4e8-419e-8643-8a5dbeabd9a4.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Mjc5MDI3NDYsIm5iZiI6MTcyNzkwMjQ0NiwicGF0aCI6Ii8xMDI4Mzg4NDcvMzEwNjE5NTQ3LTYxYzc1NjM4LWE0ZTgtNDE5ZS04NjQzLThhNWRiZWFiZDlhNC5naWY_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQxMDAyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MTAwMlQyMDU0MDZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hM2EwOGMxNzA1MjgwMzA1Y2Q0Y2Q1NDE5MDVkMmVmZWQwMmFhM2Y0N2NkNjVlNDIwNmU3NTdmNDA2M2M1MjYxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.xE4RLQ2eyC0G__RyGmmuRoeKh6rfQcAopdIA7_Bgrhw",
+        description: "Sistema de Gerenciamento de Clientes",
+        details: {
+            bigDescription: "O Gerenciamento de Clientes é um sistema de Gerenciamento de Clientes e Cálculo de Rota, onde o usuário pode ver as informações sobre os clientes e as rotas.",
+            technologies: [
+                {
+                    id: 1,
+                    name: "React",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",                    
+                },
+                {
+                    id: 2,
+                    name: "NodeJS",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg",
+                },
+                {
+                    id: 3,
+                    name: "PostgresSQL",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
                 }
             ]
         }

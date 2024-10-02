@@ -13,6 +13,7 @@
     "@emailjs/browser": "^4.3.3",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@faker-js/faker": "^9.0.3",
     "@firebase/app": "^0.9.28",
     "@mui/lab": "^5.0.0-alpha.170",
     "@mui/material": "^5.15.18",

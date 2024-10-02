@@ -108,8 +108,8 @@ function About() {
               </Figure>
             </Col>
             <Col sm className='animate__animated animate__fadeInRight animate__slow'>
-              {myInformations.map((info) => (
-                <section>
+              {myInformations.map((info, i) => (
+                <section key={i}>
                   <h1 className='text-slate-200 font-monts'>Olá!, Me Chamo {info.fullName.slice(5, 12)}</h1>
                   <h3 className='font-redsans text-emerald-300 font-medium'> Desenvolvedor Full-Stack </h3>
                   <p className='font-redsans text-slate-200'> Sou um desenvolvedor full-stack com expertise em <br /> diversas tecnologias sendo algumas delas:</p>

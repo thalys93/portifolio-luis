@@ -3,6 +3,9 @@ import { useNavigate, useParams } from "react-router-dom"
 import { projects, projectsInterface } from "../../utils/api/Consts";
 import Navigation from "../../components/navbar";
 import { Col, Container, Row } from "react-bootstrap";
+import { CheckCircle, CraneTower, PauseCircle, WarningOctagon, FigmaLogo, Empty } from "@phosphor-icons/react";
+import ProgressChip from "../../components/progressChip";
+import { STATUSES } from "../../utils/enums";
 
 function Project() {
   const { id } = useParams()
@@ -58,7 +61,7 @@ function Project() {
 
         setButtonDisabledStyle({
           filled: "p-2 bg-orange-900 border-[1px] border-orange-900 text-stone-50 rounded cursor-not-allowed",
-          unfilled: "p-2 border-orange-900 border-[1px] text-orange-900 rounded cursor-not-allowed"        
+          unfilled: "p-2 border-orange-900 border-[1px] text-orange-900 rounded cursor-not-allowed"
         })
 
         setIconStyle("w-[3rem] object-cover bg-orange-800 rounded-full p-1 hover:scale-95 transition-all")
@@ -150,16 +153,16 @@ function Project() {
         return [buttonEnabledStyle, iconStyle, buttonDisabledStyle]
       case "Portifólio":
         setButtonEnabledStyle({
-          filled: "p-2 bg-purple-500 border-[1px] border-purple-500 text-purple-50 rounded hover:bg-purple-300 transition-all hover:text-purple-400",
-          unfilled: "p-2 border-purple-500 border-[1px] text-purple-500 rounded hover:border-purple-300 transition-all hover:text-purple-300"
+          filled: "p-2 bg-sky-500 border-[1px] border-sky-500 text-sky-50 rounded hover:bg-sky-300 transition-all hover:text-sky-400",
+          unfilled: "p-2 border-sky-500 border-[1px] text-sky-500 rounded hover:border-sky-300 transition-all hover:text-sky-300"
         })
 
         setButtonDisabledStyle({
-          filled: "p-2 bg-purple-900 border-[1px] border-purple-900 text-stone-50 rounded cursor-not-allowed",
-          unfilled: "p-2 border-purple-900 border-[1px] text-purple-900 rounded cursor-not-allowed"
+          filled: "p-2 bg-sky-900 border-[1px] border-sky-900 text-stone-50 rounded cursor-not-allowed",
+          unfilled: "p-2 border-sky-900 border-[1px] text-sky-900 rounded cursor-not-allowed"
         })
 
-        setIconStyle("w-[3rem] object-cover bg-purple-800 rounded-full p-1 hover:scale-95 transition-all")
+        setIconStyle("w-[3rem] object-cover bg-sky-800 rounded-full p-1 hover:scale-95 transition-all")
 
         return [buttonEnabledStyle, iconStyle, buttonDisabledStyle]
       case "Barber Pro":
@@ -176,6 +179,17 @@ function Project() {
         setIconStyle("w-[3rem] object-cover bg-yellow-800 rounded-full p-1 hover:scale-95 transition-all")
 
         return [buttonEnabledStyle, iconStyle, buttonDisabledStyle]
+      case "Crypto Currency":
+        setButtonEnabledStyle({
+          filled: "p-2 bg-purple-500 border-[1px] border-purple-500 text-stone-50 rounded hover:bg-purple-300 transition-all hover:text-stone-50",
+          unfilled: "p-2 border-purple-500 border-[1px] text-purple-500 rounded hover:border-purple-300 transition-all hover:text-purple-300"
+        })
+
+        setButtonDisabledStyle({
+          filled: "p-2 bg-purple-900 border-[1px] border-purple-900 text-stone-50 rounded cursor-not-allowed",
+          unfilled: "p-2 border-purple-900 border-[1px] text-purple-900 rounded cursor-not-allowed"
+        })
+        return [buttonEnabledStyle, iconStyle, buttonDisabledStyle];
       default:
         setButtonEnabledStyle({
           filled: "p-2 bg-stone-500 border-[1px] border-stone-500 text-stone-50 rounded hover:bg-stone-300 transition-all hover:text-stone-400",
@@ -192,21 +206,40 @@ function Project() {
     }
   }
 
+  function getConditionalColor(projectStatus: string) {
+    switch (projectStatus) {
+      case STATUSES.DONE:
+        return <ProgressChip title={STATUSES.DONE} color="success" icon={<CheckCircle size={15} />} />
+      case STATUSES.DEVELOPING:
+        return <ProgressChip title={STATUSES.DEVELOPING} color="warning" icon={<CraneTower size={15} />} />
+      case STATUSES.PAUSED:
+        return <ProgressChip title={STATUSES.PAUSED} color="dark" icon={<PauseCircle size={15} />} />
+      case STATUSES.NEW:
+        return <ProgressChip title={STATUSES.NEW} color="primary" icon={<WarningOctagon size={15} />} />
+      case STATUSES.DESIGN:
+        return <ProgressChip title={STATUSES.DESIGN} color="info" icon={<FigmaLogo size={15} />} />
+      default:
+        return <ProgressChip title="Em Teste" color="secondary" icon={<Empty size={15} />} />
+    }
+  }
+
+
   return (
     <>
       <Navigation />
       <Container>
         <Row>
-          <section>
-            <article className="ml-3 lg:ml-[5rem] mt-[3rem]">
-              <h1 className="text-stone-50 text-xl">{project?.name}</h1>
-              <span className="text-slate-500"> Tipo de Projeto: {project?.type}</span>
-            </article>
-          </section>
-        </Row>
+          <Col className="pt-[4rem]">
+            <section>
+              <article className="flex flex-col justify-start items-start gap-2 ml-3 lg:ml-[5rem]">
+                <div className="flex flex-row gap-2 items-center justify-center">
+                  {getConditionalColor(project?.status as string)}
+                  <h1 className="text-stone-50 text-xl">{project?.name}</h1>
+                </div>
+                <span className="text-slate-500"> Tipo de Projeto: {project?.type}</span>
+              </article>
+            </section>
 
-        <Row>
-          <Col>
             <section className="ml-3 mt-[3rem] lg:ml-[5rem]">
               <h2 className="text-stone-50 text-xl">Descrição</h2>
               <p className="text-slate-500 lg:w-[30rem]">{project?.details.bigDescription}</p>
@@ -228,29 +261,41 @@ function Project() {
             </section>
           </Col>
 
-          <Col>
-            <section className="mb-3 flex flex-col gap-3">
+          <Col className="pt-[4rem]">
+            <section className="flex flex-col gap-3">
               <article className="flex flex-col justify-center lg:ml-[5rem]">
                 <h2 className="text-stone-50 text-xl">
-                  {project?.conceptArt !== undefined ? "Imagem Conceitual" : "Imagem do Projeto"}                  
+                  {project?.conceptArt !== undefined ? "Imagem Conceitual" : "Imagem do Projeto"}
                 </h2>
-                <span className="text-slate-500"> Aqui você vê a imagem conceitual do projeto.</span>
+                <span className="text-slate-500">
+                  {project?.conceptArt !== undefined ? "Aqui você vê a imagem conceitual do projeto." : "Aqui você vê a imagem do projeto."}
+                </span>
               </article>
               <article className="flex flex-row gap-3 items-center justify-center">
                 <img src={project?.conceptArt !== undefined ? project?.conceptArt : project?.image as string} className="w-[30rem] h-[20rem] object-cover rounded-lg" />
               </article>
 
               <article className="flex flex-row gap-3 items-center justify-center">
-                <button className={project?.projectRepository !== null ? buttonEnabledStyle.filled : buttonDisabledStyle.filled} disabled={project?.projectRepository !== null ? true : false}>
-                  <a href={project?.projectRepository as string} target="_blank">
-                    {project?.projectRepository === null ? "Projeto Privado" : "Repositório"}
-                  </a>
-                </button>
-                <button className={project?.projectLive !== null ? buttonEnabledStyle.unfilled : buttonDisabledStyle.unfilled} disabled={project?.projectLive !== null ? true : false}>
-                  <a href={project?.projectLive as string} target="_blank">
-                    {project?.projectLive === null ? "Projeto Privado" : "Projeto Online"}
-                  </a>
-                </button>
+                {project?.projectRepository && project.projectLive !== null ? (
+                  <>
+                    <button className={project?.projectRepository !== null ? buttonEnabledStyle.unfilled : buttonDisabledStyle.unfilled} disabled={project?.projectRepository !== null ? true : false}>
+                      <a href={project?.projectRepository as string} target="_blank">
+                        {project?.projectRepository === null ? "Projeto Privado" : "Repositório"}
+                      </a>
+                    </button>
+                    <button className={project?.projectLive !== null ? buttonEnabledStyle.filled : buttonDisabledStyle.filled} disabled={project?.projectLive !== null ? true : false}>
+                      <a href={project?.projectLive as string} target="_blank">
+                        {project?.projectLive === null ? "Projeto Privado" : "Projeto Online"}
+                      </a>
+                    </button>
+                  </>
+                ) : (
+                  <section className="select-none">
+                    <h1 className="text-stone-50 text-xl font-robt hover:text-red-500 transition-all">
+                      Projeto Privado (S/link)
+                    </h1>
+                  </section>
+                )}
               </article>
             </section>
           </Col>

@@ -12,9 +12,19 @@ import ProjectCard from '../../components/projectCard'
 
 import { Parallax, ParallaxBannerLayer } from 'react-scroll-parallax'
 import Navigation from '../../components/navbar';
+import { STATUSES } from '../../utils/enums';
 
 function Projects() {
   const colorList = ['yellow', 'purple', 'orange', 'pink', 'cyan', 'teal', 'lime', 'lightBlue']
+
+
+  const statusPriority: { [key: string]: number } = {
+    [STATUSES.DONE]: 4,
+    [STATUSES.PAUSED]: 3,
+    [STATUSES.DEVELOPING]: 2,
+    [STATUSES.DESIGN]: 1,
+    [STATUSES.NEW]: 0,
+  }
 
   return (
     <>
@@ -35,7 +45,7 @@ function Projects() {
             </section>
 
             <Col sm className="flex flex-row lg:grid lg:grid-rows-2 lg:grid-flow-col gap-[1.3rem] justify-center items-center flex-wrap pb-5">
-              {projects.map((pj) => (
+              {projects.sort((a, b) => statusPriority[a.status as keyof typeof statusPriority] - statusPriority[b.status]).map((pj) => (
                 <ProjectCard
                   key={pj.id}
                   id={pj.id}
@@ -45,6 +55,7 @@ function Projects() {
                   image={pj.image}
                   description={pj.description}
                   details={pj.details}
+                  status={pj.status}
                 />
               ))}
             </Col>
