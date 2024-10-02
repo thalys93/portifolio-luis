@@ -248,7 +248,7 @@ export const projects: projectsInterface[] = [
         projectLive: "https://cade-meu-rango-front.web.app/",
         projectRepository: "https://github.com/thalys93/cade-meu-rango-front",
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1684280950/Cad%C3%AA%20Meu%20Rango/thumb_do_site_knjbzn.png",
-        conceptArt: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1719691919/projects/Tela_1_Desktop_lj7px3.png",
+        // conceptArt: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1719691919/projects/Tela_1_Desktop_lj7px3.png",
         description: "Plataforma de Listagem de Receitas Culinárias",
         details: {
             bigDescription: "A Cade Meu Rango é uma plataforma de listagem de receitas culinárias, onde os usuários podem cadastrar suas receitas e compartilhar com outros usuários. A plataforma tem como objetivo ajudar os usuários a encontrar receitas de acordo com suas necessidades e preferências. Além disso, a plataforma tem como objetivo ajudar os usuários a manterem um registro de suas receitas e a compartilhar com outros usuários.",
