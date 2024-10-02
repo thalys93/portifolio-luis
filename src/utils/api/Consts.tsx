@@ -477,7 +477,6 @@ export const projects: projectsInterface[] = [
         projectLive: null,
         projectRepository: "https://github.com/thalys93/Desafio-Gerenciamento_de_clientes",
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727902411/projects-images/gerenciamento-clientes-logo_w2lkm3.jpg",
-        conceptArt: "https://private-user-images.githubusercontent.com/102838847/310619547-61c75638-a4e8-419e-8643-8a5dbeabd9a4.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Mjc5MDI3NDYsIm5iZiI6MTcyNzkwMjQ0NiwicGF0aCI6Ii8xMDI4Mzg4NDcvMzEwNjE5NTQ3LTYxYzc1NjM4LWE0ZTgtNDE5ZS04NjQzLThhNWRiZWFiZDlhNC5naWY_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQxMDAyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MTAwMlQyMDU0MDZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hM2EwOGMxNzA1MjgwMzA1Y2Q0Y2Q1NDE5MDVkMmVmZWQwMmFhM2Y0N2NkNjVlNDIwNmU3NTdmNDA2M2M1MjYxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.xE4RLQ2eyC0G__RyGmmuRoeKh6rfQcAopdIA7_Bgrhw",
         description: "Sistema de Gerenciamento de Clientes",
         details: {
             bigDescription: "O Gerenciamento de Clientes é um sistema de Gerenciamento de Clientes e Cálculo de Rota, onde o usuário pode ver as informações sobre os clientes e as rotas.",
