@@ -302,36 +302,36 @@ export const projects: projectsInterface[] = [
             ]
         }
     },
-    {
-        id: 3,
-        name: "Carteira de Saúde",
-        type: Types.MOBILE,
-        status: STATUSES.DEVELOPING,
-        projectLive: null,
-        projectRepository: null,
-        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1716829255/carteira_de_saude/adaptive-icon_pfyg0a.png",
-        description: "Aplicativo de controle de saúde",
-        details: {
-            bigDescription: "O Carteira de Saúde é um aplicativo de controle de saúde, onde o usuário pode adicionar os exames e consultas, além disso, o usuário pode ver o histórico de exames e consultas.",
-            technologies: [
-                {
-                    id: 1,
-                    name: "React Native",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-                },
-                {
-                    id: 2,
-                    name: "NestJS",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg",
-                },
-                {
-                    id: 3,
-                    name: "Typesrcript",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg",
-                }
-            ]
-        }
-    },
+    // { //todo: removido pra não ter problemas com conficidelidade
+    //     id: 3,
+    //     name: "Carteira de Saúde",
+    //     type: Types.MOBILE,
+    //     status: STATUSES.DEVELOPING,
+    //     projectLive: null,
+    //     projectRepository: null,
+    //     image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1716829255/carteira_de_saude/adaptive-icon_pfyg0a.png",
+    //     description: "Aplicativo de controle de saúde",
+    //     details: {
+    //         bigDescription: "O Carteira de Saúde é um aplicativo de controle de saúde, onde o usuário pode adicionar os exames e consultas, além disso, o usuário pode ver o histórico de exames e consultas.",
+    //         technologies: [
+    //             {
+    //                 id: 1,
+    //                 name: "React Native",
+    //                 icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    //             },
+    //             {
+    //                 id: 2,
+    //                 name: "NestJS",
+    //                 icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg",
+    //             },
+    //             {
+    //                 id: 3,
+    //                 name: "Typesrcript",
+    //                 icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg",
+    //             }
+    //         ]
+    //     }
+    // },
     {
         id: 4,
         name: "Portifólio",
@@ -392,10 +392,11 @@ export const projects: projectsInterface[] = [
         id: 6,
         name: "The Film DB",
         type: Types.WEB,
-        status: STATUSES.DESIGN,
+        status: STATUSES.DEVELOPING,
         projectLive: "https://the-film-db.web.app/",
         projectRepository: "https://github.com/thalys93/the-film-db",
-        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1718286930/the-film-db/metawallpapers_p9iimp.jpg",
+        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1729102237/the-film-db/Designer_bujy3v.jpg",
+        conceptArt: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1729102383/the-film-db/Filmes-Detalhes_udp14x.png",
         description: "Aplicativo para buscar informações sobre filmes e séries",
         details: {
             bigDescription: "O The Film DB é um aplicativo para buscar informações sobre filmes e séries, onde o usuário pode buscar o filme ou série desejada, além disso, o usuário pode ver as informações sobre o filme ou série.",
