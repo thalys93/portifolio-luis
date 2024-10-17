@@ -362,7 +362,7 @@ export const projects: projectsInterface[] = [
         id: 5,
         name: "Barber Pro",
         type: Types.MOBILE,
-        status: STATUSES.DISCOUNTINUED,
+        status: STATUSES.PAUSED,
         projectLive: null,
         projectRepository: null,
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727900084/projects-images/barber-pro-logo.png",
