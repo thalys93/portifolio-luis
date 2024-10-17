@@ -505,7 +505,7 @@ export const projects: projectsInterface[] = [
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727897477/projects-images/home-stock-logo.png",
         description: "API de Controle de Estoques e Contas Pessoais",
         details: {
-            bigDescription: "API completa e robusta, desenvolvida com autenticação JWT e sistema de guards, entre outras funcionalidades. Embora não tenha sido integrada ao aplicativo, a API permanece funcional e pronta para ser utilizada em outros projetos.",
+            bigDescription: "API completa e robusta, desenvolvida com autenticação JWT e sistema de guards, entre outras funcionalidades. Embora não tenha sido integrada ao aplicativo, a API permanece funcional e pronta para ser utilizada em outros projetos. além disso, possui virtualização, podendo ser rodada em Containeres, para facilitar a manutenção.",
             technologies: [
                 {
                     id: 1,
@@ -521,6 +521,11 @@ export const projects: projectsInterface[] = [
                     id: 3,
                     name: "PostgresSQL",
                     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+                },
+                {
+                    id: 4,
+                    name: "Docker",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
                 }
             ]
         }
