@@ -362,7 +362,7 @@ export const projects: projectsInterface[] = [
         id: 5,
         name: "Barber Pro",
         type: Types.MOBILE,
-        status: STATUSES.PAUSED,
+        status: STATUSES.DISCOUNTINUED,
         projectLive: null,
         projectRepository: null,
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727900084/projects-images/barber-pro-logo.png",
@@ -421,15 +421,15 @@ export const projects: projectsInterface[] = [
     },
     {
         id: 7,
-        name: "Home Stock",
+        name: "Home Stock - APP",
         type: Types.MOBILE,
-        status: STATUSES.NEW,
+        status: STATUSES.DISCOUNTINUED,
         projectLive: null,
         projectRepository: null,
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727897477/projects-images/home-stock-logo.png",
         description: "Aplicativo de Controle de Estoques e Contas Pessoais",
         details: {
-            bigDescription: "O Home Stock é um aplicativo de Controle de Estoques e Contas Pessoais, onde o usuário pode adicionar as compras e vendas, o usuário pode ver o historico de compras e vendas.",
+            bigDescription: "O desenvolvimento do aplicativo Home Stock representou uma oportunidade para explorar as possibilidades da tecnologia na organização das finanças pessoais. Com o objetivo de auxiliar na gestão de gastos e controle de estoque doméstico, o aplicativo foi projetado para oferecer funcionalidades como registro de transações e geração de relatórios personalizados.\nA decisão de encerrar o projeto, no entanto, foi motivada pela necessidade de definir um público-alvo mais específico e direcionar os esforços para um nicho de mercado mais promissor. Apesar do encerramento, a experiência adquirida durante o desenvolvimento do Home Stock foi fundamental para aprimorar minhas habilidades.",
             technologies: [
                 {
                     id: 1,
@@ -438,13 +438,8 @@ export const projects: projectsInterface[] = [
                 },
                 {
                     id: 2,
-                    name: "NestJS",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg",
-                },
-                {
-                    id: 3,
-                    name: "Firebase",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+                    name: "Typescript",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg",
                 }
             ]
         }
@@ -485,12 +480,42 @@ export const projects: projectsInterface[] = [
                 {
                     id: 1,
                     name: "React",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",                    
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
                 },
                 {
                     id: 2,
                     name: "NodeJS",
                     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg",
+                },
+                {
+                    id: 3,
+                    name: "PostgresSQL",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+                }
+            ]
+        }
+    },
+    {
+        id: 10,
+        name: "Home Stock - API",
+        type: Types.API,
+        status: STATUSES.DONE,
+        projectLive: null,
+        projectRepository: "https://github.com/thalys93/homestock-api",
+        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727897477/projects-images/home-stock-logo.png",
+        description: "API de Controle de Estoques e Contas Pessoais",
+        details: {
+            bigDescription: "API completa e robusta, desenvolvida com autenticação JWT e sistema de guards, entre outras funcionalidades. Embora não tenha sido integrada ao aplicativo, a API permanece funcional e pronta para ser utilizada em outros projetos.",
+            technologies: [
+                {
+                    id: 1,
+                    name: "Axios",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/axios/axios-plain.svg",
+                },
+                {
+                    id: 2,
+                    name: "NestJS",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg",
                 },
                 {
                     id: 3,

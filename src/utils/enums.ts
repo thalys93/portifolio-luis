@@ -4,7 +4,8 @@ export enum STATUSES {
     DESIGN = "Em Remodelação",
     DONE = "Concluído",
     NEW = "Novo",
-    PAUSED = "Pausado"
+    PAUSED = "Pausado",
+    DISCOUNTINUED = "Descontinuado"
 }
 
 export enum Types {

@@ -15,11 +15,10 @@ import Navigation from '../../components/navbar';
 import { STATUSES } from '../../utils/enums';
 
 function Projects() {
-  const colorList = ['yellow', 'purple', 'orange', 'pink', 'cyan', 'teal', 'lime', 'lightBlue']
-
-
+  const colorList = ['yellow', 'purple', 'orange', 'pink', 'cyan', 'teal', 'lime', 'lightBlue']  
   const statusPriority: { [key: string]: number } = {
-    [STATUSES.DONE]: 4,
+    [STATUSES.DONE]: 5,
+    [STATUSES.DISCOUNTINUED]: 4,
     [STATUSES.PAUSED]: 3,
     [STATUSES.DEVELOPING]: 2,
     [STATUSES.DESIGN]: 1,

@@ -39,6 +39,8 @@ function ProjectCard({ ...props }: projectsInterface) {
                 return <ProgressChip title={STATUSES.NEW} color="primary" icon={<WarningOctagon size={15} />} />
             case STATUSES.DESIGN:
                 return <ProgressChip title={STATUSES.DESIGN} color="info" icon={<FigmaLogo size={15} />} />
+            case STATUSES.DISCOUNTINUED: 
+                return <ProgressChip title={STATUSES.DISCOUNTINUED} color="danger" icon={<Empty size={15} />} />
             default:
                 return <ProgressChip title="Em Teste" color="secondary" icon={<Empty size={15} />} />
         }

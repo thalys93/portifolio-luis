@@ -67,7 +67,7 @@ function Project() {
         setIconStyle("w-[3rem] object-cover bg-orange-800 rounded-full p-1 hover:scale-95 transition-all")
 
         return [buttonEnabledStyle, iconStyle, buttonDisabledStyle]
-      case "Vida Sustentável":
+      case "Home Stock - API":
         setButtonEnabledStyle({
           filled: "p-2 bg-green-500 border-[1px] border-green-500 text-stone-50 rounded hover:bg-green-300 transition-all hover:text-stone-50",
           unfilled: "p-2 border-green-500 border-[1px] text-green-500 rounded hover:border-green-300 transition-all hover:text-green-300"
@@ -95,7 +95,7 @@ function Project() {
         setIconStyle("w-[3rem] object-cover bg-blue-800 rounded-full p-1 hover:scale-95 transition-all")
 
         return [buttonEnabledStyle, iconStyle, buttonDisabledStyle]
-      case "EC-Gestor":
+      case "Gerenciamento de Clientes":
         setButtonEnabledStyle({
           filled: "p-2 bg-red-500 border-[1px] border-red-500 text-stone-50 rounded hover:bg-red-300 transition-all hover:text-stone-50",
           unfilled: "p-2 border-red-500 border-[1px] text-red-500 rounded hover:border-red-300 transition-all hover:text-red-300"
@@ -137,7 +137,7 @@ function Project() {
         setIconStyle("w-[3rem] object-cover bg-red-800 rounded-full p-1 hover:scale-95 transition-all")
 
         return [buttonEnabledStyle, iconStyle, buttonDisabledStyle]
-      case "Tooth Wallet":
+      case "Home Stock - App":
         setButtonEnabledStyle({
           filled: "p-2 bg-emerald-500 border-[1px] border-emerald-500 text-stone-50 rounded hover:bg-emerald-300 transition-all hover:text-stone-50",
           unfilled: "p-2 border-emerald-500 border-[1px] text-emerald-500 rounded hover:border-emerald-300 transition-all hover:text-emerald-300"
@@ -218,6 +218,8 @@ function Project() {
         return <ProgressChip title={STATUSES.NEW} color="primary" icon={<WarningOctagon size={15} />} />
       case STATUSES.DESIGN:
         return <ProgressChip title={STATUSES.DESIGN} color="info" icon={<FigmaLogo size={15} />} />
+      case STATUSES.DISCOUNTINUED:
+        return <ProgressChip title={STATUSES.DISCOUNTINUED} color="danger" icon={<Empty size={15} />} />
       default:
         return <ProgressChip title="Em Teste" color="secondary" icon={<Empty size={15} />} />
     }
@@ -276,7 +278,7 @@ function Project() {
               </article>
 
               <article className="flex flex-row gap-3 items-center justify-center">
-                {project?.projectRepository && project.projectLive !== null ? (
+                {project?.projectRepository || project?.projectLive !== null ? (
                   <>
                     <button className={project?.projectRepository !== null ? buttonEnabledStyle.unfilled : buttonDisabledStyle.unfilled} disabled={project?.projectRepository !== null ? true : false}>
                       <a href={project?.projectRepository as string} target="_blank">
