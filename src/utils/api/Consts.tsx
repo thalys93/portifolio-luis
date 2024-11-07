@@ -392,7 +392,7 @@ export const projects: projectsInterface[] = [
         id: 6,
         name: "The Film DB",
         type: Types.WEB,
-        status: STATUSES.DEVELOPING,
+        status: STATUSES.DONE,
         projectLive: "https://the-film-db.web.app/",
         projectRepository: "https://github.com/thalys93/the-film-db",
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1729102237/the-film-db/Designer_bujy3v.jpg",
