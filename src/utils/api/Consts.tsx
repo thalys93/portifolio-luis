@@ -302,36 +302,36 @@ export const projects: projectsInterface[] = [
             ]
         }
     },
-    // { //todo: removido pra não ter problemas com conficidelidade
-    //     id: 3,
-    //     name: "Carteira de Saúde",
-    //     type: Types.MOBILE,
-    //     status: STATUSES.DEVELOPING,
-    //     projectLive: null,
-    //     projectRepository: null,
-    //     image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1716829255/carteira_de_saude/adaptive-icon_pfyg0a.png",
-    //     description: "Aplicativo de controle de saúde",
-    //     details: {
-    //         bigDescription: "O Carteira de Saúde é um aplicativo de controle de saúde, onde o usuário pode adicionar os exames e consultas, além disso, o usuário pode ver o histórico de exames e consultas.",
-    //         technologies: [
-    //             {
-    //                 id: 1,
-    //                 name: "React Native",
-    //                 icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-    //             },
-    //             {
-    //                 id: 2,
-    //                 name: "NestJS",
-    //                 icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg",
-    //             },
-    //             {
-    //                 id: 3,
-    //                 name: "Typesrcript",
-    //                 icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg",
-    //             }
-    //         ]
-    //     }
-    // },
+    {
+        id: 3,
+        name: "Carteira de Saúde",
+        type: Types.MOBILE,
+        status: STATUSES.DEVELOPING,
+        projectLive: null,
+        projectRepository: null,
+        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1716829255/carteira_de_saude/adaptive-icon_pfyg0a.png",
+        description: "Aplicativo de controle de saúde",
+        details: {
+            bigDescription: "O Carteira de Saúde é um aplicativo de controle de saúde, onde o usuário pode adicionar os exames e consultas, além disso, o usuário pode ver o histórico de exames e consultas.",
+            technologies: [
+                {
+                    id: 1,
+                    name: "React Native",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+                },
+                {
+                    id: 2,
+                    name: "NestJS",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg",
+                },
+                {
+                    id: 3,
+                    name: "Typesrcript",
+                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg",
+                }
+            ]
+        }
+    },
     {
         id: 4,
         name: "Portifólio",
@@ -357,37 +357,7 @@ export const projects: projectsInterface[] = [
                 }
             ]
         }
-    },
-    {
-        id: 5,
-        name: "Barber Pro",
-        type: Types.MOBILE,
-        status: STATUSES.PAUSED,
-        projectLive: null,
-        projectRepository: null,
-        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727900084/projects-images/barber-pro-logo.png",
-        description: "Aplicativo de agendamento de barbearias",
-        details: {
-            bigDescription: "O Barber Pro é um aplicativo de agendamento de barbearias, onde o usuário pode agendar um horário, além disso, o usuário pode ver o histórico de agendamentos.",
-            technologies: [
-                {
-                    id: 1,
-                    name: "React Native",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-                },
-                {
-                    id: 2,
-                    name: "NestJS",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nestjs/nestjs-original.svg",
-                },
-                {
-                    id: 3,
-                    name: "Firebase",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-                }
-            ]
-        }
-    },
+    },    
     {
         id: 6,
         name: "The Film DB",
@@ -423,9 +393,9 @@ export const projects: projectsInterface[] = [
         id: 7,
         name: "Home Stock - APP",
         type: Types.MOBILE,
-        status: STATUSES.DISCOUNTINUED,
-        projectLive: null,
-        projectRepository: null,
+        status: STATUSES.PAUSED,
+        projectLive: "https://github.com/thalys93/home-stock/tree/master",
+        projectRepository: "https://github.com/thalys93/home-stock/tree/master",
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727897477/projects-images/home-stock-logo.png",
         description: "Aplicativo de Controle de Estoques e Contas Pessoais",
         details: {
@@ -470,7 +440,7 @@ export const projects: projectsInterface[] = [
         name: "Gerenciamento de Clientes",
         type: Types.SYSTEM,
         status: STATUSES.DONE,
-        projectLive: null,
+        projectLive: "https://github.com/thalys93/Desafio-Gerenciamento_de_clientes",
         projectRepository: "https://github.com/thalys93/Desafio-Gerenciamento_de_clientes",
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727902411/projects-images/gerenciamento-clientes-logo_w2lkm3.jpg",
         description: "Sistema de Gerenciamento de Clientes",
@@ -500,7 +470,7 @@ export const projects: projectsInterface[] = [
         name: "Home Stock - API",
         type: Types.API,
         status: STATUSES.DONE,
-        projectLive: null,
+        projectLive: "https://github.com/thalys93/homestock-api",
         projectRepository: "https://github.com/thalys93/homestock-api",
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727897477/projects-images/home-stock-logo.png",
         description: "API de Controle de Estoques e Contas Pessoais",
