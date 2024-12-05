@@ -244,7 +244,7 @@ export const projects: projectsInterface[] = [
         id: 1,
         name: "Cade Meu Rango",
         type: Types.WEB,
-        status: STATUSES.DESIGN,
+        status: STATUSES.PAUSED,
         projectLive: "https://cade-meu-rango-front.web.app/",
         projectRepository: "https://github.com/thalys93/cade-meu-rango-front",
         image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1684280950/Cad%C3%AA%20Meu%20Rango/thumb_do_site_knjbzn.png",
@@ -389,31 +389,31 @@ export const projects: projectsInterface[] = [
             ]
         }
     },
-    {
-        id: 7,
-        name: "Home Stock - APP",
-        type: Types.MOBILE,
-        status: STATUSES.PAUSED,
-        projectLive: "https://github.com/thalys93/home-stock/tree/master",
-        projectRepository: "https://github.com/thalys93/home-stock/tree/master",
-        image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727897477/projects-images/home-stock-logo.png",
-        description: "Aplicativo de Controle de Estoques e Contas Pessoais",
-        details: {
-            bigDescription: "O desenvolvimento do aplicativo Home Stock representou uma oportunidade para explorar as possibilidades da tecnologia na organização das finanças pessoais. Com o objetivo de auxiliar na gestão de gastos e controle de estoque doméstico, o aplicativo foi projetado para oferecer funcionalidades como registro de transações e geração de relatórios personalizados.\nA decisão de encerrar o projeto, no entanto, foi motivada pela necessidade de definir um público-alvo mais específico e direcionar os esforços para um nicho de mercado mais promissor. Apesar do encerramento, a experiência adquirida durante o desenvolvimento do Home Stock foi fundamental para aprimorar minhas habilidades.",
-            technologies: [
-                {
-                    id: 1,
-                    name: "React Native",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-                },
-                {
-                    id: 2,
-                    name: "Typescript",
-                    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg",
-                }
-            ]
-        }
-    },
+    // {
+    //     id: 7,
+    //     name: "Home Stock - APP",
+    //     type: Types.MOBILE,
+    //     status: STATUSES.PAUSED,
+    //     projectLive: "https://github.com/thalys93/home-stock/tree/master",
+    //     projectRepository: "https://github.com/thalys93/home-stock/tree/master",
+    //     image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1727897477/projects-images/home-stock-logo.png",
+    //     description: "Aplicativo de Controle de Estoques e Contas Pessoais",
+    //     details: {
+    //         bigDescription: "O desenvolvimento do aplicativo Home Stock representou uma oportunidade para explorar as possibilidades da tecnologia na organização das finanças pessoais. Com o objetivo de auxiliar na gestão de gastos e controle de estoque doméstico, o aplicativo foi projetado para oferecer funcionalidades como registro de transações e geração de relatórios personalizados.\nA decisão de encerrar o projeto, no entanto, foi motivada pela necessidade de definir um público-alvo mais específico e direcionar os esforços para um nicho de mercado mais promissor. Apesar do encerramento, a experiência adquirida durante o desenvolvimento do Home Stock foi fundamental para aprimorar minhas habilidades.",
+    //         technologies: [
+    //             {
+    //                 id: 1,
+    //                 name: "React Native",
+    //                 icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    //             },
+    //             {
+    //                 id: 2,
+    //                 name: "Typescript",
+    //                 icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg",
+    //             }
+    //         ]
+    //     }
+    // },
     {
         id: 8,
         name: "Crypto Currency",
