@@ -1,24 +1,27 @@
 import ProgressChip from '@/components/progressChip'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { projectsInterface } from '@/utils/api/Consts'
-import { Hash, Image, List, Pen, PlusCircle, Square, Trash } from 'lucide-react'
+import { Image, List, Pen, PlusCircle, Trash } from 'lucide-react'
 import React, { useEffect } from 'react'
 import { CheckCircle, CraneTower, PauseCircle, WarningOctagon, FigmaLogo, Empty } from "@phosphor-icons/react";
 import { STATUSES } from "../../utils/enums";
-import { Container } from 'react-bootstrap'
+import { Container, Spinner } from 'react-bootstrap'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { collection, doc, getDocs, getFirestore } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, getFirestore } from 'firebase/firestore'
 import { useFirebase } from '@/utils/context/FirebaseProvider'
+import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 
 function AdminProjects() {
     const [projects, setProjects] = React.useState<projectsInterface[]>([])
     const [filterTxt, setFilterTxt] = React.useState("")
     const [filteredProjects, setFilteredProjects] = React.useState<projectsInterface[]>([])
     const firebaseApp = useFirebase();
+    const [showWarning, setShowWarning] = React.useState(false)
+    const [loading, setLoading] = React.useState(false)
     const db = getFirestore(firebaseApp)
 
     function getConditionalColor(projectStatus: string) {
@@ -79,9 +82,24 @@ function AdminProjects() {
         handleGetProjects()
     }, [])
 
-    // todo: terminar essa função e a função de edição de projetos
-    async function handleRemoveDocument(id: string) {
 
+    async function handleRemoveDocument(id: string) {
+        const doctRef = doc(db, "projects", id);
+        setLoading(true)
+        setShowWarning(true)
+        return await deleteDoc(doctRef).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+            setLoading(false)
+            setShowWarning(false)
+        }).finally(() => {
+            setTimeout(() => {
+                handleGetProjects()
+                setShowWarning(false)
+                setLoading(false)
+            }, 1500)
+        })
     }
 
     return (
@@ -151,11 +169,33 @@ function AdminProjects() {
                                     <TableCell> {getConditionalColor(pj?.status as string)} </TableCell>
                                     <TableCell className='flex flex-row gap-3'>
                                         <Button className='bg-sky-500' title='Editar'>
-                                            <Pen size={15} color='#fff' />
+                                            <Link to={`${pj.id}/${pj.name}`}>
+                                                <Pen size={15} color='#fff' />
+                                            </Link>
                                         </Button>
-                                        <Button variant="destructive" title='Excluir'>
-                                            <Trash size={15} color='#fff' />
-                                        </Button>
+                                        <AlertDialog open={showWarning} onOpenChange={setShowWarning}>
+                                            <AlertDialogTrigger>
+                                                <Button variant="destructive" title='Excluir'>
+                                                    <Trash size={15} color='#fff' />
+                                                </Button>
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle className='select-none'>
+                                                        Você Tem Certeza Disso?
+                                                    </AlertDialogTitle>
+                                                    <AlertDialogDescription className='select-none'>
+                                                        Deseja realmente excluir esse projeto? ele não poderá ser recuperado e nem listado na tela de projetos.
+                                                    </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter className='flex flex-row items-center '>
+                                                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                                    <Button onClick={() => handleRemoveDocument(pj.id as string)} variant={'destructive'} className='bg-red-500 mt-2 w-[6rem]'>
+                                                        {loading ? <Spinner size='sm' /> : "Excluir"}
+                                                    </Button>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
                                     </TableCell>
                                 </TableRow>
                             )) : (
