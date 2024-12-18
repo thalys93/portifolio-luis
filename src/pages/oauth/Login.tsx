@@ -1,15 +1,15 @@
-import { GithubLogo } from '@phosphor-icons/react'
+import { CaretLeft, GithubLogo } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { Container, Spinner } from 'react-bootstrap'
 import { GithubAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { RouteProps, useNavigate } from 'react-router-dom';
 
-function Login() {    
+function Login() {
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate();
 
     function handleLogin() {
-        setIsLoading(true)        
+        setIsLoading(true)
         const provider = new GithubAuthProvider();
         signInWithPopup(getAuth(), provider).then((res) => {
             const credential = GithubAuthProvider.credentialFromResult(res);
@@ -48,16 +48,21 @@ function Login() {
                             <span className='text-stone-400 font-monts'>Sistema de Cadastro de novos projetos</span>
                         </div>
 
-                        <div className='flex justify-center items-center mb-3'>
+                        <div className='flex flex-col justify-center items-center mb-3 gap-5'>
                             <button onClick={handleLogin}
                                 className='flex justify-center w-[15rem] h-[3rem] items-center gap-3 bg-sky-700 hover:bg-sky-800 transition-all rounded p-2'>
                                 {isLoading ? <Spinner animation="border" size="sm" variant="light" /> : (
                                     <>
-
                                         <GithubLogo size={40} className='p-2 bg-stone-900 rounded-full text-stone-50' weight='fill' />
                                         <span className='font-monts text-stone-50'>Login com Github</span>
                                     </>
                                 )}
+                            </button>
+
+                            <button onClick={() => window.history.back()}
+                                className='flex justify-center w-[15rem] h-[3rem] items-center border-[1px] border-sky-700 hover:border-sky-800 transition-all rounded '>
+                                <CaretLeft size={30} className='text-sky-500' weight='fill' />
+                                <span className='font-monts text-sky-500'>Voltar</span>
                             </button>
                         </div>
 

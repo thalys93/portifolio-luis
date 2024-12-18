@@ -9,6 +9,7 @@ function Navigation() {
         { name: "Sobre", link: "/about" },
         { name: "Projetos", link: "/projects" },
         { name: "Contato", link: "/contact" },
+        { name: "Admin", link: "/oauth/login"}
     ]
 
     const winSize = useContext(WindowSizeContext)
