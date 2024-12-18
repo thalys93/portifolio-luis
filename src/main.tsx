@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 // Styles
@@ -8,16 +7,20 @@ import './assets/styles/global.css'
 import 'animate.css';
 
 
-import Routes from './utils/routes.jsx'
 import { WindowSizeProvider } from './utils/context/Responsive.js'
 import { ParallaxProvider } from 'react-scroll-parallax'
+import { FirebaseProvider } from './utils/context/FirebaseProvider.js'
+import { AppRoutes } from './utils/routes.js'
+import React from 'react';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ParallaxProvider>
-      <WindowSizeProvider>
-        <Routes />
-      </WindowSizeProvider>
+      <FirebaseProvider>
+        <WindowSizeProvider>
+          <AppRoutes />
+        </WindowSizeProvider>
+      </FirebaseProvider>
     </ParallaxProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
