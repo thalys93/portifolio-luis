@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Container, Row, Spinner } from 'react-bootstrap'
 import { Formik } from 'formik'
-import * as Yup from 'yup'
 import { languagesInterface, projectsInterface } from '@/utils/api/Consts'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -21,8 +20,7 @@ import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider } from '@/components/ui/tooltip'
 import { TooltipTrigger } from '@radix-ui/react-tooltip'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { faker } from '@faker-js/faker'
-import { collection, addDoc, getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useFirebase } from '@/utils/context/FirebaseProvider'
 import { useParams } from 'react-router-dom'
 
@@ -34,11 +32,6 @@ function AdminProject() {
     const db = getFirestore(firebaseApp)
     const [projectData, setProjectData] = React.useState<projectsInterface>()
     const { id } = useParams()
-
-    const projectDetailsSchema = Yup.object().shape({
-        bigDescription: Yup.string().optional(),
-        technologies: Yup.array().optional(),
-    })
 
     const [technologies, setTechnologies] = React.useState<languagesInterface[]>([])
 

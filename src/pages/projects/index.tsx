@@ -7,12 +7,16 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 
-import { CompaniesThatIWorked, projects } from '../../utils/api/Consts'
+import { CompaniesThatIWorked, projectsInterface } from '../../utils/api/Consts'
 import ProjectCard from '../../components/projectCard'
 
 import { Parallax, ParallaxBannerLayer } from 'react-scroll-parallax'
 import Navigation from '../../components/navbar';
 import { STATUSES } from '../../utils/enums';
+import { useEffect } from 'react';
+import { useFirebase } from '@/utils/context/FirebaseProvider';
+import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import React from 'react';
 
 function Projects() {
   const colorList = ['yellow', 'purple', 'orange', 'pink', 'cyan', 'teal', 'lime', 'lightBlue']  
@@ -24,6 +28,39 @@ function Projects() {
     [STATUSES.DESIGN]: 1,
     [STATUSES.NEW]: 0,
   }
+
+  const [projects, setProjects] = React.useState<projectsInterface[]>([])
+
+  const firebaseApp = useFirebase();
+  const db = getFirestore(firebaseApp)
+
+  useEffect(() => {
+    async function handleGetProjects() {
+      const projectsRef = collection(db, 'projects');
+
+      return await getDocs(projectsRef).then((res) => {
+        const data = res.docs.map((doc) => {
+          return {
+            id: doc.id,
+            name: doc.data().name,
+            description: doc.data().description,
+            status: doc.data().status,
+            type: doc.data().type,
+            projectLive: doc.data().projectLive,
+            projectRepository: doc.data().projectRepository,
+            image: doc.data().image,
+            conceptArt: doc.data().conceptArt,
+            details: doc.data().details
+          }
+        })
+        setProjects(data)        
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+
+    handleGetProjects()
+  }, [projects.length])
 
   return (
     <>
@@ -38,7 +75,7 @@ function Projects() {
               <h1 className='text-xl underline underline-offset-4 uppercase text-sky-200 font-monts z-10 animate__animated animate__fadeInDown'>
                 Projetos
               </h1>
-              <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-65 animate__animated animate__fadeIn animate__slower'>
+              <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-25 animate__animated animate__fadeIn animate__slower'>
                 Projetos
               </span>
             </section>
@@ -65,7 +102,7 @@ function Projects() {
               <h1 className='text-xl underline underline-offset-4 uppercase text-sky-200 font-monts z-10'>
                 Experiência
               </h1>
-              <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-65'>
+              <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-25'>
                 Experiência
               </span>
             </section>

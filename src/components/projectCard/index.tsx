@@ -18,7 +18,7 @@ function ProjectCard({ ...props }: projectsInterface) {
                 return <ComputerTower size={iconSize} />
             case Types.DESKTOP:
                 return <Laptop size={iconSize} />
-            case Types.MOBILE:
+            case Types.MOBILE:;
                 return <DeviceMobile size={iconSize} />
             case Types.WEB:
                 return <Globe size={iconSize} />

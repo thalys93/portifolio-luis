@@ -20,7 +20,7 @@ function AdminProjects() {
     const [filterTxt, setFilterTxt] = React.useState("")
     const [filteredProjects, setFilteredProjects] = React.useState<projectsInterface[]>([])
     const firebaseApp = useFirebase();
-    const [showWarning, setShowWarning] = React.useState(false)
+    const [warnings, setWarnings] = React.useState<any>({})
     const [loading, setLoading] = React.useState(false)
     const db = getFirestore(firebaseApp)
 
@@ -53,9 +53,10 @@ function AdminProjects() {
     }
 
     async function handleGetProjects() {
-        const projectsRef = collection(db, "projects",);
+        const projectsRef = collection(db, "projects");
 
         return await getDocs(projectsRef).then((res) => {
+            console.log(res.docs)
             const data = res.docs.map((doc) => {
                 return {
                     id: doc.id,
@@ -84,19 +85,19 @@ function AdminProjects() {
 
 
     async function handleRemoveDocument(id: string) {
-        const doctRef = doc(db, "projects", id);
+        const docRef = doc(db, "projects", id);
         setLoading(true)
-        setShowWarning(true)
-        return await deleteDoc(doctRef).then((res) => {
+        setWarnings({ ...warnings, [id]: true })
+        return await deleteDoc(docRef).then((res) => {
             console.log(res)
         }).catch((err) => {
             console.log(err)
             setLoading(false)
-            setShowWarning(false)
+            setWarnings(false)
         }).finally(() => {
             setTimeout(() => {
                 handleGetProjects()
-                setShowWarning(false)
+                setWarnings(false)
                 setLoading(false)
             }, 1500)
         })
@@ -152,7 +153,7 @@ function AdminProjects() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {filteredProjects.length > 0 ? filteredProjects.map((pj, i) => (
+                            {filteredProjects.length > 0 && filteredProjects.map((pj, i) => (
                                 <TableRow key={i}>
                                     <TableCell>
                                         <Avatar>
@@ -173,7 +174,7 @@ function AdminProjects() {
                                                 <Pen size={15} color='#fff' />
                                             </Link>
                                         </Button>
-                                        <AlertDialog open={showWarning} onOpenChange={setShowWarning}>
+                                        <AlertDialog open={warnings[pj.id]} onOpenChange={(open) => setWarnings({ ...warnings, [pj.id]: open })}>
                                             <AlertDialogTrigger>
                                                 <Button variant="destructive" title='Excluir'>
                                                     <Trash size={15} color='#fff' />
@@ -187,6 +188,10 @@ function AdminProjects() {
                                                     <AlertDialogDescription className='select-none'>
                                                         Deseja realmente excluir esse projeto? ele não poderá ser recuperado e nem listado na tela de projetos.
                                                     </AlertDialogDescription>
+
+                                                    <AlertDialogDescription className='select-none'>
+                                                        ID do Projeto: {pj.id}
+                                                    </AlertDialogDescription>
                                                 </AlertDialogHeader>
                                                 <AlertDialogFooter className='flex flex-row items-center '>
                                                     <AlertDialogCancel>Cancelar</AlertDialogCancel>
@@ -198,20 +203,21 @@ function AdminProjects() {
                                         </AlertDialog>
                                     </TableCell>
                                 </TableRow>
-                            )) : (
-                                <TableRow>
-                                    <TableCell>
-                                        <Link to={"new"}>
-                                            <Button variant="outline">
-                                                <PlusCircle /> Novo Projeto
-                                            </Button>
-                                        </Link>
-                                    </TableCell>
+                            ))}
+                            <TableRow>
+                                <TableCell>
+                                    <Link to={"new"}>
+                                        <Button variant="outline">
+                                            <PlusCircle /> Novo Projeto
+                                        </Button>
+                                    </Link>
+                                </TableCell>
+                                {projects.length === 0 && (
                                     <TableCell colSpan={5} className="h-24 text-center">
                                         Nenhum projeto encontrado.
                                     </TableCell>
-                                </TableRow>
-                            )}
+                                )}
+                            </TableRow>
                         </TableBody>
                     </Table>
                 </article>

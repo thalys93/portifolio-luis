@@ -6,9 +6,13 @@ import { Col, Container, Row } from "react-bootstrap";
 import { CheckCircle, CraneTower, PauseCircle, WarningOctagon, FigmaLogo, Empty } from "@phosphor-icons/react";
 import ProgressChip from "../../components/progressChip";
 import { STATUSES } from "../../utils/enums";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { useFirebase } from "@/utils/context/FirebaseProvider";
 
 function Project() {
   const { id } = useParams()
+  const firebaseApp = useFirebase();
+  const db = getFirestore(firebaseApp)
   const navigate = useNavigate();
   const [project, setProject] = useState<projectsInterface>()
   const [activeIndex, setActiveIndex] = useState<number[]>([]);
@@ -25,14 +29,18 @@ function Project() {
   const [iconStyle, setIconStyle] = useState<string>("")
 
   useEffect(() => {
-    const checkAndFilterProject = () => {
+    async function checkAndFilterProject () {
       if (id !== undefined) {
-        const foundProject = projects.find((pj) => id == pj.id);
-        if (foundProject) {
-          setProject(foundProject);
-        } else {
-          navigate("/home");
+        const docRef = doc(db, "projects", id as string);
+        if(docRef) {
+          return await getDoc(docRef).then((res) => {
+            if(res.exists()) {
+              setProject(res.data() as projectsInterface)
+            }
+          })
         }
+      } else {
+        navigate("/home");
       }
     }
 
@@ -274,7 +282,7 @@ function Project() {
                 </span>
               </article>
               <article className="flex flex-row gap-3 items-center justify-center">
-                <img src={project?.conceptArt !== undefined ? project?.conceptArt : project?.image as string} className="w-[30rem] h-[20rem] object-cover rounded-lg" />
+                <img src={project?.conceptArt ? project?.conceptArt : project?.image as string} className="w-[30rem] h-[20rem] object-cover rounded-lg" />
               </article>
 
               <article className="flex flex-row gap-3 items-center justify-center">

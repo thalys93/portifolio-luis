@@ -24,12 +24,16 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { faker } from '@faker-js/faker'
 import { collection, addDoc, getFirestore } from 'firebase/firestore'
 import { useFirebase } from '@/utils/context/FirebaseProvider'
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog'
+import { useNavigate } from 'react-router-dom'
 
 
 function NewProject() {
   const [isLoading, setIsLoading] = React.useState(false)
   const [isAddingTech, setIsAddingTech] = React.useState(false)
   const [isRemovingTech, setIsRemovingTech] = React.useState(false)
+  const [projectAdded, setProjectAdded] = React.useState(false)
+  const navigate = useNavigate();
   const firebaseApp = useFirebase();
   const db = getFirestore(firebaseApp)
 
@@ -56,9 +60,9 @@ function NewProject() {
   const NewProjectSchema = Yup.object().shape({
     name: Yup.string().required("Nome não pode ser vazio"),
     description: Yup.string().required("Descrição nao pode ser vazia"),
-    status: Yup.string().required("Status nao pode ser vazio"),
-    details: projectDetailsSchema,
-    type: Yup.string().required("Tipo nao pode ser vazio"),
+    status: Yup.string().optional(),
+    details: projectDetailsSchema.optional(),
+    type: Yup.string().optional(),
     projectLive: Yup.string().optional(),
     projectRepository: Yup.string().optional(),
     image: Yup.string().optional(),
@@ -100,9 +104,13 @@ function NewProject() {
     }
 
     return await addDoc(collection(db, "projects"), mappedValues).then((res) => {
-      console.log(res)      
+      console.log(res)
+      if (res) {
+        setProjectAdded(true)
+      }
     }).catch((err) => {
       console.log(err)
+      setProjectAdded(false)
       setIsLoading(false)
     }).finally(() => {
       setIsLoading(false)
@@ -169,6 +177,23 @@ function NewProject() {
 
   return (
     <Container>
+      <AlertDialog open={projectAdded} onOpenChange={setProjectAdded}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className='flex flex-row items-center justify-center'> <CheckCircle size={40} /></AlertDialogTitle>
+            <AlertDialogTitle>Projeto Adicionado!</AlertDialogTitle>
+            <AlertDialogDescription>
+              O Projeto {NewProjectValues.name} foi adicionado com sucesso na sua seção de projetos do seu Portifolio.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className='flex flex-row items-center gap-2'>
+            <AlertDialogCancel onClick={() => navigate('/admin/projects')}>Fechar</AlertDialogCancel>
+            <Button onClick={() => window.location.reload()} className='bg-green-500 mt-2 border-[1px] border-green-500 text-stone-50' >
+              <PlusCircle/> Adicionar Mais
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <Row>
         <section>
           <article className='mt-3 lg:m-5 select-none'>

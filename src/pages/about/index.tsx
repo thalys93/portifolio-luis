@@ -93,7 +93,7 @@ function About() {
               <h1 className='text-xl underline underline-offset-4 uppercase text-emerald-300 font-monts z-10 animate__animated animate__fadeInDown'>
                 Sobre Mim
               </h1>
-              <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-65 animate__animated animate__fadeIn animate__slower'>
+              <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-25 animate__animated animate__fadeIn animate__slower'>
                 Sobre Mim
               </span>
             </section>
@@ -181,7 +181,7 @@ function About() {
               <h1 className='text-xl underline underline-offset-4 uppercase text-emerald-300 font-monts z-10 animate__animated animate__fadeInDown'>
                 Serviços
               </h1>
-              <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-65 animate__animated animate__fadeIn animate__slower'>
+              <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-25 animate__animated animate__fadeIn animate__slower'>
                 Serviços
               </span>
             </section>
@@ -202,7 +202,7 @@ function About() {
               <h1 className='text-xl underline underline-offset-4 uppercase text-emerald-300 font-monts z-10 animate__animated animate__fadeInDown'>
                 Minhas Skills
               </h1>
-              <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-65 animate__animated animate__fadeIn animate__slower'>
+              <span className='text-3xl relative top-[-1.2rem] uppercase tracking-[0.3rem] opacity-25 animate__animated animate__fadeIn animate__slower'>
                 Minhas Skills
               </span>
             </section>

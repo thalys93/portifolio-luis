@@ -69,8 +69,8 @@ function Contact() {
 
             <Col xs={winSize > 768 ? 3 : 10}>
               <section className='flex flex-col animate__animated animate__fadeIn'>
-                <h1 className='font-bold font-monts'> Vamos conversar <br /> sobre seu projeto?</h1>
-                <h3 className='text-sm'>entre em contato conosco e <br /> transforme seu sonho em <br /> realidade.</h3>
+                <h1 className='font-bold font-monts text-slate-700'> Vamos conversar <br /> sobre seu projeto?</h1>
+                <h3 className='text-sm text-slate-500'>entre em contato conosco e <br /> transforme seu sonho em <br /> realidade.</h3>
                 <Formik initialValues={initialValues} onSubmit={(values) => handleSendEmail(values)}>
                   {({ values, handleChange, handleSubmit }) => (
                     <Form className='flex flex-col gap-3 mt-4'>
