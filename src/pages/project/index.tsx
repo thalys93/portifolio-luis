@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import { projects, projectsInterface } from "../../utils/api/Consts";
+import { projectsInterface } from "../../utils/api/Consts";
 import Navigation from "../../components/navbar";
 import { Col, Container, Row } from "react-bootstrap";
 import { CheckCircle, CraneTower, PauseCircle, WarningOctagon, FigmaLogo, Empty } from "@phosphor-icons/react";
