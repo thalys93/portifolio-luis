@@ -1,11 +1,10 @@
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardDescription, CardTitle } from '@/components/ui/card'
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
 import { GithubReturn } from '@/utils/githubUser.interface'
-import { Boxes, PackagePlus, PackageSearch, TrendingUp } from 'lucide-react'
+import { Boxes, PackagePlus, TrendingUp } from 'lucide-react'
 import React from 'react'
 import { CardBody, Container } from 'react-bootstrap'
-import { Link, Outlet } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Label, Pie, PieChart } from "recharts"
 
 const chartData = [
@@ -60,7 +59,7 @@ interface OptionsProps {
 
 function Dashboard() {
   const [userData, setUserData] = React.useState<GithubReturn>()
-  const [DashboardOptions, setDashboardOptions] = React.useState<OptionsProps[]>([
+  const [DashboardOptions] = React.useState<OptionsProps[]>([
     {
       name: "Novo Projeto",
       icon: <PackagePlus size={50} strokeWidth={1} />,

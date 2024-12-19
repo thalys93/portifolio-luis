@@ -1,6 +1,4 @@
 import { FirebaseApp, initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { getAnalytics } from "firebase/analytics";
 import { createContext, useContext } from 'react';
 
 const firebaseConfig = {

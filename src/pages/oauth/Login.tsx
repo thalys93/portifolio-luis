@@ -2,7 +2,7 @@ import { CaretLeft, GithubLogo } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { Container, Spinner } from 'react-bootstrap'
 import { GithubAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
-import { RouteProps, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [isLoading, setIsLoading] = useState(false)
