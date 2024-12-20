@@ -12,6 +12,8 @@ import AdminProjects from '../pages/oauth/AdminProjects'
 import AdminProject from '../pages/oauth/Project'
 import NewProject from '../pages/oauth/NewProject'
 import AdminIndex from '@/pages/oauth/AdminIndex'
+import Experiences from '@/pages/oauth/Experiences'
+import Services from '@/pages/oauth/Services'
 
 
 const router = createBrowserRouter([
@@ -69,6 +71,18 @@ const router = createBrowserRouter([
             {
                 path: "projects/new",
                 element: <NewProject />
+            },
+            {
+                path: "experiences",
+                element: <Experiences/>
+            },
+            {
+                path: "services",
+                element: <Services/>
+            },
+            {
+                path: "services/new",
+                
             }
         ]
     }

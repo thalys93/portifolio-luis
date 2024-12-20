@@ -7,7 +7,7 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 
-import { CompaniesThatIWorked, projectsInterface } from '../../utils/api/Consts'
+import { CompaniesThatIWorkedInterface, projectsInterface } from '../../utils/api/Consts'
 import ProjectCard from '../../components/projectCard'
 
 import { Parallax, ParallaxBannerLayer } from 'react-scroll-parallax'
@@ -15,11 +15,11 @@ import Navigation from '../../components/navbar';
 import { STATUSES } from '../../utils/enums';
 import { useEffect } from 'react';
 import { useFirebase } from '@/utils/context/FirebaseProvider';
-import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import { collection, getDocs, getFirestore, orderBy, query } from 'firebase/firestore';
 import React from 'react';
 
 function Projects() {
-  const colorList = ['yellow', 'purple', 'orange', 'pink', 'cyan', 'teal', 'lime', 'lightBlue']  
+  const colorList = ['yellow', 'purple', 'orange', 'pink', 'cyan', 'teal', 'lime', 'lightBlue']
   const statusPriority: { [key: string]: number } = {
     [STATUSES.DONE]: 5,
     [STATUSES.DISCOUNTINUED]: 4,
@@ -30,11 +30,33 @@ function Projects() {
   }
 
   const [projects, setProjects] = React.useState<projectsInterface[]>([])
+  const [companiesThatWork, setCompaniesThatWork] = React.useState<CompaniesThatIWorkedInterface[]>([])
 
   const firebaseApp = useFirebase();
   const db = getFirestore(firebaseApp)
 
   useEffect(() => {
+    async function handleGetExperiencies() {
+      const projectsRef = collection(db, 'experiences');
+      const q = query(projectsRef, orderBy("endDate", "desc"))    
+
+      return await getDocs(q).then((res) => {
+        const data = res.docs.map((doc) => {
+          return {
+            id: doc.id,
+            name: doc.data().name,
+            position: doc.data().position,
+            description: doc.data().description,
+            startDate: doc.data().startDate,
+            endDate: doc.data().endDate
+          }
+        })
+        setCompaniesThatWork(data)
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+
     async function handleGetProjects() {
       const projectsRef = collection(db, 'projects');
 
@@ -53,14 +75,15 @@ function Projects() {
             details: doc.data().details
           }
         })
-        setProjects(data)        
+        setProjects(data)
       }).catch((err) => {
         console.log(err)
       })
     }
 
     handleGetProjects()
-  }, [projects.length])
+    handleGetExperiencies()
+  }, [projects.length, companiesThatWork.length])
 
   return (
     <>
@@ -110,7 +133,7 @@ function Projects() {
 
             <section className='flex flex-col select-none'>
               <Timeline position='alternate'>
-                {CompaniesThatIWorked.map((company, index) => {
+                {companiesThatWork.map((company, index) => {
                   const randomColor = colorList[Math.floor(Math.random() * colorList.length)]
                   return (
                     <TimelineItem key={index} >

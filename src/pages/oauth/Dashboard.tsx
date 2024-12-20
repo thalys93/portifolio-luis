@@ -1,7 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardDescription, CardTitle } from '@/components/ui/card'
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
 import { GithubReturn } from '@/utils/githubUser.interface'
-import { Boxes, PackagePlus, TrendingUp } from 'lucide-react'
+import { Blocks, Boxes, Code, PackagePlus, TrendingUp } from 'lucide-react'
 import React from 'react'
 import { CardBody, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -53,7 +53,8 @@ interface chartProps {
 interface OptionsProps {
   name: string;
   icon: React.ReactElement;
-  route: string
+  route: string;
+  disabled: boolean
 }
 
 
@@ -64,11 +65,25 @@ function Dashboard() {
       name: "Novo Projeto",
       icon: <PackagePlus size={50} strokeWidth={1} />,
       route: "/admin/projects/new",
+      disabled: false
     },
     {
       name: "Lista de Projetos",
       icon: <Boxes size={50} strokeWidth={1}/>,
       route: "/admin/projects",
+      disabled: false
+    },
+    {
+      name: "Experiências",
+      icon: <Code size={50} strokeWidth={1}/>,
+      route: "/admin/experiences",
+      disabled: false
+    },
+    {
+      name: "Serviços",
+      icon: <Blocks size={50} strokeWidth={1}/>,
+      route: "/admin/services",
+      disabled: true
     }
   ])
 
@@ -156,10 +171,10 @@ function Dashboard() {
     )
   }
 
-  function OptionsCard({ name, icon, route }: OptionsProps) {
+  function OptionsCard({ name, icon, route, disabled }: OptionsProps) {
     return (
-      <Card className='transition-all hover:scale-90 w-[10rem]'>
-        <Link to={route} className='flex flex-col justify-center items-center'>
+      <Card aria-disabled={disabled} className={disabled ? "opacity-15 transition-all w-[10rem] select-none cursor-pointer" : 'transition-all hover:scale-90 w-[10rem]'}>
+        <Link to={disabled ? '#' : route} className='flex flex-col justify-center items-center'>
           <CardHeader>
             {icon}
           </CardHeader>
@@ -196,7 +211,8 @@ function Dashboard() {
                 key={index}
                 name={i.name}
                 icon={i.icon}
-                route={i.route} />
+                route={i.route}
+                disabled={i.disabled}/>
             ))}
           </div>
         </article>

@@ -2,7 +2,7 @@ import { Avatar } from '@/components/ui/avatar'
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { GithubReturn } from '@/utils/githubUser.interface'
 import { AvatarImage, AvatarFallback } from '@radix-ui/react-avatar'
-import { FolderRoot, Cog, DoorClosed, House, Database, GitCommitVertical } from 'lucide-react'
+import { FolderRoot, Cog, DoorClosed, House, Database, GitCommitVertical, Blocks, Code } from 'lucide-react'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -16,6 +16,7 @@ import {
 import React from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import appInfo from '@/utils/app.info.json'
 
 function AdminIndex() {
     React.useEffect(() => {
@@ -104,6 +105,22 @@ function AdminIndex() {
                                         </SidebarMenuButton>
                                     </Link>
                                 </SidebarMenuItem>
+                                <SidebarMenuItem className='ml-[2rem]'>
+                                    <Link to="experiences">
+                                        <SidebarMenuButton className='flex flex-row items-center justify-start gap-3'>
+                                            <Code fill='#fff' fillOpacity={location.pathname === '/admin/experiences' ? 1 : 0} size={28} />
+                                            <span> Experiências </span>
+                                        </SidebarMenuButton>
+                                    </Link>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem className='ml-[2rem]' aria-disabled>
+                                    {/* <Link to="services"> */}
+                                        <SidebarMenuButton disabled className='flex flex-row items-center justify-start gap-3'>
+                                            <Blocks fill='#fff' fillOpacity={location.pathname === '/admin/services' ? 1 : 0} size={28} />
+                                            <span> Serviços </span>
+                                        </SidebarMenuButton>
+                                    {/* </Link> */}
+                                </SidebarMenuItem>
                             </SidebarMenu>
                             <Collapsible>
                                 <SidebarGroup>
@@ -117,11 +134,11 @@ function AdminIndex() {
                                         <SidebarMenu className='gap-3 select-none'>
                                             <SidebarMenuItem className='ml-[2rem] flex flex-row items-center justify-start gap-3 mt-2'>
                                                 <Database size={20} className='text-stone-500' />
-                                                <span className='text-stone-500'> Versão 1.0.0 </span>
+                                                <span className='text-stone-500'> Versão {appInfo.version} </span>
                                             </SidebarMenuItem>                                            
                                             <SidebarMenuItem className='ml-[2rem] flex flex-row items-center justify-start gap-3'>
                                                 <GitCommitVertical size={20} className='text-stone-500' />
-                                                <span className='text-stone-500'> Edição Basic </span>
+                                                <span className='text-stone-500'> Edição {appInfo.name} </span>
                                             </SidebarMenuItem>
                                         </SidebarMenu>
                                     </CollapsibleContent>

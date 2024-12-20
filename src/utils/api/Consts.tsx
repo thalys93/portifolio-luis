@@ -50,7 +50,7 @@ export interface projectsInterface {
 }
 
 export interface CompaniesThatIWorkedInterface {
-    id: number,
+    id: number | string,
     name: string,
     position: string,
     description: string,
