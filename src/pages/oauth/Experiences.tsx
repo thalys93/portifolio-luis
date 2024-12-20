@@ -21,7 +21,6 @@ function Experiences() {
   const [warnings, setWarnings] = React.useState<any>({})
   const [loading, setLoading] = React.useState(false)
   const [isAdding, setIsAdding] = React.useState(false)
-  const [isEditing, setIsEditing] = React.useState(false)
   const initialValues: CompaniesThatIWorkedInterface = {
     id: faker.string.uuid(),
     name: "",
@@ -112,8 +111,7 @@ function Experiences() {
     })
   }
 
-  async function handleEditDocument(values: CompaniesThatIWorkedInterface) {
-    setIsEditing(false)
+  async function handleEditDocument(values: CompaniesThatIWorkedInterface) {    
     setLoading(true)
 
     const mappedValues: Partial<CompaniesThatIWorkedInterface> = {
@@ -133,8 +131,7 @@ function Experiences() {
     }).finally(() => {
       setTimeout(() => {
         handleGetExperiences()
-        setLoading(false)
-        setIsEditing(false)
+        setLoading(false)        
         setEditingindex(null)
       }, 1000)
     })
@@ -161,8 +158,7 @@ function Experiences() {
 
   function handleCancelAndResetForm(onResetForm: () => void) {
     onResetForm()
-    setIsAdding(false)
-    setIsEditing(false)
+    setIsAdding(false)    
     setEditingindex(null)
   }
 

@@ -14,7 +14,7 @@ import { AppRoutes } from './utils/routes.js'
 import React from 'react';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <ParallaxProvider>
       <FirebaseProvider>
         <WindowSizeProvider>
@@ -22,5 +22,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </WindowSizeProvider>
       </FirebaseProvider>
     </ParallaxProvider>
-  // </React.StrictMode>
+  </React.StrictMode>
 )

@@ -1,6 +1,4 @@
-import React from 'react'
-
-function Services() {
+function Services() {  
   return (
     <div>Services</div>
   )
