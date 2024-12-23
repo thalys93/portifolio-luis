@@ -83,7 +83,7 @@ function Dashboard() {
       name: "Serviços",
       icon: <Blocks size={50} strokeWidth={1}/>,
       route: "/admin/services",
-      disabled: true
+      disabled: false
     }
   ])
 

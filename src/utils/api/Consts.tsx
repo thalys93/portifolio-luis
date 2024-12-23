@@ -9,8 +9,8 @@ interface socialMediaInterface {
     icon: JSX.Element,
 }
 
-interface servicesInterface {
-    id: number,
+export interface servicesInterface {
+    id: number | string,
     title: string,
     short_description: string,
     icon: JSX.Element,

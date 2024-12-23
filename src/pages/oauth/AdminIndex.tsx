@@ -114,12 +114,12 @@ function AdminIndex() {
                                     </Link>
                                 </SidebarMenuItem>
                                 <SidebarMenuItem className='ml-[2rem]' aria-disabled>
-                                    {/* <Link to="services"> */}
-                                        <SidebarMenuButton disabled className='flex flex-row items-center justify-start gap-3'>
+                                    <Link to="services">
+                                        <SidebarMenuButton className='flex flex-row items-center justify-start gap-3'>
                                             <Blocks fill='#fff' fillOpacity={location.pathname === '/admin/services' ? 1 : 0} size={28} />
                                             <span> Serviços </span>
                                         </SidebarMenuButton>
-                                    {/* </Link> */}
+                                    </Link>
                                 </SidebarMenuItem>
                             </SidebarMenu>
                             <Collapsible>

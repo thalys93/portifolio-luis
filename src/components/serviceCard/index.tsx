@@ -2,7 +2,7 @@ import { Card } from 'react-bootstrap'
 import React from 'react'
 
 interface serviceCard {
-    id: number,
+    id: number | string,
     title: string,
     short_description: string,
     icon: JSX.Element,
