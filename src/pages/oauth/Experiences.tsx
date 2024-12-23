@@ -22,6 +22,7 @@ function Experiences() {
   const [loading, setLoading] = React.useState(false)
   const [isAdding, setIsAdding] = React.useState(false)
   const initialValues: CompaniesThatIWorkedInterface = {
+    order: experiences.length + 1,
     id: faker.string.uuid(),
     name: "",
     position: "",
@@ -33,6 +34,7 @@ function Experiences() {
 
   const updateValues: Partial<CompaniesThatIWorkedInterface> = editingindex !== null
     ? {
+      order: experiences[editingindex].order,
       name: experiences[editingindex].name,
       position: experiences[editingindex].position,
       description: experiences[editingindex].description,
@@ -52,8 +54,8 @@ function Experiences() {
     }
   }
 
-  const tableHeaders = [
-    { name: "Id" },
+  const tableHeaders = [    
+    { name: "Posição" },
     { name: "Nome" },
     { name: "Cargo" },
     { name: "Descrição" },
@@ -65,12 +67,13 @@ function Experiences() {
 
   async function handleGetExperiences() {
     const projectsRef = collection(db, "experiences")
-    const q = query(projectsRef, orderBy("endDate", "desc"))
+    const q = query(projectsRef, orderBy("order", "asc"))
 
     return await getDocs(q).then((res) => {
       console.log(res.docs)
       const data = res.docs.map((doc) => {
         return {
+          order: doc.data().order,
           id: doc.id,
           name: doc.data().name,
           position: doc.data().position,
@@ -94,7 +97,16 @@ function Experiences() {
   async function handleAddDocument(values: CompaniesThatIWorkedInterface) {
     setLoading(true)
 
-    return await addDoc(collection(db, "experiences"), values).then((res) => {
+    const mappedValues: Partial<CompaniesThatIWorkedInterface> = {
+      order: values.order.toString(),
+      name: values.name,
+      position: values.position,
+      description: values.description,
+      startDate: values.startDate,
+      endDate: values.endDate
+    }
+
+    return await addDoc(collection(db, "experiences"), mappedValues).then((res) => {
       if (res) {
         console.log(res)
       }
@@ -115,6 +127,7 @@ function Experiences() {
     setLoading(true)
 
     const mappedValues: Partial<CompaniesThatIWorkedInterface> = {
+      order: values.order,
       name: values.name,
       position: values.position,
       description: values.description,
@@ -166,7 +179,7 @@ function Experiences() {
   function expData(exp: CompaniesThatIWorkedInterface, i: number) {
     return (
       <>
-        <TableCell>{exp.id}</TableCell>
+        <TableCell>{exp.order}</TableCell>
         <TableCell>{exp.name}</TableCell>
         <TableCell>{exp.position}</TableCell>
         <TableCell>{exp.description}</TableCell>
@@ -225,7 +238,7 @@ function Experiences() {
     )
   }
 
-  function expEditableData(exp: CompaniesThatIWorkedInterface, i: number) {
+  function expEditableData(i: number) {
     if (editingindex !== i) return null;
 
     return (
@@ -233,7 +246,7 @@ function Experiences() {
         {({ values, handleChange, handleBlur, handleSubmit, resetForm }) => (
           <>
             <TableCell className='select-none'>
-              {exp.id}
+              <Input type='text' placeholder='Ordem' value={values.order} onChange={handleChange("order")} onBlur={handleBlur("order")} />
             </TableCell>
             <TableCell>
               <Input type='text' placeholder='Empresa' value={values.name} onChange={handleChange("name")} onBlur={handleBlur("name")} />
@@ -305,14 +318,16 @@ function Experiences() {
             <TableBody>
               {filteredExperiences.map((exp, i) => (
                 <TableRow key={exp.id}>
-                  {editingindex === i ? expEditableData(exp, i) : expData(exp, i)}
+                  {editingindex === i ? expEditableData(i) : expData(exp, i)}
                 </TableRow>
               ))}
               {isAdding && (
                 <Formik initialValues={initialValues} onSubmit={handleAddDocument}>
                   {({ values, handleChange, handleBlur, resetForm, handleSubmit }) => (
                     <TableRow>
-                      <TableCell>{experiences.length + 1}</TableCell>
+                      <TableCell>
+                        <Input type='text' placeholder='Ordem' value={values.order} onChange={handleChange("order")} onBlur={handleBlur("order")} />
+                      </TableCell>
                       <TableCell>
                         <Input type='text' placeholder='Empresa' value={values.name} onChange={handleChange("name")} onBlur={handleBlur("name")} />
                       </TableCell>
@@ -377,7 +392,7 @@ function Experiences() {
                       ) : (
                         <Plus size={15} />
                       )}
-                      Novo Projeto
+                      Nova Experiência
                     </Button>
                   </div>
                 </TableCell>

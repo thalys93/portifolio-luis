@@ -38,11 +38,12 @@ function Projects() {
   useEffect(() => {
     async function handleGetExperiencies() {
       const projectsRef = collection(db, 'experiences');
-      const q = query(projectsRef, orderBy("endDate", "desc"))    
+      const q = query(projectsRef, orderBy("order", "asc"))    
 
       return await getDocs(q).then((res) => {
         const data = res.docs.map((doc) => {
           return {
+            order: doc.data().order,
             id: doc.id,
             name: doc.data().name,
             position: doc.data().position,
@@ -133,10 +134,10 @@ function Projects() {
 
             <section className='flex flex-col select-none'>
               <Timeline position='alternate'>
-                {companiesThatWork.map((company, index) => {
+                {companiesThatWork.map((company) => {
                   const randomColor = colorList[Math.floor(Math.random() * colorList.length)]
                   return (
-                    <TimelineItem key={index} >
+                    <TimelineItem key={company.order} >
                       <TimelineSeparator>
                         <TimelineDot style={{ padding: 7, backgroundColor: randomColor }} />
                         <TimelineConnector />

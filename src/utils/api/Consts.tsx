@@ -50,6 +50,7 @@ export interface projectsInterface {
 }
 
 export interface CompaniesThatIWorkedInterface {
+    order: number | string,
     id: number | string,
     name: string,
     position: string,
@@ -504,6 +505,7 @@ export const projects: projectsInterface[] = [
 
 export const CompaniesThatIWorked: CompaniesThatIWorkedInterface[] = [
     {
+        order: 1,
         id: 1,
         name: "Meraking",
         position: "Desenvolvedor Mobile",
@@ -512,6 +514,7 @@ export const CompaniesThatIWorked: CompaniesThatIWorkedInterface[] = [
         endDate: "Atual"
     },
     {
+        order: 2,
         id: 2,
         name: "Target IT",
         position: "Desenvolvedor Back End Jr",
@@ -520,6 +523,7 @@ export const CompaniesThatIWorked: CompaniesThatIWorkedInterface[] = [
         endDate: "07/2024"
     },
     {
+        order: 3,
         id: 3,
         name: "Brasil Distribuidora de Lubrificantes LTDA",
         position: "Estágio - Suporte",
@@ -528,6 +532,7 @@ export const CompaniesThatIWorked: CompaniesThatIWorkedInterface[] = [
         endDate: "11/2023"
     },
     {
+        order: 4,
         id: 4,
         name: "DWU",
         position: "Estagio - Desenvolvedor Web",
@@ -536,6 +541,7 @@ export const CompaniesThatIWorked: CompaniesThatIWorkedInterface[] = [
         endDate: "03/2023"
     },
     {
+        order: 5,
         id: 5,
         name: "Grêmio Náutico União",
         position: "Jovem Aprendiz TI",
