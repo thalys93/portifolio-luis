@@ -1,9 +1,11 @@
 import { Card, CardContent, CardFooter, CardHeader, CardDescription, CardTitle } from '@/components/ui/card'
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
+import { WindowSizeContext } from '@/utils/context/Responsive'
 import { GithubReturn } from '@/utils/githubUser.interface'
 import { Blocks, Boxes, Code, PackagePlus, TrendingUp } from 'lucide-react'
-import React from 'react'
+import React, { useContext } from 'react'
 import { CardBody, Container } from 'react-bootstrap'
+import { useCookies } from 'react-cookie'
 import { Link } from 'react-router-dom'
 import { Label, Pie, PieChart } from "recharts"
 
@@ -60,6 +62,8 @@ interface OptionsProps {
 
 function Dashboard() {
   const [userData, setUserData] = React.useState<GithubReturn>()
+  const [cookies] = useCookies(['GithubUser'])
+  const winSize = useContext(WindowSizeContext)
   const [DashboardOptions] = React.useState<OptionsProps[]>([
     {
       name: "Novo Projeto",
@@ -69,19 +73,19 @@ function Dashboard() {
     },
     {
       name: "Lista de Projetos",
-      icon: <Boxes size={50} strokeWidth={1}/>,
+      icon: <Boxes size={50} strokeWidth={1} />,
       route: "/admin/projects",
       disabled: false
     },
     {
       name: "Experiências",
-      icon: <Code size={50} strokeWidth={1}/>,
+      icon: <Code size={50} strokeWidth={1} />,
       route: "/admin/experiences",
       disabled: false
     },
     {
       name: "Serviços",
-      icon: <Blocks size={50} strokeWidth={1}/>,
+      icon: <Blocks size={50} strokeWidth={1} />,
       route: "/admin/services",
       disabled: false
     }
@@ -93,9 +97,9 @@ function Dashboard() {
 
   React.useEffect(() => {
     function checkUser() {
-      const GithubUser = localStorage.getItem('githubUser')
+      const GithubUser = cookies.GithubUser
       if (GithubUser !== null) {
-        setUserData(JSON.parse(GithubUser))
+        setUserData(GithubUser)
       }
     }
 
@@ -189,16 +193,16 @@ function Dashboard() {
   }
 
   return (
-    <Container >      
+    <Container >
       <section>
         <article className='mt-3 lg:m-5'>
           <h1 className='text-xl animate__animated animate__fadeIn animate__slower'> Olá! {userData?.displayName}</h1>
           <hr className='my-2 w-[15rem] animate__animated animate__fadeIn animate__slower' />
         </article>
-        <article className='m-5 animate__animated animate__fadeIn animate__slower'>
+        <article className='lg:m-5 animate__animated animate__fadeIn animate__slower mb-5'>
           <h1 className='text-lg'> Aqui está um resumo do seus projetos </h1>
 
-          <div className='flex flex-row flex-wrap mt-3 gap-5'>
+          <div className={winSize < 724 ? 'flex flex-col mt-3 gap-5 justify-center items-center mr-[2rem]' : 'flex flex-row flex-wrap mt-3 gap-5'}>
             {Array.from({ length: 3 }).map((_, index) => (
               <CardChart title='Projetos' dataCharts={chartData} data={"Março"} month={"Janeiro"} description={"Teste"} percent={5} key={index} />
             ))}
@@ -212,7 +216,7 @@ function Dashboard() {
                 name={i.name}
                 icon={i.icon}
                 route={i.route}
-                disabled={i.disabled}/>
+                disabled={i.disabled} />
             ))}
           </div>
         </article>

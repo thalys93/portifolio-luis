@@ -2,7 +2,7 @@ import ProgressChip from '@/components/progressChip'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { projectsInterface } from '@/utils/api/Consts'
 import { Image, List, Pen, PlusCircle, Trash } from 'lucide-react'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { CheckCircle, CraneTower, PauseCircle, WarningOctagon, FigmaLogo, Empty } from "@phosphor-icons/react";
 import { STATUSES } from "../../utils/enums";
 import { Container, Spinner } from 'react-bootstrap'
@@ -14,6 +14,7 @@ import { Label } from '@/components/ui/label'
 import { collection, deleteDoc, doc, getDocs, getFirestore } from 'firebase/firestore'
 import { useFirebase } from '@/utils/context/FirebaseProvider'
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
+import { WindowSizeContext } from '@/utils/context/Responsive'
 
 function AdminProjects() {
     const [projects, setProjects] = React.useState<projectsInterface[]>([])
@@ -22,6 +23,7 @@ function AdminProjects() {
     const firebaseApp = useFirebase();
     const [warnings, setWarnings] = React.useState<any>({})
     const [loading, setLoading] = React.useState(false)
+    const winSize = useContext(WindowSizeContext)
     const db = getFirestore(firebaseApp)
 
     function getConditionalColor(projectStatus: string) {
@@ -114,36 +116,43 @@ function AdminProjects() {
 
                 <article className='mt-3 lg:m-5 w-[30%]'>
                     <Label htmlFor='text' className='mb-3'>Filtrar Projetos</Label>
-                    <Input type='text' placeholder='Buscar por Nome' value={filterTxt} onChange={(e) => handleFilterProjects(e.target.value)} />
+                    <Input className={winSize < 768 ? 'w-[18rem] mb-3' : ''} type='text' placeholder='Buscar por Nome' value={filterTxt} onChange={(e) => handleFilterProjects(e.target.value)} />
                 </article>
                 <article>
-                    <Table>
+                    <Table >
                         <TableHeader>
                             <TableRow>
-                                <TableHead>
-                                    <div className='flex flex-row items-center gap-1'>
-                                        <Image size={20} />
-                                        Logo
-                                    </div>
-                                </TableHead>
+                                {winSize > 768 && (
+                                    <TableHead>
+                                        <div className='flex flex-row items-center gap-1'>
+                                            <Image size={20} />
+                                            Logo
+                                        </div>
+                                    </TableHead>
+                                )}
                                 <TableHead>
                                     <div className='flex flex-row items-center gap-1'>
                                         <List size={20} />
                                         Nome
                                     </div>
                                 </TableHead>
-                                <TableHead>
-                                    <div className='flex flex-row items-center gap-1'>
-                                        <List size={20} />
-                                        Tipo
-                                    </div>
-                                </TableHead>
-                                <TableHead>
-                                    <div className='flex flex-row items-center gap-1'>
-                                        <List size={20} />
-                                        Status
-                                    </div>
-                                </TableHead>
+                                {winSize > 768 && (
+                                    <TableHead>
+                                        <div className='flex flex-row items-center gap-1'>
+                                            <List size={20} />
+                                            Tipo
+                                        </div>
+                                    </TableHead>
+                                )}
+
+                                {winSize > 768 && (
+                                    <TableHead>
+                                        <div className='flex flex-row items-center gap-1'>
+                                            <List size={20} />
+                                            Status
+                                        </div>
+                                    </TableHead>
+                                )}
                                 <TableHead>
                                     <div className='flex flex-row items-center gap-1'>
                                         <List size={20} />
@@ -155,19 +164,28 @@ function AdminProjects() {
                         <TableBody>
                             {filteredProjects.length > 0 && filteredProjects.map((pj, i) => (
                                 <TableRow key={i}>
+                                    {winSize > 768 && (
+                                        <TableCell>
+                                            <Avatar>
+                                                <AvatarImage src={pj.image as string} />
+                                                <AvatarFallback>{pj.name.slice(0, 1)}</AvatarFallback>
+                                            </Avatar>
+                                        </TableCell>
+                                    )}
                                     <TableCell>
-                                        <Avatar>
-                                            <AvatarImage src={pj.image as string} />
-                                            <AvatarFallback>{pj.name.slice(0, 1)}</AvatarFallback>
-                                        </Avatar>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Link to={`/project/${pj.id}/${pj.name}`}>
+                                        <Link to={`/project/${pj.id}/${pj.name}`} className='flex flex-row items-center gap-3'>
+                                            {winSize < 768 && (
+                                                <img src={pj.image as string} alt={pj.name} className='w-10 h-10 rounded-full' />
+                                            )}
                                             {pj.name}
                                         </Link>
                                     </TableCell>
-                                    <TableCell className='select-none'> {pj.type} </TableCell>
-                                    <TableCell> {getConditionalColor(pj?.status as string)} </TableCell>
+                                    {winSize > 768 && (
+                                        <>
+                                            <TableCell className='select-none'> {pj.type} </TableCell>
+                                            <TableCell> {getConditionalColor(pj?.status as string)} </TableCell>
+                                        </>
+                                    )}
                                     <TableCell className='flex flex-row gap-3'>
                                         <Button className='bg-sky-500' title='Editar'>
                                             <Link to={`${pj.id}/${pj.name}`}>
@@ -180,7 +198,7 @@ function AdminProjects() {
                                                     <Trash size={15} color='#fff' />
                                                 </Button>
                                             </AlertDialogTrigger>
-                                            <AlertDialogContent>
+                                            <AlertDialogContent className={winSize < 768 ? 'w-[20rem] rounded flex flex-col justify-center items-center' : ''}>
                                                 <AlertDialogHeader>
                                                     <AlertDialogTitle className='select-none'>
                                                         Você Tem Certeza Disso?
@@ -190,11 +208,11 @@ function AdminProjects() {
                                                     </AlertDialogDescription>
 
                                                     <AlertDialogDescription className='select-none'>
-                                                        ID do Projeto: {pj.id}
+                                                        ID do Projeto: <b className='text-yellow-300'>{pj.id}</b>
                                                     </AlertDialogDescription>
                                                 </AlertDialogHeader>
-                                                <AlertDialogFooter className='flex flex-row items-center '>
-                                                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                                <AlertDialogFooter className={winSize < 768 ? 'flex flex-col-reverse justify-center items-center gap-1' : 'flex flex-row items-center'}>
+                                                    <AlertDialogCancel className='w-[6rem]'>Cancelar</AlertDialogCancel>
                                                     <Button onClick={() => handleRemoveDocument(pj.id as string)} variant={'destructive'} className='bg-red-500 mt-2 w-[6rem]'>
                                                         {loading ? <Spinner size='sm' /> : "Excluir"}
                                                     </Button>
@@ -222,7 +240,7 @@ function AdminProjects() {
                     </Table>
                 </article>
             </section>
-        </Container>
+        </Container >
     )
 }
 

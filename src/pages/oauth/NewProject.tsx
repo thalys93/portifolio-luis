@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Container, Row, Spinner } from 'react-bootstrap'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
@@ -26,6 +26,7 @@ import { collection, addDoc, getFirestore } from 'firebase/firestore'
 import { useFirebase } from '@/utils/context/FirebaseProvider'
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog'
 import { useNavigate } from 'react-router-dom'
+import { WindowSizeContext } from '@/utils/context/Responsive'
 
 
 function NewProject() {
@@ -34,6 +35,7 @@ function NewProject() {
   const [isRemovingTech, setIsRemovingTech] = React.useState(false)
   const [projectAdded, setProjectAdded] = React.useState(false)
   const navigate = useNavigate();
+  const winSize = useContext(WindowSizeContext)
   const firebaseApp = useFirebase();
   const db = getFirestore(firebaseApp)
 
@@ -178,7 +180,7 @@ function NewProject() {
   return (
     <Container>
       <AlertDialog open={projectAdded} onOpenChange={setProjectAdded}>
-        <AlertDialogContent>
+        <AlertDialogContent className={winSize < 768 ? 'w-[20rem] rounded flex flex-col justify-center items-center' : ''}>
           <AlertDialogHeader>
             <AlertDialogTitle className='flex flex-row items-center justify-center'> <CheckCircle size={40} /></AlertDialogTitle>
             <AlertDialogTitle>Projeto Adicionado!</AlertDialogTitle>
@@ -186,10 +188,10 @@ function NewProject() {
               O Projeto {NewProjectValues.name} foi adicionado com sucesso na sua seção de projetos do seu Portifolio.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className='flex flex-row items-center gap-2'>
-            <AlertDialogCancel onClick={() => navigate('/admin/projects')}>Fechar</AlertDialogCancel>
-            <Button onClick={() => window.location.reload()} className='bg-green-500 mt-2 border-[1px] border-green-500 text-stone-50' >
-              <PlusCircle/> Adicionar Mais
+          <AlertDialogFooter className={winSize < 768 ? 'flex flex-col-reverse justify-center items-center' : 'flex flex-row items-center gap-2'}>
+            <AlertDialogCancel onClick={() => navigate('/admin/projects')} className='w-[10rem]'>Fechar</AlertDialogCancel>
+            <Button onClick={() => window.location.reload()} className='bg-green-500 mt-2 border-[1px] border-green-500 text-stone-50 w-[10rem]' >
+              <PlusCircle /> Adicionar Mais
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -204,33 +206,41 @@ function NewProject() {
 
           <Formik initialValues={NewProjectValues} validationSchema={NewProjectSchema} onSubmit={handleSaveNewProject}>
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
-              <section className='ml-5' >
+              <section className={winSize < 768 ? '' : 'ml-5'} >
                 <div className='mt-2 mb-2'>
                   <span className='text-stone-500 opacity-30 animate__animated animate__fadeIn animate__slower'>Nome e Status</span>
                 </div>
 
-                <article className='flex flex-row gap-3'>
+                <article className={winSize < 768 ? 'flex flex-col items-start justify-start gap-3' : 'flex flex-row gap-3'}>
                   <div>
                     <Label htmlFor='project-name'>Nome do Projeto</Label>
-                    <Input type='project-name' onChange={handleChange('name')} onBlur={handleBlur('name')} value={values.name} />
+                    <Input type='project-name' className={winSize < 768 ? 'w-[22rem]' : ''} onChange={handleChange('name')} onBlur={handleBlur('name')} value={values.name} />
                     {touched.name && errors.name && <span className='text-red-500 text-sm select-none'>{errors.name}</span>}
                   </div>
 
                   <div>
                     <Label htmlFor='project-description'>Descrição Curta</Label>
-                    <Input type='project-description' onChange={handleChange('description')} onBlur={handleBlur('description')} value={values.description} />
+                    {winSize < 768 ? (
+                      <Textarea className={winSize < 768 ? 'w-[22rem]' : ''} onChange={handleChange('description')} onBlur={handleBlur('description')} value={values.description} />
+                    ) : (
+                      <Textarea className='w-[22rem]' onChange={handleChange('description')} onBlur={handleBlur('description')} value={values.description} />
+                    )}
                     {touched.description && errors.description && <span className='text-red-500 text-sm select-none'>{errors.description}</span>}
                   </div>
 
                   <div>
                     <Label htmlFor='project-status'>Status</Label>
                     <DropdownMenu>
-                      <DropdownMenuTrigger className='flex flex-row items-center border-[1px] border-stone-50 rounded w-[13.5rem]'>
-                        <div className='pt-1 pb-1 pl-2 pr-3'>
-                          {getConditionalColor(values.status)}
+                      <DropdownMenuTrigger className={winSize < 768 ? 'flex flex-row items-center border-[1px] border-stone-50 rounded w-[22rem]' : 'flex flex-row items-center border-[1px] border-stone-50 rounded w-[13.5rem]'}>
+                        <div className='pt-1 pb-1 pl-2 pr-3 gap-1 flex flex-row justify-between items-center w-full'>
+                          <article>
+                            {getConditionalColor(values.status)}
+                            {touched.status && errors.status && <span className='text-red-500 text-sm select-none'>{errors.status}</span>}
+                          </article>
+                          <article>
+                            <ChevronDown />
+                          </article>
                         </div>
-                        {touched.status && errors.status && <span className='text-red-500 text-sm select-none'>{errors.status}</span>}
-                        <ChevronDown className='absolute right-[38rem]' />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
                         <DropdownMenuItem onClick={() => handleChange('status')("")}>
@@ -263,10 +273,10 @@ function NewProject() {
                   <span className='text-stone-500 opacity-30 animate__animated animate__fadeIn animate__slower'>Detalhes</span>
                 </div>
 
-                <article className='flex flex-row gap-3'>
+                <article className={winSize < 768 ? 'flex flex-col items-start justify-start gap-3' : 'flex flex-row gap-3'}>
                   <div className='mt-[2rem]'>
                     <Label htmlFor='project-description'>Descrição Detalhada</Label>
-                    <Textarea className='w-[20rem]' onChange={handleChange('details.bigDescription')} onBlur={handleBlur('details.bigDescription')} value={values.details?.bigDescription} />
+                    <Textarea className={winSize < 768 ? 'w-[22rem] h-[13rem]' : 'w-[20rem]'} onChange={handleChange('details.bigDescription')} onBlur={handleBlur('details.bigDescription')} value={values.details?.bigDescription} />
                     {touched.details && errors.details && (
                       <span className='text-red-500 text-sm select-none'>
                         Descrição nao pode ser vazia
@@ -285,12 +295,14 @@ function NewProject() {
                 <div>
                   <Label htmlFor='project-status' className='mb-3'>Tipo de Projeto</Label>
                   <DropdownMenu>
-                    <DropdownMenuTrigger className='flex flex-row items-center border-[1px] border-stone-50 rounded w-[13.5rem]'>
-                      <div className='pt-1 pb-1 pl-2 pr-3 gap-1 flex flex-row justify-between items-center'>
+                    <DropdownMenuTrigger className={winSize < 768 ? 'flex flex-row items-center border-[1px] border-stone-50 rounded w-[22rem]' : 'flex flex-row items-center border-[1px] border-stone-50 rounded w-[13.5rem]'}>
+                      <div className='pt-1 pb-1 pl-2 pr-3 gap-1 flex flex-row justify-between items-center w-full'>
                         <article className='flex flex-row items-center gap-3'>
                           {getConditionalIcon(values.type)} {values?.type ? values.type : 'Nenhum'}
                         </article>
-                        <ChevronDown />
+                        <article>
+                          <ChevronDown />
+                        </article>
                       </div>
                       {touched.status && errors.status && <span className='text-red-500 text-sm select-none'>{errors.type}</span>}
                     </DropdownMenuTrigger>
@@ -304,8 +316,8 @@ function NewProject() {
                   </DropdownMenu>
                 </div>
 
-                <section className='flex flex-row items-center justify-between mt-3'>
-                  <article className='flex flex-row gap-3'>
+                <section className={winSize < 768 ? 'flex flex-col items-start justify-start mt-3' : 'flex flex-row items-center justify-between mt-3'}>
+                  <article className={winSize < 768 ? 'flex flex-col gap-3 w-[22rem]' : 'flex flex-row gap-3'}>
                     <div>
                       <Label htmlFor='project-status' className='flex flex-row items-center gap-2 mb-2'><Globe2 size={20} /> Projeto Hospedado</Label>
                       <Input type='project-link' onChange={handleChange('projectLive')} onBlur={handleBlur('projectLive')} value={values.projectLive as string} />
@@ -319,14 +331,14 @@ function NewProject() {
                     </div>
                   </article>
 
-                  <article className='mr-[5rem] flex flex-row items-center gap-5'>
+                  <article className={winSize < 768 ? 'flex flex-col items-center justify-center gap-5 mt-3 mb-3' : 'mr-[5rem] flex flex-row items-center gap-5'}>
                     <div>
                       <Label htmlFor='project-status' className='flex flex-row items-center gap-2 mb-2'> <GalleryHorizontal size={20} /> Imagem do Projeto</Label>
-                      <Input type='project-start-date' onChange={handleChange('image')} onBlur={handleBlur('image')} value={values.image as string} />
+                      <Input type='project-start-date' className={winSize < 768 ? 'w-[22rem]' : ''} onChange={handleChange('image')} onBlur={handleBlur('image')} value={values.image as string} />
                       {touched.image && errors.image && <span className='text-red-500 text-sm select-none'>{errors.image}</span>}
                     </div>
                     <div>
-                      <Avatar className='w-[9rem] h-[9rem] object-cover rounded-md shadow shadow-sky-500'>
+                      <Avatar className={winSize < 768 ? 'w-full h-auto object-cover rounded-md shadow shadow-sky-500' : 'w-[9rem] h-[9rem] object-cover rounded-md shadow shadow-sky-500'}>
                         <AvatarImage src={values.image as string} alt={values.name as string} />
                         <AvatarFallback>{values.name?.slice(0, 2)}</AvatarFallback>
                       </Avatar>
@@ -335,7 +347,7 @@ function NewProject() {
                 </section>
 
                 <section>
-                  <Button type='submit' className='bg-emerald-700 text-stone-50' disabled={isLoading} onClick={() => handleSubmit()}>
+                  <Button type='submit' className={winSize < 768 ? 'bg-emerald-700 text-stone-50 w-full my-4' : 'bg-emerald-700 text-stone-50'} disabled={isLoading} onClick={() => handleSubmit()}>
                     <PlusCircle size={20} color='#fff' /> Cadastrar Projeto
                   </Button>
                 </section>
@@ -352,14 +364,14 @@ function NewProject() {
       <Label htmlFor='project-description'>Tecnologias</Label>
       <Formik initialValues={techValues} validationSchema={TechValidation} onSubmit={(values) => console.log(values)}>
         {({ values, errors, touched, handleChange, handleBlur, resetForm }) => (
-          <Table>
+          <Table className={winSize < 768 ? 'w-[22rem]' : ""}>
             <TableHeader className='select-none'>
               <TableRow>
                 <TableHead>
                   Avatar
                 </TableHead>
                 <TableHead>
-                  Tecnologia
+                  {winSize < 768 ? 'Tech' : "Tecnologia "}
                 </TableHead>
                 <TableHead>
                   <TooltipProvider>
@@ -375,9 +387,11 @@ function NewProject() {
                     </Tooltip>
                   </TooltipProvider>
                 </TableHead>
-                <TableHead>
-                  Porcentagem
-                </TableHead>
+                {winSize > 768 && (
+                  <TableHead>
+                    Porcentagem
+                  </TableHead>
+                )}
                 <TableHead>
                   <Menu />
                 </TableHead>
@@ -402,15 +416,16 @@ function NewProject() {
                       disabled
                       value={tech.icon} />
                   </TableCell>
+                  {winSize > 768 && (
+                    <TableCell>
+                      <Input
+                        disabled
+                        value={tech.percent} />
+                    </TableCell>
+                  )}
                   <TableCell>
-                    <Input
-                      disabled
-                      value={tech.percent} />
-                  </TableCell>
-                  <TableCell>
-                    <Button variant={'destructive'} onClick={() => handleRemoveTech(tech.id)}>
+                    <Button size={'sm'} variant={'destructive'} onClick={() => handleRemoveTech(tech.id)}>
                       {isRemovingTech ? <Spinner size='sm' variant='white' /> : <XCircle size={15} color='#fff' />}
-
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -446,14 +461,16 @@ function NewProject() {
                     </span>
                   )}
                 </TableCell>
+                {winSize > 768 && (
+                  <TableCell>
+                    <Input
+                      onChange={handleChange(`percent`)}
+                      value={values.percent}
+                      onBlur={handleBlur(`percent`)} />
+                  </TableCell>
+                )}
                 <TableCell>
-                  <Input
-                    onChange={handleChange(`percent`)}
-                    value={values.percent}
-                    onBlur={handleBlur(`percent`)} />
-                </TableCell>
-                <TableCell>
-                  <Button variant={'default'} className={errors.icon || errors.name ? 'bg-red-500' : 'bg-emerald-500'} onClick={() => handleAddTech(technologies.length, values, resetForm)}>
+                  <Button size={'sm'} variant={'default'} className={errors.icon || errors.name ? 'bg-red-500' : 'bg-emerald-500'} onClick={() => handleAddTech(technologies.length, values, resetForm)}>
                     {isAddingTech ? <Spinner size='sm' variant='white' /> : <Plus size={15} color='#fff' />}
                   </Button>
                 </TableCell>
