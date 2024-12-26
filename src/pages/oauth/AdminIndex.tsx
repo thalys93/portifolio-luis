@@ -17,12 +17,14 @@ import React from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import appInfo from '@/utils/app.info.json'
+import { useCookies } from 'react-cookie'
 
 function AdminIndex() {
+    const [cookies, removeCookie] = useCookies(['GithubUser', "authToken"])
+
     React.useEffect(() => {
         function checkToken() {
-            const token = localStorage.getItem('token')
-            if (token === null) {
+            if (!cookies.GithubUser || !cookies.authToken) {
                 if (window.location.pathname === '/admin/dashboard') {
                     window.location.pathname = '/oauth/login'
                 }
@@ -37,19 +39,23 @@ function AdminIndex() {
     const location = useLocation()
     React.useEffect(() => {
         function checkUser() {
-            const GithubUser = localStorage.getItem('githubUser')
+            const GithubUser = cookies.GithubUser
             if (GithubUser !== null) {
-                setUserData(JSON.parse(GithubUser))
+                setUserData(GithubUser)
             }
         }
 
         checkUser()
     }, [])
 
-    function handleLogout() {
-        localStorage.removeItem('githubUser')
-        localStorage.removeItem('token')
-        window.location.pathname = '/oauth/login'
+    async function handleLogout() {
+        // Remove cookies
+        document.cookie = 'GithubUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+        document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+
+        if (!cookies.GithubUser && !cookies.authToken) {
+            window.location.pathname = '/oauth/login'
+        }
     }
 
     function LogoutDialog() {
@@ -135,7 +141,7 @@ function AdminIndex() {
                                             <SidebarMenuItem className='ml-[2rem] flex flex-row items-center justify-start gap-3 mt-2'>
                                                 <Database size={20} className='text-stone-500' />
                                                 <span className='text-stone-500'> Versão {appInfo.version} </span>
-                                            </SidebarMenuItem>                                            
+                                            </SidebarMenuItem>
                                             <SidebarMenuItem className='ml-[2rem] flex flex-row items-center justify-start gap-3'>
                                                 <GitCommitVertical size={20} className='text-stone-500' />
                                                 <span className='text-stone-500'> Edição {appInfo.name} </span>

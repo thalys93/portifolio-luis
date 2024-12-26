@@ -10,10 +10,10 @@ interface socialMediaInterface {
 }
 
 export interface servicesInterface {
-    id: number | string,
+    id: string,
     title: string,
     short_description: string,
-    icon: JSX.Element,
+    icon: string,
 }
 
 export interface languagesInterface {
@@ -110,40 +110,40 @@ export const socialMediaProfiles: socialMediaInterface[] = [
 
 export const servicesThatIProvide: servicesInterface[] = [
     {
-        id: 1,
+        id: "1",
         title: "Desenvolvimento de Sites",
         short_description: "Desenvolvimento de sites responsivos e otimizados para SEO",
-        icon: <Browser />
+        icon: ""
     },
     {
-        id: 2,
+        id: "2",
         title: "Desenvolvimento de Aplicativos",
         short_description: "Desenvolvimento de aplicativos móveis para Android e IOS",
-        icon: <DeviceMobile />
+        icon: ""
     },
     {
-        id: 3,
+        id: "3",
         title: "Desenvolvimento de API's",
         short_description: "Desenvolvimento de API's para integração de sistemas",
-        icon: <WebhooksLogo />
+        icon: ""
     },
     {
-        id: 4,
+        id: "4",
         title: "Desenvolvimento de Sistemas",
         short_description: "Desenvolvimento de sistemas web e desktop",
-        icon: <Devices />
+        icon: ""
     },
     {
-        id: 5,
+        id: "5",
         title: "Consultoria em TI",
         short_description: "Consultoria em TI para pequenas e médias empresas",
-        icon: <Users />
+        icon: ""
     },
     {
-        id: 6,
+        id: "6",
         title: "Manutenção de Sites",
         short_description: "Manutenção de sites e sistemas web",
-        icon: <PipeWrench />
+        icon: ""
     }
 ]
 

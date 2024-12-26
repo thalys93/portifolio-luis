@@ -1,12 +1,14 @@
 import { CaretLeft, GithubLogo } from '@phosphor-icons/react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Container, Spinner } from 'react-bootstrap'
 import { GithubAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 function Login() {
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate();
+    const [cookies, setCookie] = useCookies(['GithubUser', "authToken"]);
 
     function handleLogin() {
         setIsLoading(true)
@@ -15,14 +17,16 @@ function Login() {
             const credential = GithubAuthProvider.credentialFromResult(res);
             const token = credential?.accessToken;
             const user = res.user;
-            console.log(token, user)
 
             if (user.email === import.meta.env.VITE_GITHUB_USER) {
-                console.log("usuário correto");
-                console.log("esse usuário é o :", user.email);
-
-                localStorage.setItem("githubUser", JSON.stringify(user))
-                localStorage.setItem("token", JSON.stringify(token))
+                setCookie('GithubUser', JSON.stringify(user), {
+                    path: '/',
+                    expires: new Date(Date.now() + (1000 * 60 * 60 * 24 * 2))
+                })
+                setCookie('authToken', JSON.stringify(token), {
+                    path: '/',
+                    expires: new Date(Date.now() + (1000 * 60 * 60 * 24 * 2))
+                })
 
                 navigate("/admin/dashboard")
             } else {
@@ -37,6 +41,16 @@ function Login() {
             setIsLoading(false)
         })
     }
+
+    function handleCheckIfHasLogged() {
+        if (cookies.GithubUser && cookies.authToken) {
+            navigate("/admin/dashboard")
+        }
+    }
+
+    React.useEffect(() => {
+        handleCheckIfHasLogged()
+    }, [cookies])
 
     return (
         <section className='flex-1 bg-login-image bg-opacity-5 w-screen h-screen'>

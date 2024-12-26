@@ -1,12 +1,14 @@
 import React, { useContext } from 'react'
 import { Col, Container, Figure, ProgressBar, Row, Spinner } from 'react-bootstrap'
-import { languageThatIuse, languagesInterface, myInformations, servicesThatIProvide, socialMediaProfiles } from '../../utils/api/Consts'
+import { languageThatIuse, languagesInterface, myInformations, servicesInterface, socialMediaProfiles } from '../../utils/api/Consts'
 import InfoButton from '../../components/infobutton';
 import ServiceCard from '../../components/serviceCard';
 import { WindowSizeContext } from '../../utils/context/Responsive';
 import { MinusCircle, PlusCircle } from '@phosphor-icons/react';
 import { Parallax, ParallaxBannerLayer } from 'react-scroll-parallax';
 import Navigation from '../../components/navbar';
+import { useFirebase } from '@/utils/context/FirebaseProvider';
+import { collection, getDocs, getFirestore } from 'firebase/firestore';
 
 function About() {
   const [loading, setLoading] = React.useState({
@@ -16,6 +18,31 @@ function About() {
   })
   const winSize = useContext(WindowSizeContext)
   const [defaultCount, setDefaultCount] = React.useState(6)
+  const [services, setServices] = React.useState<servicesInterface[]>([])
+  const firebaseApp = useFirebase()
+  const db = getFirestore(firebaseApp)
+
+  async function getServices() {
+    const servicesRef = collection(db, 'services');    
+
+    return await getDocs(servicesRef).then((res) => {
+      console.log(res.docs)
+      const data = res.docs.map((doc) => {
+        return {
+          id: doc.id,
+          title: doc.data().title,
+          short_description: doc.data().short_description,
+          icon: doc.data().icon
+        }
+      })
+
+      setServices(data)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+  React.useEffect(() => { getServices() }, [])
 
   function getRandomElements(array: languagesInterface[], count: number) {
     let shuffled = array.slice(0), i = array.length, min = i - count, temp, index;
@@ -56,19 +83,17 @@ function About() {
   }
 
   const setNewLimit = (limit: number, type: string) => {
-    if(type === 'add')
-      {
-        setLoading({
-          ...loading,
-          skillButtonAdd: true,                
-        })
-      } else if(type === 'remove')
-      {
-        setLoading({
-          ...loading,
-          skillButtonRemove: true,                
-        })
-      }
+    if (type === 'add') {
+      setLoading({
+        ...loading,
+        skillButtonAdd: true,
+      })
+    } else if (type === 'remove') {
+      setLoading({
+        ...loading,
+        skillButtonRemove: true,
+      })
+    }
 
     setTimeout(() => {
       setDefaultCount(limit)
@@ -187,12 +212,13 @@ function About() {
             </section>
 
             <Col sm className='flex flex-row lg:grid lg:grid-rows-2 lg:grid-flow-col gap-[1.3rem] justify-center items-center flex-wrap'>
-              {servicesThatIProvide.map((service) => (
+              {services.map((service) => (
                 <ServiceCard
                   id={service.id}
                   title={service.title}
                   short_description={service.short_description}
                   icon={service.icon}
+                  type='user'
                 />
               ))}
             </Col>
@@ -242,7 +268,7 @@ function About() {
                     </div>
                   ))}
                   <div className='flex flex-row justify-end items-end mr-[8rem] mt-4 gap-3 mb-5'>
-                    <button onClick={() => setNewLimit(defaultCount + 3 , 'add')} className='bg-emerald-300 w-[2.3rem] h-[2.3rem] text-slate-800 p-2 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
+                    <button onClick={() => setNewLimit(defaultCount + 3, 'add')} className='bg-emerald-300 w-[2.3rem] h-[2.3rem] text-slate-800 p-2 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
                       {!loading.skillButtonAdd ? <PlusCircle className='w-5 h-5 text-stone-700' weight='bold' /> : <Spinner animation='border' size="sm" className='w-5 h-5' />}
                     </button>
                     <button onClick={() => setNewLimit(defaultCount - 3, 'remove')} className='bg-emerald-300 w-[2.3rem] h-[2.3rem] text-slate-800 p-2 rounded-lg uppercase font-robt font-bold hover:bg-yellow-400 transition-all hover:rounded-md'>
