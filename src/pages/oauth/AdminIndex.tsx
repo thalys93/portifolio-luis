@@ -20,7 +20,7 @@ import appInfo from '@/utils/app.info.json'
 import { useCookies } from 'react-cookie'
 
 function AdminIndex() {
-    const [cookies, removeCookie] = useCookies(['GithubUser', "authToken"])
+    const [cookies] = useCookies(['GithubUser', "authToken"])
 
     React.useEffect(() => {
         function checkToken() {

@@ -1,4 +1,4 @@
-import { Browser, DeviceMobile, Devices, Envelope, GithubLogo, InstagramLogo, LinkedinLogo, PipeWrench, Users, WebhooksLogo, WhatsappLogo } from '@phosphor-icons/react';
+import { Envelope, GithubLogo, InstagramLogo, LinkedinLogo, WhatsappLogo } from '@phosphor-icons/react';
 import { STATUSES, Types } from '../enums';
 
 interface socialMediaInterface {
