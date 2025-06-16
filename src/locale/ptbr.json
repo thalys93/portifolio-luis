@@ -77,7 +77,11 @@
         "theFilmDBDescription": "O The Film DB é um site de filmes e series, onde os usuários podem buscar filmes e series, e ver informações sobre eles.",
         "unavaliable": "Indisponível",
         "interest": "Interessado em ver mais projetos ou discutir uma colaboração?",
-        "interestButton": "Vamos Conversar"
+        "interestButton": "Vamos Conversar",
+        "tchepi": "Tchêpi",
+        "tchepiDescription": "A Tchêpi é um e-commerce criado em 2025 a partir de uma iniciativa conjunta entre a Transformar e a Aliança Empreendedora. Pensado para apoiar microempreendedoras que produzem itens artesanais, o projeto oferece uma plataforma acessível e justa para divulgação e venda de seus produtos.",
+        "docgen": "DocGen",
+        "docgenDescription": "Gere documentações completas e automáticas com IA, economizando tempo e melhorando a manutenção do seu código."
     },
     "contact": {
         "title_start": "Entre em ",

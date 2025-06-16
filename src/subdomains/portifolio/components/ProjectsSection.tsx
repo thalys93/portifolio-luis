@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { ExternalLink, Github, Calendar, Code, Smartphone, Globe } from 'lucide-react';
+import { ExternalLink, Github, Calendar, Code, Smartphone, Globe, Rocket } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,28 @@ const ProjectsSection = () => {
       icon: Code,
       github: 'https://github.com/thalys93/portifolio-luis',
       demo: 'https://portifolio-luis-thalys.web.app/home',
+      date: '2025'
+    },
+    {
+      title: t("projects.tchepi"),
+      description: t('projects.tchepiDescription'),
+      image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1750106821/projects-images/tchepi_dark_p3hy7e.jpg",
+      technologies: ['React', 'Nest.js', 'PostgreSQL', 'Docker', 'Tailwind CSS', 'Shadcn UI'],
+      category: 'Eccomerce',
+      icon: Globe,
+      github: null,
+      demo: "https://tchepi-hml.web.app/",
+      date: '2025'
+    },
+    {
+      title: t("projects.docgen"),
+      description: t("projects.docgenDescription"),
+      image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1750107244/projects-images/docgen_yekrmx.jpg",
+      technologies: ['React', 'Nest.js', 'PostgreSQL', 'Docker', 'Shadcn UI', "Python"],      
+      category: 'SASS',
+      icon: Rocket,
+      github: null,
+      demo: "https://docgen.com.br/",
       date: '2025'
     },
     {
