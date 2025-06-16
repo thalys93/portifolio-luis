@@ -1,10 +1,11 @@
 
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, AtSign } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, AtSign, Trash } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import emailJs from "@emailjs/browser"
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -15,6 +16,14 @@ const ContactSection = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleResetForm = () => {
+    setFormData({
+      name: '',
+      email: '',
+      subject: '',
+      message: ''
+    })
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -28,15 +37,33 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    const mappedValues = {
+      "from_name": formData.name,
+      "from_email": formData.email,
+      "subject": formData.subject,
+      "message": formData.message,
+    }
+
+    emailJs.send('service_cnjxc0i', 'template_vq5rzgv', mappedValues, "HswrHwcyyMGpwmoR4").then((res) => {
+      if (res.status === 200) {
+        toast({
+          title: "Mensagem enviada!",
+          description: "Obrigado pelo contato. Responderei em breve!",
+        });
+        setIsSubmitting(false);
+      }
+    }).catch(() => {
       toast({
-        title: "Mensagem enviada!",
-        description: "Obrigado pelo contato. Responderei em breve!",
-      });
-      setFormData({ name: '', email: '', subject: '', message: '' });
+        title: "Ops, algo deu errado!",
+        description: "Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.",
+        variant: "destructive"
+      })
       setIsSubmitting(false);
-    }, 1000);
+    })
+
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 2500)
   };
 
   const contactInfo = [
@@ -101,7 +128,7 @@ const ContactSection = () => {
               <h3 className="text-2xl font-semibold text-orange-400 mb-6">
                 Informações de Contato
               </h3>
-              
+
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <a
@@ -131,7 +158,7 @@ const ContactSection = () => {
               <h3 className="text-xl font-semibold text-orange-400 mb-6">
                 Redes Sociais
               </h3>
-              
+
               <div className="flex gap-4">
                 {socialLinks.map((social) => (
                   <a
@@ -169,7 +196,7 @@ const ContactSection = () => {
             <h3 className="text-2xl font-semibold text-orange-400 mb-6">
               Envie uma Mensagem
             </h3>
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
@@ -187,7 +214,7 @@ const ContactSection = () => {
                     placeholder="Seu nome"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                     Email *
@@ -237,23 +264,37 @@ const ContactSection = () => {
                 />
               </div>
 
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-3 text-lg font-medium transition-all duration-300 hover-lift disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? (
+              <div className='flex flex-col-reverse md:flex-row-reverse gap-2 items-center'>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-3 text-lg font-medium transition-all duration-300 hover-lift disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Enviando...
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <Send className="w-5 h-5" />
+                      Enviar Mensagem
+                    </div>
+                  )}
+                </Button>
+
+                <Button
+                  type="reset"
+                  onClick={handleResetForm}
+                  variant='ghost'
+                  className="w-full border border-orange-500 text-orange-500 hover:text-orange-400 hover:border-orange-400 py-3 text-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    Enviando...
+                    <Trash className="w-5 h-5" />
+                    Resetar
                   </div>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <Send className="w-5 h-5" />
-                    Enviar Mensagem
-                  </div>
-                )}
-              </Button>
+                </Button>
+              </div>
             </form>
           </div>
         </div>

@@ -1,10 +1,10 @@
-import HeroSection from "@/components/HeroSection";
+import HeroSection from "@/subdomains/portifolio/components/HeroSection";
 import PublicLayout from "../../layout/public-layout";
-import AboutSection from "@/components/AboutSection";
-import JourneySection from "@/components/JourneySection";
-import SkillsSection from "@/components/SkillsSection";
-import ProjectsSection from "@/components/ProjectsSection";
-import ContactSection from "@/components/ContactSection";
+import AboutSection from "@/subdomains/portifolio/components/AboutSection";
+import JourneySection from "@/subdomains/portifolio/components/JourneySection";
+import SkillsSection from "@/subdomains/portifolio/components/SkillsSection";
+import ProjectsSection from "@/subdomains/portifolio/components/ProjectsSection";
+import ContactSection from "@/subdomains/portifolio/components/ContactSection";
 
 function HomePage() {
   return (
