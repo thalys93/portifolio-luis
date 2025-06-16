@@ -3,23 +3,25 @@ import { useState } from 'react';
 import { ExternalLink, Github, Calendar, Code, Smartphone, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const ProjectsSection = () => {
+  const { t } = useTranslation();
   const projects = [
     {
-      title: 'Portfolio Website',
-      description: 'Site portfólio responsivo com animações suaves, otimizado para SEO e alta performance.',
+      title: t('projects.portifolio'),
+      description: t('projects.portifolioDescription'),
       image: 'https://avatars.githubusercontent.com/u/102838847?v=4',
       technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'Vercel', 'Shadcn UI'],
-      category: 'Frontend',
+      category: 'Front-End',
       icon: Code,
       github: 'https://github.com/thalys93/portifolio-luis',
       demo: 'https://portifolio-luis-thalys.web.app/home',
       date: '2025'
     },
     {
-      title: 'Carteira de Saúde',
-      description: 'O Carteira de Saúde é um aplicativo de controle de saúde, onde o usuário pode adicionar os exames e consultas, além disso, o usuário pode ver o histórico de exames e consultas.',
+      title: t('projects.carteira'),
+      description: t('projects.carteiraDescription'),
       image: 'https://res.cloudinary.com/dh39ahmpj/image/upload/v1716829255/carteira_de_saude/adaptive-icon_pfyg0a.png',
       technologies: ['React Native', 'Nest.js', 'PostgreSQL', 'Docker'],
       category: 'Mobile',
@@ -29,22 +31,22 @@ const ProjectsSection = () => {
       date: '2024'
     },
     {
-      title: 'Cade Meu Rango',
-      description: 'A Cade Meu Rango é uma plataforma de listagem de receitas culinárias, onde os usuários podem cadastrar suas receitas e compartilhar com outros usuários.',
+      title: t('projects.cadeMeuRango'),
+      description: t('projects.cadeMeuRangoDescription'),
       image: 'https://res.cloudinary.com/dh39ahmpj/image/upload/v1684280950/Cad%C3%AA%20Meu%20Rango/thumb_do_site_knjbzn.png',
       technologies: ['React.Js', 'Firebase', 'Redux',],
-      category: 'FrontEnd',
+      category: 'Front-End',
       icon: Code,
       github: 'https://github.com/thalys93/cade-meu-rango-front',
       demo: 'https://cade-meu-rango-front.web.app/',
       date: '2022'
     },
     {
-      title: 'The Film DB',
-      description: 'O The Film DB é um aplicativo para buscar informações sobre filmes e séries, onde o usuário pode buscar o filme ou série desejada, além disso, o usuário pode ver as informações sobre o filme ou série.',
+      title: t('projects.theFilmDB'),
+      description: t('projects.theFilmDBDescription'),
       image: 'https://res.cloudinary.com/dh39ahmpj/image/upload/v1729102237/the-film-db/Designer_bujy3v.jpg',
       technologies: ['React.Js', 'Typescript', 'Axios'],
-      category: 'Frontend',
+      category: 'Front-End',
       icon: Code,
       github: 'https://github.com/thalys93/the-film-db',
       demo: 'https://the-film-db.web.app/',
@@ -64,11 +66,11 @@ const ProjectsSection = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-poppins mb-4">
-            Meus <span className="text-gradient">Projetos</span>
+            {t('projects.title_my')} <span className="text-gradient">{t('projects.title_projects')}</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto rounded-full mb-6" />
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Alguns dos projetos que desenvolvi recentemente, demonstrando minhas habilidades e experiência
+            {t('projects.description')}
           </p>
         </div>
 
@@ -79,8 +81,8 @@ const ProjectsSection = () => {
               key={category}
               onClick={() => setActiveCategory(category)}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${activeCategory === category
-                  ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg'
-                  : 'glass-effect text-gray-300 hover:bg-orange-500/20 hover:text-orange-400'
+                ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg'
+                : 'glass-effect text-gray-300 hover:bg-orange-500/20 hover:text-orange-400'
                 }`}
             >
               {category}
@@ -155,7 +157,7 @@ const ProjectsSection = () => {
                   >
                     <a href={project.github} target="_blank" rel="noopener noreferrer">
                       <Github className="w-4 h-4 mr-2" />
-                      {project.github ? 'GitHub' : 'Indisponível'}
+                      {project.github ? 'GitHub' : t('projects.unavaliable')}
                     </a>
                   </Button>
 
@@ -167,7 +169,7 @@ const ProjectsSection = () => {
                   >
                     <a href={project.demo} target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="w-4 h-4 mr-2" />
-                      {project.demo ? 'Demo' : 'Indisponível'}
+                      {project.demo ? 'Demo' : t('projects.unavaliable')}
                     </a>
                   </Button>
                 </div>
@@ -179,14 +181,14 @@ const ProjectsSection = () => {
         {/* CTA */}
         <div className="text-center mt-16">
           <p className="text-gray-400 mb-6">
-            Interessado em ver mais projetos ou discutir uma colaboração?
+            {t('projects.interest')}
           </p>
           <Button
             size="lg"
             className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 px-8 py-3"
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            Vamos Conversar
+            {t('projects.interestButton')}
           </Button>
         </div>
       </div>

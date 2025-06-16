@@ -1,0 +1,122 @@
+{
+    "lang": {
+        "portuguese": "Portuguese",
+        "english": "English",
+        "spanish": "Spanish"
+    },
+    "navigation": {
+        "home": "Home",
+        "about": "About",
+        "journey": "Journey",
+        "habilities": "Skills",
+        "projects": "Projects",
+        "contact": "Contact"
+    },
+    "hero": {
+        "title": "Hi, I'm",
+        "subtitle": "Full Stack Developer",
+        "description": "I turn ideas into amazing digital experiences. Specialized in React, Node.js and modern technologies to create scalable and robust web solutions.",
+        "button_one": "View Projects",
+        "button_two": "Get in Touch"
+    },
+    "about": {
+        "title_about": "About",
+        "title_me": "Me",
+        "cardTitle": "Passionate Full Stack Developer",
+        "cardParagraph1": "With over 5 years of experience in web development, I specialize in creating modern and scalable applications using the latest technologies in the market.",
+        "cardParagraph2": "My journey started with curiosity about how things work on the web, and today I turn complex ideas into elegant and functional digital solutions.",
+        "cardParagraph3": "I believe that the best code is the one that solves real problems in a simple way, always keeping the focus on the user experience and the quality of the final product.",
+        "primaryTechs": "Main Technologies",
+        "cards": {
+            "cleanCode": "Clean Code",
+            "cleanCodeDescription": "Clean and well-structured code is my passion.",
+            "innovation": "Innovation",
+            "innovationDescription": "Always looking for creative and efficient solutions.",
+            "collaboration": "Collaboration",
+            "collaborationDescription": "Teamwork and clear communication are essential.",
+            "dedication": "Dedication",
+            "dedicationDescription": "Committed to excellence in every project."
+        },
+        "expCards": {
+            "projectsDone": "Projects Completed",
+            "yearsOfExperience": "Years of Experience",
+            "clientSatisfaction": "Satisfied Clients",
+            "commitment": "Commitment"
+        }
+    },
+    "journey": {
+        "title_my": "My",
+        "title_journey": "Journey",
+        "description": "How curiosity about technology turned into a passion for programming",
+        "firstClick": "The First Click",
+        "firstDescription": "I discovered that I could create something from scratch just by typing code in a technical course. I fell in love with programming and started learning HTML, CSS, and JavaScript.",
+        "continousLearning": "Continuous Learning",
+        "continousDescription": "Each project is a new adventure. From the frontend to the backend, each line of code teaches me something new. Programming is not just my job - it's my way of solving problems and creating impact.",
+        "connectingPeople": "Connecting People",
+        "connectingPeopleDescription": "What motivates me the most is knowing that behind each application are real people. I develop thinking about how I can make someone's life easier, create connections, and generate genuine value.",
+        "quote": "'Technology is better when it brings people closer.' - Matt Mullenweg",
+        "quoteConnect": "Shall we build something amazing together? 👇"
+    },
+    "skills": {
+        "title_my": "My",
+        "title_skills": "Skills",
+        "description": "Technologies and tools I master to create complete and efficient solutions",
+        "otherSkills": "Other Skills"
+    },
+    "projects": {
+        "title_my": "My",
+        "title_projects": "Projects",
+        "description": "Some of the projects I have recently developed, demonstrating my skills and experience",
+        "portifolio": "Portifolio Website",
+        "portifolioDescription": "Responsive portifolio website with smooth animations, optimized for SEO and high performance.",
+        "carteira": "Carteira de Saúde",
+        "carteiraDescription": "The Carteira de Saúde is a health control application, where users can add medical appointments and exams, and also view their medical history.",
+        "cadeMeuRango": "Cade Meu Rango",
+        "cadeMeuRangoDescription": "Cade Meu Rango is a recipe listing platform, where users can add and share their recipes with other users.",
+        "theFilmDB": "The Film DB",
+        "theFilmDBDescription": "The Film DB is a movie and series website, where users can search for movies and series, and view information about them.",
+        "unavaliable": "Unavaliable",
+        "interest": "Interested in seeing more projects or discussing a collaboration?",
+        "interestButton": "Let's Talk"
+    },
+    "contact": {
+        "title_start": "Get in ",
+        "title_contact": "Touch",
+        "description": "Let's turn your idea into reality! Get in touch to discuss your next project",
+        "contactInfo": "Contact Information",
+        "email": "E-Mail",
+        "cellphone": "Phone",
+        "localization": "Location",
+        "socialMedia": "Social Media",
+        "avaliability": "Availability",
+        "avaliability_text1": "Available for new projects",
+        "avaliability_text2": "I usually respond within 24 hours",
+        "form": {
+            "contactForm": "Contact Form",
+            "sendMessage": "Send Message",
+            "name": "Name",
+            "placeholder": "Enter your name",
+            "email": "E-Mail",
+            "placeholder_email": "your@email.com",
+            "subject": "Subject",
+            "placeholder_subject": "Message Subject",
+            "message": "Message",
+            "placeholder_message": "Describe your project or question...",
+            "reset": "Reset",
+            "toast": {
+                "title": "Message sent!",
+                "description": "Thank you for reaching out! I will respond shortly!",
+                "error": "Error sending message",
+                "error_description": "An error occurred while sending the message. Please try again."
+            },
+            "sendButton": "Send",
+            "sendAction": "Sending..."
+        }
+    },
+    "footer": {
+        "footerSlogan": "Full Stack Developer passionate about creating innovative digital solutions",
+        "rights": "All rights reserved",
+        "made": "Made with",
+        "andMuch": "and a lot of"
+    }
+}

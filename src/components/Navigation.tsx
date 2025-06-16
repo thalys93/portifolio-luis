@@ -1,25 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Languages, Menu, X } from 'lucide-react';
+import { DropdownMenu, DropdownMenuTrigger } from './ui/dropdown-menu';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { t } = useTranslation();
 
   const navItems = [
-    { id: 'home', label: 'Início' },
-    { id: 'about', label: 'Sobre' },
-    { id: 'journey', label: 'Jornada' },
-    { id: 'skills', label: 'Habilidades' },
-    { id: 'projects', label: 'Projetos' },
-    { id: 'contact', label: 'Contato' },
+    { id: 'home', label: t("navigation.home") },
+    { id: 'about', label: t("navigation.about") },
+    { id: 'journey', label: t("navigation.journey") },
+    { id: 'skills', label: t("navigation.habilities") },
+    { id: 'projects', label: t("navigation.projects") },
+    { id: 'contact', label: t("navigation.contact") },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
+
       // Update active section based on scroll position
       const sections = navItems.map(item => document.getElementById(item.id));
       const scrollPosition = window.scrollY + 100;
@@ -46,11 +51,10 @@ const Navigation = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'glass-effect shadow-lg' : 'bg-transparent'
-    }`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-effect shadow-lg' : 'bg-transparent'
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">          
+        <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
             <span className="text-2xl font-bold font-poppins text-gradient">
               Thalys Dev
@@ -64,20 +68,22 @@ const Navigation = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-orange-400 ${
-                    activeSection === item.id
+                  className={`px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-orange-400 ${activeSection === item.id
                       ? 'text-orange-500 border-b-2 border-orange-500'
                       : 'text-gray-300 hover:text-orange-400'
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </button>
               ))}
+
+              <LanguageSwitcher />
             </div>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex flex-row gap-2 items-center">
+            <LanguageSwitcher />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-300 hover:text-orange-400 p-2"
@@ -96,11 +102,10 @@ const Navigation = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`block w-full text-left px-3 py-2 text-base font-medium transition-colors duration-300 ${
-                  activeSection === item.id
+                className={`block w-full text-left px-3 py-2 text-base font-medium transition-colors duration-300 ${activeSection === item.id
                     ? 'text-orange-500 bg-orange-500/10'
                     : 'text-gray-300 hover:text-orange-400 hover:bg-orange-400/10'
-                }`}
+                  }`}
               >
                 {item.label}
               </button>

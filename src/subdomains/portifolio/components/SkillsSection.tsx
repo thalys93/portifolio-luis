@@ -1,5 +1,6 @@
 
 import { Database, Globe, Smartphone, Server, Palette, Zap } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const SkillsSection = () => {
   const skillCategories = [
@@ -9,7 +10,7 @@ const SkillsSection = () => {
       color: 'from-orange-500 to-red-500',
       skills: [
         { name: 'React', level: 95 },
-        { name: 'TypeScript', level: 90 },    
+        { name: 'TypeScript', level: 90 },
         { name: 'Tailwind CSS', level: 92 },
         { name: "Angular", level: 75 },
         { name: 'Vue.js', level: 20 }
@@ -34,7 +35,7 @@ const SkillsSection = () => {
       skills: [
         { name: 'PostgreSQL', level: 95 },
         { name: 'MongoDB', level: 85 },
-        { name: 'MySQL', level: 80 },                
+        { name: 'MySQL', level: 80 },
       ]
     },
     {
@@ -56,7 +57,7 @@ const SkillsSection = () => {
       skills: [
         { name: 'React Native', level: 85 },
         { name: 'Expo', level: 88 },
-        { name: 'Flutter', level: 35 },        
+        { name: 'Flutter', level: 35 },
         { name: 'Ionic', level: 15 }
       ]
     },
@@ -74,16 +75,19 @@ const SkillsSection = () => {
     }
   ];
 
+  const { t } = useTranslation();
+
+
   return (
     <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-orange-950/10">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-poppins mb-4">
-            Minhas <span className="text-gradient">Habilidades</span>
+            {t("skills.title_my")} <span className="text-gradient">{t("skills.title_skills")}</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto rounded-full mb-6" />
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Tecnologias e ferramentas que domino para criar soluções completas e eficientes
+            {t("skills.description")}
           </p>
         </div>
 
@@ -137,7 +141,7 @@ const SkillsSection = () => {
         {/* Additional Skills */}
         <div className="mt-16 text-center">
           <h3 className="text-2xl font-semibold text-orange-400 mb-8">
-            Outras Competências
+            {t("skills.otherSkills")}
           </h3>
           <div className="flex flex-wrap justify-center gap-4">
             {[

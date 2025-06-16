@@ -1,17 +1,20 @@
 
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 
 const HeroSection = () => {
   const scrollToAbout = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const { t } = useTranslation();
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-orange-900/20 via-background to-orange-800/10" />
-      
+
       {/* Floating elements */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-orange-500/10 rounded-full blur-xl animate-float" />
       <div className="absolute bottom-20 right-10 w-32 h-32 bg-orange-400/10 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }} />
@@ -20,21 +23,20 @@ const HeroSection = () => {
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
         <div className="animate-fade-in">
           <h1 className="text-4xl sm:text-6xl lg:text-6xl font-bold font-poppins mb-6">
-            Olá, eu sou{' '}
+            {t("hero.title")}{' '}
             <span className="text-gradient">
               Thalys Xavier
             </span>
           </h1>
-          
+
           <p className="text-xl sm:text-2xl lg:text-3xl text-gray-300 mb-8 font-light">
-            Desenvolvedor Full Stack
+            {t("hero.subtitle")}
           </p>
-          
+
           <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Transformo ideias em experiências digitais incríveis. 
-            Especializado em React, Node.js e tecnologias modernas para criar soluções web robustas e escaláveis.
+            {t("hero.description")}
           </p>
-          
+
           <div className="flex justify-center gap-6 mb-12">
             <a
               href="https://github.com/thalys93"
@@ -67,16 +69,16 @@ const HeroSection = () => {
               className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-3 text-lg font-medium transition-all duration-300 hover-lift"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Ver Projetos
+              {t("hero.button_one")}
             </Button>
-            
+
             <Button
               variant="outline"
               size="lg"
               className="border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white px-8 py-3 text-lg font-medium transition-all duration-300 hover-lift"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Entre em Contato
+              {t("hero.button_two")}
             </Button>
           </div>
         </div>

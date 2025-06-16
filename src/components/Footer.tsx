@@ -1,7 +1,10 @@
 
 import { Heart, ArrowUp } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -16,19 +19,19 @@ const Footer = () => {
               Thalys Xavier
             </h3>
             <p className="text-gray-400 max-w-md">
-              Desenvolvedor Full Stack apaixonado por criar soluções digitais inovadoras
+              {t('footer.footerSlogan')}
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="flex flex-wrap justify-center gap-6">
             {[
-              { label: 'Início', id: 'home' },
-              { label: 'Sobre', id: 'about' },
-              { label: 'Jornada', id: 'journey' },
-              { label: 'Habilidades', id: 'skills' },
-              { label: 'Projetos', id: 'projects' },
-              { label: 'Contato', id: 'contact' }
+              { label: t("navigation.home"), id: 'home' },
+              { label: t("navigation.about"), id: 'about' },
+              { label: t("navigation.journey"), id: 'journey' },
+              { label: t("navigation.habilities"), id: 'skills' },
+              { label: t("navigation.projects"), id: 'projects' },
+              { label: t("navigation.contact"), id: 'contact' }
             ].map((link) => (
               <button
                 key={link.id}
@@ -56,13 +59,13 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
           <div className="flex items-center gap-2">
-            <span>© {new Date().getFullYear()} Thalys Xavier. Todos os direitos reservados.</span>
+            <span>© {new Date().getFullYear()} Thalys Xavier. {t('footer.rights')}.</span>
           </div>
-          
+
           <div className="flex items-center gap-2">
-            <span>Feito com</span>
+            <span>{t("footer.made")}</span>
             <Heart className="w-4 h-4 text-orange-500 fill-current animate-pulse" />
-            <span>e muito</span>
+            <span>{t("footer.andMuch")}</span>
             <span className="text-orange-400">☕</span>
           </div>
         </div>

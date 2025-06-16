@@ -1,27 +1,29 @@
 
 import { Code, Coffee, Lightbulb, Users } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const AboutSection = () => {
+  const { t } = useTranslation();
   const highlights = [
     {
       icon: Code,
-      title: 'Clean Code',
-      description: 'Código limpo e bem estruturado é minha paixão.'
+      title: t('about.cards.cleanCode'),
+      description: t('about.cards.cleanCodeDescription')
     },
     {
       icon: Lightbulb,
-      title: 'Inovação',
-      description: 'Sempre em busca de soluções criativas e eficientes.'
+      title: t('about.cards.innovation'),
+      description: t('about.cards.innovationDescription')
     },
     {
       icon: Users,
-      title: 'Colaboração',
-      description: 'Trabalho em equipe e comunicação clara são essenciais.'
+      title: t('about.cards.collaboration'),
+      description: t('about.cards.collaborationDescription')
     },
     {
       icon: Coffee,
-      title: 'Dedicação',
-      description: 'Comprometido com a excelência em cada projeto.'
+      title: t('about.cards.dedication'),
+      description: t('about.cards.dedicationDescription')
     }
   ];
 
@@ -30,7 +32,7 @@ const AboutSection = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-poppins mb-4">
-            Sobre <span className="text-gradient">Mim</span>
+            {t("about.title_about")} <span className="text-gradient">{t("about.title_me")}</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto rounded-full" />
         </div>
@@ -40,29 +42,26 @@ const AboutSection = () => {
           <div className="animate-slide-in-left">
             <div className="glass-effect p-8 rounded-2xl">
               <h3 className="text-2xl font-semibold text-orange-400 mb-6">
-                Desenvolvedor Full Stack apaixonado por tecnologia
+                {t("about.cardTitle")}
               </h3>
-              
+
               <div className="space-y-4 text-gray-300 leading-relaxed">
                 <p>
-                  Com mais de 5 anos de experiência em desenvolvimento web, especializo-me em criar 
-                  aplicações modernas e escaláveis usando as tecnologias mais atuais do mercado.
+                  {t("about.cardParagraph1")}
                 </p>
-                
+
                 <p>
-                  Minha jornada começou com curiosidade sobre como as coisas funcionam na web, 
-                  e hoje transformo ideias complexas em soluções digitais elegantes e funcionais.
+                  {t("about.cardParagraph2")}
                 </p>
-                
+
                 <p>
-                  Acredito que o melhor código é aquele que resolve problemas reais de forma simples, 
-                  mantendo sempre o foco na experiência do usuário e na qualidade do produto final.
+                  {t("about.cardParagraph3")}
                 </p>
               </div>
 
               <div className="mt-8 pt-8 border-t border-gray-700">
                 <h4 className="text-lg font-semibold text-orange-400 mb-4">
-                  Principais Tecnologias
+                  {t("about.primaryTechs")}
                 </h4>
                 <div className="flex flex-wrap gap-3">
                   {['React', 'Node.js', 'TypeScript', 'React Native', 'PostgreSQL', 'MongoDB', 'Nest.js', 'Docker'].map((tech) => (
@@ -105,10 +104,10 @@ const AboutSection = () => {
         {/* Stats */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
-            { number: '10+', label: 'Projetos Concluídos' },
-            { number: '5+', label: 'Anos de Experiência' },
-            { number: '20+', label: 'Clientes Satisfeitos' },
-            { number: '100%', label: 'Comprometimento' }
+            { number: '10+', label: t('about.expCards.projectsDone') },
+            { number: '5+', label: t('about.expCards.yearsOfExperience') },
+            { number: '20+', label: t('about.expCards.clientSatisfaction') },
+            { number: '100%', label: t('about.expCards.commitment') },
           ].map((stat, index) => (
             <div
               key={stat.label}
