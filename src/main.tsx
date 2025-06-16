@@ -1,26 +1,19 @@
-import ReactDOM from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
+import App from './App.tsx'
+import './index.css'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { TooltipProvider } from './components/ui/tooltip.tsx';
+import { Toaster } from './components/ui/toaster.tsx';
+import { Toaster as Sonner } from "@/components/ui/sonner";
 
-// Styles
-import './assets/styles/tailwind.css'
-import './assets/styles/fonts.css'
-import './assets/styles/global.css'
-import 'animate.css';
+const queryClient = new QueryClient();
 
-
-import { WindowSizeProvider } from './utils/context/Responsive.js'
-import { ParallaxProvider } from 'react-scroll-parallax'
-import { FirebaseProvider } from './utils/context/FirebaseProvider.js'
-import { AppRoutes } from './utils/routes.js'
-import React from 'react';
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <ParallaxProvider>
-      <FirebaseProvider>
-        <WindowSizeProvider>
-          <AppRoutes />
-        </WindowSizeProvider>
-      </FirebaseProvider>
-    </ParallaxProvider>
-  </React.StrictMode>
-)
+createRoot(document.getElementById("root")!).render(
+    <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+            <Toaster />
+            <App />
+            <Sonner />
+        </TooltipProvider>
+    </QueryClientProvider>
+);

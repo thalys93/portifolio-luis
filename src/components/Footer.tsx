@@ -1,0 +1,74 @@
+
+import { Heart, ArrowUp } from 'lucide-react';
+
+const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <footer className="bg-gray-900/50 border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          {/* Logo and Description */}
+          <div className="text-center md:text-left">
+            <h3 className="text-2xl font-bold font-poppins text-gradient mb-2">
+              Thalys Xavier
+            </h3>
+            <p className="text-gray-400 max-w-md">
+              Desenvolvedor Full Stack apaixonado por criar soluções digitais inovadoras
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div className="flex flex-wrap justify-center gap-6">
+            {[
+              { label: 'Início', id: 'home' },
+              { label: 'Sobre', id: 'about' },
+              { label: 'Jornada', id: 'journey' },
+              { label: 'Habilidades', id: 'skills' },
+              { label: 'Projetos', id: 'projects' },
+              { label: 'Contato', id: 'contact' }
+            ].map((link) => (
+              <button
+                key={link.id}
+                onClick={() => document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' })}
+                className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm"
+              >
+                {link.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Scroll to Top */}
+          <button
+            onClick={scrollToTop}
+            className="p-3 glass-effect rounded-full hover:bg-orange-500/20 transition-all duration-300 hover-lift group"
+            aria-label="Scroll to top"
+          >
+            <ArrowUp className="w-5 h-5 text-gray-300 group-hover:text-orange-400 transition-colors" />
+          </button>
+        </div>
+
+        {/* Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent my-8" />
+
+        {/* Bottom Section */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
+          <div className="flex items-center gap-2">
+            <span>© {new Date().getFullYear()} Thalys Xavier. Todos os direitos reservados.</span>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <span>Feito com</span>
+            <Heart className="w-4 h-4 text-orange-500 fill-current animate-pulse" />
+            <span>e muito</span>
+            <span className="text-orange-400">☕</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
