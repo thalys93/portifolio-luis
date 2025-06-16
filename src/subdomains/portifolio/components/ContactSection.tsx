@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, AtSign, Trash } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, AtSign, Trash, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -106,6 +106,12 @@ const ContactSection = () => {
       name: 'Threads',
       url: 'https://www.threads.com/@luiss_xavierr',
       color: 'hover:text-blue-400'
+    },
+    {
+      icon: Instagram,
+      name: 'Instagram',
+      url: 'https://www.instagram.com/thalys.dev25/',
+      color: 'hover:text-pink-400'
     }
   ];
 

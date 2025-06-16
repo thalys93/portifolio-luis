@@ -1,5 +1,5 @@
 
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowDown, Github, Instagram, Linkedin, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 
@@ -59,6 +59,14 @@ const HeroSection = () => {
               className="p-3 glass-effect rounded-full hover:bg-orange-500/20 transition-all duration-300 hover-lift group"
             >
               <Mail className="w-6 h-6 text-gray-300 group-hover:text-orange-400 transition-colors" />
+            </a>
+            <a
+              href="https://www.instagram.com/thalys.dev25/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 glass-effect rounded-full hover:bg-orange-500/20 transition-all duration-300 hover-lift group"
+            >
+              <Instagram className="w-6 h-6 text-gray-300 group-hover:text-orange-400 transition-colors" />
             </a>
           </div>
 
