@@ -11,7 +11,7 @@ const App = () => {
 
   return (
     <BrowserRouter basename={basename}>      
-          <Routes rule={platform} isProduction={isProduction} />              
+          <Routes rule={Platform.PORTIFOLIO} isProduction={isProduction} />              
     </BrowserRouter>
   )
 };
