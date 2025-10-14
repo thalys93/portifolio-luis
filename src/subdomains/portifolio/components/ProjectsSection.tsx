@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { ExternalLink, Github, Calendar, Code, Smartphone, Globe, Rocket } from 'lucide-react';
+import { ExternalLink, Github, Calendar, Code, Smartphone, Globe, Rocket, DollarSign } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
@@ -9,14 +9,25 @@ const ProjectsSection = () => {
   const { t } = useTranslation();
   const projects = [
     {
-      title: t('projects.portifolio'),
-      description: t('projects.portifolioDescription'),
-      image: 'https://avatars.githubusercontent.com/u/102838847?v=4',
-      technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'Vercel', 'Shadcn UI'],
-      category: 'Front-End',
+      title: "Prompt Forge",
+      description: t('projects.promptForge.description'),
+      image: "https://res.cloudinary.com/dlz0kwel5/image/upload/v1760006006/site_preview_pnpns1.png",
+      technologies: ['React', 'Tailwind CSS', 'Shadcn UI', "Nest.JS", "Docker", "Groq"],
+      category: 'SASS',
       icon: Code,
-      github: 'https://github.com/thalys93/portifolio-luis',
-      demo: 'https://portifolio-luis-thalys.web.app/home',
+      github: null,
+      demo: "https://prompt-forge.org",
+      date: '2025'
+    },
+    {
+      title: t("projects.meuTroco"),
+      description: t('projects.meuTrocoDescription'),
+      image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1752518016/4jeUVj98RXQgO9PtUkkCOziTt6q2.png",
+      technologies: ['React', 'Nest.js', 'PostgreSQL', 'Docker', 'Tailwind CSS', 'Shadcn UI'],
+      category: t('projects.categories.platform'),
+      icon: DollarSign,
+      github: null,
+      demo: "https://meu-troco-app-3fe9b.web.app/",
       date: '2025'
     },
     {
@@ -34,46 +45,24 @@ const ProjectsSection = () => {
       title: t("projects.docgen"),
       description: t("projects.docgenDescription"),
       image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1750107244/projects-images/docgen_yekrmx.jpg",
-      technologies: ['React', 'Nest.js', 'PostgreSQL', 'Docker', 'Shadcn UI', "Python"],      
+      technologies: ['React', 'Nest.js', 'PostgreSQL', 'Docker', 'Shadcn UI', "Python"],
       category: 'SASS',
       icon: Rocket,
       github: null,
       demo: "https://docgen.com.br/",
       date: '2025'
-    },
+    }, 
     {
-      title: t('projects.carteira'),
-      description: t('projects.carteiraDescription'),
-      image: 'https://res.cloudinary.com/dh39ahmpj/image/upload/v1716829255/carteira_de_saude/adaptive-icon_pfyg0a.png',
-      technologies: ['React Native', 'Nest.js', 'PostgreSQL', 'Docker'],
-      category: 'Mobile',
-      icon: Smartphone,
-      github: null,
-      demo: null,
+      title: t('projects.portifolio'),
+      description: t('projects.portifolioDescription'),
+      image: 'https://avatars.githubusercontent.com/u/102838847?v=4',
+      technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'Vercel', 'Shadcn UI'],
+      category: 'Front-End',
+      icon: Code,
+      github: 'https://github.com/thalys93/portifolio-luis',
+      demo: 'https://portifolio-luis-thalys.web.app/home',
       date: '2024'
-    },
-    {
-      title: t('projects.cadeMeuRango'),
-      description: t('projects.cadeMeuRangoDescription'),
-      image: 'https://res.cloudinary.com/dh39ahmpj/image/upload/v1684280950/Cad%C3%AA%20Meu%20Rango/thumb_do_site_knjbzn.png',
-      technologies: ['React.Js', 'Firebase', 'Redux',],
-      category: 'Front-End',
-      icon: Code,
-      github: 'https://github.com/thalys93/cade-meu-rango-front',
-      demo: 'https://cade-meu-rango-front.web.app/',
-      date: '2022'
-    },
-    {
-      title: t('projects.theFilmDB'),
-      description: t('projects.theFilmDBDescription'),
-      image: 'https://res.cloudinary.com/dh39ahmpj/image/upload/v1729102237/the-film-db/Designer_bujy3v.jpg',
-      technologies: ['React.Js', 'Typescript', 'Axios'],
-      category: 'Front-End',
-      icon: Code,
-      github: 'https://github.com/thalys93/the-film-db',
-      demo: 'https://the-film-db.web.app/',
-      date: '2023'
-    },
+    },    
   ];
 
   const categories = ['Todos', 'Fullstack', 'Frontend', 'Mobile'];
@@ -191,7 +180,7 @@ const ProjectsSection = () => {
                   >
                     <a href={project.demo} target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="w-4 h-4 mr-2" />
-                      {project.demo ? 'Demo' : t('projects.unavaliable')}
+                      {project.demo ? 'Live' : t('projects.unavaliable')}
                     </a>
                   </Button>
                 </div>

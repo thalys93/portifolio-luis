@@ -1,126 +1,134 @@
 {
-    "lang": {
-        "portuguese": "Português",
-        "english": "Inglês",
-        "spanish": "Espanhol"
+  "lang": {
+    "portuguese": "Português",
+    "english": "Inglês",
+    "spanish": "Espanhol"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "about": "Sobre",
+    "journey": "Jornada",
+    "habilities": "Habilidades",
+    "projects": "Projetos",
+    "contact": "Contato"
+  },
+  "hero": {
+    "title": "Olá, eu sou",
+    "subtitle": "Desenvolvedor Full Stack",
+    "description": "Transformo ideias em experiências digitais incríveis. Especializado em React, Node.js e tecnologias modernas para criar soluções web robustas e escaláveis.",
+    "button_one": "Ver Projetos",
+    "button_two": "Entre em Contato"
+  },
+  "about": {
+    "title_about": "Sobre",
+    "title_me": "Mim",
+    "cardTitle": "Desenvolvedor Full Stack apaixonado por tecnologia",
+    "cardParagraph1": "Com mais de 5 anos de experiência em desenvolvimento web, especializo-me em criar aplicações modernas e escaláveis usando as tecnologias mais atuais do mercado.",
+    "cardParagraph2": "Minha jornada começou com curiosidade sobre como as coisas funcionam na web, e hoje transformo ideias complexas em soluções digitais elegantes e funcionais.",
+    "cardParagraph3": "Acredito que o melhor código é aquele que resolve problemas reais de forma simples, mantendo sempre o foco na experiência do usuário e na qualidade do produto final.",
+    "primaryTechs": "Principais Tecnologias",
+    "cards": {
+      "cleanCode": "Código Limpo",
+      "cleanCodeDescription": "Código limpo e bem estruturado é minha paixão.",
+      "innovation": "Inovação",
+      "innovationDescription": "Sempre em busca de soluções criativas e eficientes.",
+      "collaboration": "Colaboração",
+      "collaborationDescription": "Trabalho em equipe e comunicação clara são essenciais.",
+      "dedication": "Dedicação",
+      "dedicationDescription": "Comprometido com a excelência em cada projeto."
     },
-    "navigation": {
-        "home": "Inicio",
-        "about": "Sobre",
-        "journey": "Jornada",
-        "habilities": "Habilidades",
-        "projects": "Projetos",
-        "contact": "Contato"
-    },
-    "hero": {
-        "title": "Olá, eu sou",
-        "subtitle": "Desenvolvedor Full Stack",
-        "description": "Transformo ideias em experiências digitais incríveis. Especializado em React, Node.js e tecnologias modernas para criar soluções web robustas e escaláveis.",
-        "button_one": "Ver Projetos",
-        "button_two": "Entre em Contato"
-    },
-    "about": {
-        "title_about": "Sobre",
-        "title_me": "Mim",
-        "cardTitle": "Desenvolvedor Full Stack apaixonado por tecnologia",
-        "cardParagraph1": "Com mais de 5 anos de experiência em desenvolvimento web, especializo-me em criar aplicações modernas e escaláveis usando as tecnologias mais atuais do mercado.",
-        "cardParagraph2": "Minha jornada começou com curiosidade sobre como as coisas funcionam na web, e hoje transformo ideias complexas em soluções digitais elegantes e funcionais.",
-        "cardParagraph3": "Acredito que o melhor código é aquele que resolve problemas reais de forma simples, mantendo sempre o foco na experiência do usuário e na qualidade do produto final.",
-        "primaryTechs": "Principais Tecnologias",
-        "cards": {
-            "cleanCode": "Código Limpo",
-            "cleanCodeDescription": "Código limpo e bem estruturado é minha paixão.",
-            "innovation": "Inovação",
-            "innovationDescription": "Sempre em busca de soluções criativas e eficientes.",
-            "collaboration": "Colaboração",
-            "collaborationDescription": "Trabalho em equipe e comunicação clara são essenciais.",
-            "dedication": "Dedicação",
-            "dedicationDescription": "Comprometido com a excelência em cada projeto."
-        },
-        "expCards": {
-            "projectsDone": "Projetos Concluídos",
-            "yearsOfExperience": "Anos de Experiência",
-            "clientSatisfaction": "Clientes Satisfeitos",
-            "commitment": "Compromentimento"
-        }
-    },
-    "journey": {
-        "title_my": "Minha",
-        "title_journey": "Jornada",
-        "description": "Como a curiosidade por tecnologia se transformou em paixão pela programação",
-        "firstClick": "O Primeiro Clique",
-        "firstDescription": "Descobri que podia criar algo do zero apenas digitando código em um Curso Técnico. Me apaixonei pelo mundo da programação e comecei a estudar HTML, CSS e JavaScript.",
-        "continousLearning": "Aprendizado Contínuo",
-        "continousDescription": "Cada projeto é uma nova aventura. Do frontend ao backend, cada linha de código me ensina algo novo. A programação não é só minha profissão — é minha forma de resolver problemas e criar impacto.",
-        "connectingPeople": "Conectando Pessoas",
-        "connectingPeopleDescription": "O que mais me motiva é saber que por trás de cada aplicação existem pessoas reais. Desenvolvo pensando em como posso facilitar a vida de alguém, criar conexões e gerar valor genuíno.",
-        "quote": " 'A tecnologia é melhor quando aproxima as pessoas.' - Matt Mullenweg' ",
-        "quoteConnect": "Vamos construir algo incrível juntos? 👇"
-    },
-    "skills": {
-        "title_my": "Minhas",
-        "title_skills": "Habilidades",
-        "description": "Tecnologias e ferramentas que domino para criar soluções completas e eficientes",
-        "otherSkills": "Outras Competências"
-    },
-    "projects": {
-        "title_my": "Meus",
-        "title_projects": "Projetos",
-        "description": "Alguns dos projetos que desenvolvi recentemente, demonstrando minhas habilidades e experiência",
-        "portifolio": "Portifolio Website",
-        "portifolioDescription": "Site portfólio responsivo com animações suaves, otimizado para SEO e alta performance.",
-        "carteira": "Carteira de Saúde",
-        "carteiraDescription": "O Carteira de Saúde É um aplicativo de controle de saúde, onde o usuário pode adicionar os exames e consultas, além disso, o usuário pode ver o histórico de exames e consultas.",
-        "cadeMeuRango": "Cade Meu Rango",
-        "cadeMeuRangoDescription": "A Cade Meu Rango É uma plataforma de listagem de receitas culinárias, onde os usuários podem cadastrar suas receitas e compartilhar com outros usuários.",
-        "theFilmDB": "The Film DB",
-        "theFilmDBDescription": "O The Film DB é um site de filmes e series, onde os usuários podem buscar filmes e series, e ver informações sobre eles.",
-        "unavaliable": "Indisponível",
-        "interest": "Interessado em ver mais projetos ou discutir uma colaboração?",
-        "interestButton": "Vamos Conversar",
-        "tchepi": "Tchêpi",
-        "tchepiDescription": "A Tchêpi é um e-commerce criado em 2025 a partir de uma iniciativa conjunta entre a Transformar e a Aliança Empreendedora. Pensado para apoiar microempreendedoras que produzem itens artesanais, o projeto oferece uma plataforma acessível e justa para divulgação e venda de seus produtos.",
-        "docgen": "DocGen",
-        "docgenDescription": "Gere documentações completas e automáticas com IA, economizando tempo e melhorando a manutenção do seu código."
-    },
-    "contact": {
-        "title_start": "Entre em ",
-        "title_contact": "Contato",
-        "description": "Vamos transformar sua ideia em realidade! Entre em contato para discutir seu próximo projeto",
-        "contactInfo": "Informações de Contato",
-        "email": "E-Mail",
-        "cellphone": "Telefone",
-        "localization": "Localização",
-        "socialMedia": "Redes Sociais",
-        "avaliability": "Disponiblidade",
-        "avaliability_text1": "Disponível para novos projetos",
-        "avaliability_text2": "Respondo geralmente em até 24 horas",
-        "form": {
-            "contactForm": "Formulario de Contato",
-            "sendMessage": "Enviar Mensagem",
-            "name": "Nome",
-            "placeholder": "Digite seu nome",
-            "email": "E-Mail",
-            "placeholder_email": "seu@email.com",
-            "subject": "Assunto",
-            "placeholder_subject": "Assunto da Mensagem",
-            "message": "Mensagem",
-            "placeholder_message": "Descreva seu projeto ou dúvida...",
-            "reset": "Limpar",
-            "toast": {
-                "title": "Mensagem enviada!",
-                "description": "Obrigado pelo contato! Responderei em breve!",
-                "error": "Erro ao enviar a mensagem",
-                "error_description": "Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente."
-            },
-            "sendButton": "Enviar",
-            "sendAction": "Enviando..."
-        }
-    },
-    "footer": {
-        "footerSlogan": "Desenvolvedor Full Stack apaixonado por criar soluções digitais inovadoras",
-        "rights": "Todos os direitos reservados",
-        "made": "Feito com",
-        "andMuch": "e muito"
+    "expCards": {
+      "projectsDone": "Projetos Concluídos",
+      "yearsOfExperience": "Anos de Experiência",
+      "clientSatisfaction": "Clientes Satisfeitos",
+      "commitment": "Compromentimento"
     }
+  },
+  "journey": {
+    "title_my": "Minha",
+    "title_journey": "Jornada",
+    "description": "Como a curiosidade por tecnologia se transformou em paixão pela programação",
+    "firstClick": "O Primeiro Clique",
+    "firstDescription": "Descobri que podia criar algo do zero apenas digitando código em um Curso Técnico. Me apaixonei pelo mundo da programação e comecei a estudar HTML, CSS e JavaScript.",
+    "continousLearning": "Aprendizado Contínuo",
+    "continousDescription": "Cada projeto é uma nova aventura. Do frontend ao backend, cada linha de código me ensina algo novo. A programação não é só minha profissão — é minha forma de resolver problemas e criar impacto.",
+    "connectingPeople": "Conectando Pessoas",
+    "connectingPeopleDescription": "O que mais me motiva é saber que por trás de cada aplicação existem pessoas reais. Desenvolvo pensando em como posso facilitar a vida de alguém, criar conexões e gerar valor genuíno.",
+    "quote": " 'A tecnologia é melhor quando aproxima as pessoas.' - Matt Mullenweg' ",
+    "quoteConnect": "Vamos construir algo incrível juntos? 👇"
+  },
+  "skills": {
+    "title_my": "Minhas",
+    "title_skills": "Habilidades",
+    "description": "Tecnologias e ferramentas que domino para criar soluções completas e eficientes",
+    "otherSkills": "Outras Competências"
+  },
+  "projects": {
+    "title_my": "Meus",
+    "title_projects": "Projetos",
+    "description": "Alguns dos projetos que desenvolvi recentemente, demonstrando minhas habilidades e experiência",
+    "portifolio": "Portifolio Website",
+    "portifolioDescription": "Site portfólio responsivo com animações suaves, otimizado para SEO e alta performance.",
+    "carteira": "Carteira de Saúde",
+    "carteiraDescription": "O Carteira de Saúde É um aplicativo de controle de saúde, onde o usuário pode adicionar os exames e consultas, além disso, o usuário pode ver o histórico de exames e consultas.",
+    "cadeMeuRango": "Cade Meu Rango",
+    "cadeMeuRangoDescription": "A Cade Meu Rango É uma plataforma de listagem de receitas culinárias, onde os usuários podem cadastrar suas receitas e compartilhar com outros usuários.",
+    "theFilmDB": "The Film DB",
+    "theFilmDBDescription": "O The Film DB é um site de filmes e series, onde os usuários podem buscar filmes e series, e ver informações sobre eles.",
+    "unavaliable": "Indisponível",
+    "interest": "Interessado em ver mais projetos ou discutir uma colaboração?",
+    "interestButton": "Vamos Conversar",
+    "tchepi": "Tchêpi",
+    "tchepiDescription": "A Tchêpi é um e-commerce criado em 2025 a partir de uma iniciativa conjunta entre a Transformar e a Aliança Empreendedora. Pensado para apoiar microempreendedoras que produzem itens artesanais, o projeto oferece uma plataforma acessível e justa para divulgação e venda de seus produtos.",
+    "docgen": "DocGen",
+    "docgenDescription": "Gere documentações completas e automáticas com IA, economizando tempo e melhorando a manutenção do seu código.",
+    "meuTroco": "Meu Troco",
+    "meuTrocoDescription": "O Meu Troco é o aplicativo perfeito para quem quer manter suas finanças organizadas de forma simples e eficiente. Com uma interface intuitiva e recursos essenciais, você pode acompanhar seus gastos, visualizar suas contas mensais e manter tudo sob controle com total segurança.",
+    "categories": {
+      "platform": "Plataforma"
+    },
+    "promptForge": {
+      "description": "Prompt Forge é uma ferramenta que permite a criação de prompts personalizados para uso em modelos de linguagem. Com uma interface intuitiva, os usuários podem definir os parâmetros desejados, como o tema, o público-alvo e o formato da resposta. O Prompt Forge também oferece a opção de salvar os prompts criados para uso futuro."
+    }
+  },
+  "contact": {
+    "title_start": "Entre em ",
+    "title_contact": "Contato",
+    "description": "Vamos transformar sua ideia em realidade! Entre em contato para discutir seu próximo projeto",
+    "contactInfo": "Informações de Contato",
+    "email": "E-Mail",
+    "cellphone": "Telefone",
+    "localization": "Localização",
+    "socialMedia": "Redes Sociais",
+    "avaliability": "Disponiblidade",
+    "avaliability_text1": "Disponível para novos projetos",
+    "avaliability_text2": "Respondo geralmente em até 24 horas",
+    "form": {
+      "contactForm": "Formulario de Contato",
+      "sendMessage": "Enviar Mensagem",
+      "name": "Nome",
+      "placeholder": "Digite seu nome",
+      "email": "E-Mail",
+      "placeholder_email": "seu@email.com",
+      "subject": "Assunto",
+      "placeholder_subject": "Assunto da Mensagem",
+      "message": "Mensagem",
+      "placeholder_message": "Descreva seu projeto ou dúvida...",
+      "reset": "Limpar",
+      "toast": {
+        "title": "Mensagem enviada!",
+        "description": "Obrigado pelo contato! Responderei em breve!",
+        "error": "Erro ao enviar a mensagem",
+        "error_description": "Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente."
+      },
+      "sendButton": "Enviar",
+      "sendAction": "Enviando..."
+    }
+  },
+  "footer": {
+    "footerSlogan": "Desenvolvedor Full Stack apaixonado por criar soluções digitais inovadoras",
+    "rights": "Todos os direitos reservados",
+    "made": "Feito com",
+    "andMuch": "e muito"
+  }
 }
