@@ -30,7 +30,7 @@ const JourneySection = () => {
               {/* Main image container */}
               <div className="relative overflow-hidden rounded-2xl glass-effect p-1">
                 <img
-                  src="https://res.cloudinary.com/dh39ahmpj/image/upload/v1750092499/portifolio.dev/portifolio_profile_tvpbpg.png"
+                  src="https://res.cloudinary.com/dlz0kwel5/image/upload/v1760558227/Desenvolvedor_ke6ec1.png"
                   alt="Thalys Xavier - Desenvolvedor Full Stack"
                   className="w-full h-[600px] object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
                 />
@@ -41,10 +41,10 @@ const JourneySection = () => {
 
               {/* Floating elements */}
               <div className="absolute -top-4 -right-4 glass-effect p-3 rounded-xl hover-lift">
-                <Code2 className="w-6 h-6 text-orange-400" />
+                <Code2 className="w-6 h-6 text-slate-400" />
               </div>
               <div className="absolute -bottom-4 -left-4 glass-effect p-3 rounded-xl hover-lift">
-                <Heart className="w-6 h-6 text-orange-500 fill-current" />
+                <Heart className="w-6 h-6 text-slate-500 fill-current" />
               </div>
             </div>
           </div>
@@ -54,11 +54,11 @@ const JourneySection = () => {
             {/* Story blocks */}
             <div className="space-y-8">
               <div className="flex gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-orange-500/20 transition-all duration-300">
-                  <Lightbulb className="w-6 h-6 text-orange-400" />
+                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-slate-500/20 transition-all duration-300">
+                  <Lightbulb className="w-6 h-6 text-slate-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-orange-400 mb-2 font-poppins">
+                  <h3 className="text-xl font-semibold text-slate-400 mb-2 font-poppins">
                     {t("journey.firstClick")}
                   </h3>
                   <p className="text-gray-300 leading-relaxed">
@@ -68,11 +68,11 @@ const JourneySection = () => {
               </div>
 
               <div className="flex gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-orange-500/20 transition-all duration-300">
-                  <Code2 className="w-6 h-6 text-orange-400" />
+                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-slate-500/20 transition-all duration-300">
+                  <Code2 className="w-6 h-6 text-slate-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-orange-400 mb-2 font-poppins">
+                  <h3 className="text-xl font-semibold text-slate-400 mb-2 font-poppins">
                     {t("journey.continousLearning")}
                   </h3>
                   <p className="text-gray-300 leading-relaxed">
@@ -82,11 +82,11 @@ const JourneySection = () => {
               </div>
 
               <div className="flex gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-orange-500/20 transition-all duration-300">
-                  <User className="w-6 h-6 text-orange-400" />
+                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-slate-500/20 transition-all duration-300">
+                  <User className="w-6 h-6 text-slate-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-orange-400 mb-2 font-poppins">
+                  <h3 className="text-xl font-semibold text-slate-400 mb-2 font-poppins">
                     {t("journey.connectingPeople")}
                   </h3>
                   <p className="text-gray-300 leading-relaxed">
@@ -98,11 +98,11 @@ const JourneySection = () => {
 
             {/* Call to action */}
             <div className="pt-6">
-              <div className="glass-effect p-6 rounded-xl border border-orange-500/20">
+              <div className="glass-effect p-6 rounded-xl border border-slate-500/20">
                 <p className="text-gray-300 mb-4 italic">
                   {t("journey.quote")}
                 </p>
-                <p className="text-orange-400 font-medium">
+                <p className="text-slate-400 font-medium">
                   {t("journey.quoteConnect")}
                 </p>
               </div>

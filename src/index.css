@@ -63,7 +63,7 @@
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-slate-400 to-slate-600 bg-clip-text text-transparent;
   }
 
   .hover-lift {

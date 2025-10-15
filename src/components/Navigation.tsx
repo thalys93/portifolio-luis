@@ -68,9 +68,9 @@ const Navigation = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-orange-400 ${activeSection === item.id
-                      ? 'text-orange-500 border-b-2 border-orange-500'
-                      : 'text-gray-300 hover:text-orange-400'
+                  className={`px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-slate-400 ${activeSection === item.id
+                      ? 'text-slate-500 border-b-2 border-slate-500'
+                      : 'text-gray-300 hover:text-slate-400'
                     }`}
                 >
                   {item.label}
@@ -103,8 +103,8 @@ const Navigation = () => {
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
                 className={`block w-full text-left px-3 py-2 text-base font-medium transition-colors duration-300 ${activeSection === item.id
-                    ? 'text-orange-500 bg-orange-500/10'
-                    : 'text-gray-300 hover:text-orange-400 hover:bg-orange-400/10'
+                    ? 'text-slate-500 bg-slate-500/10'
+                    : 'text-gray-300 hover:text-slate-400 hover:bg-slate-400/10'
                   }`}
               >
                 {item.label}

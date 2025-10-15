@@ -10,7 +10,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900/50 border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-slate-900/50 border-t border-slate-800 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Logo and Description */}
@@ -36,7 +36,7 @@ const Footer = () => {
               <button
                 key={link.id}
                 onClick={() => document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-sm"
+                className="text-gray-400 hover:text-slate-400 transition-colors duration-300 text-sm"
               >
                 {link.label}
               </button>
@@ -46,10 +46,10 @@ const Footer = () => {
           {/* Scroll to Top */}
           <button
             onClick={scrollToTop}
-            className="p-3 glass-effect rounded-full hover:bg-orange-500/20 transition-all duration-300 hover-lift group"
+            className="p-3 glass-effect rounded-full hover:bg-slate-500/20 transition-all duration-300 hover-lift group"
             aria-label="Scroll to top"
           >
-            <ArrowUp className="w-5 h-5 text-gray-300 group-hover:text-orange-400 transition-colors" />
+            <ArrowUp className="w-5 h-5 text-gray-300 group-hover:text-slate-400 transition-colors" />
           </button>
         </div>
 
@@ -64,9 +64,9 @@ const Footer = () => {
 
           <div className="flex items-center gap-2">
             <span>{t("footer.made")}</span>
-            <Heart className="w-4 h-4 text-orange-500 fill-current animate-pulse" />
+            <Heart className="w-4 h-4 text-slate-500 fill-current animate-pulse" />
             <span>{t("footer.andMuch")}</span>
-            <span className="text-orange-400">☕</span>
+            <span className="text-slate-400">☕</span>
           </div>
         </div>
       </div>
