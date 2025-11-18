@@ -15,7 +15,7 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Link, useLocation } from "react-router-dom";
-import { Home, FolderGit2, LogOut, Tag } from "lucide-react";
+import { Home, FolderGit2, LogOut, Tag, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/services/firebase";
@@ -32,7 +32,7 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
         <SidebarProvider>
             <Sidebar>
                 <SidebarHeader>
-                    <div className="px-2 py-4 text-lg font-poppins select-none">Portifólio Gestor</div>
+                    <div className="px-2 py-4 text-lg font-poppins select-none"><Globe className="h-4 w-4 mb-1 mr-1 inline-block" /> Gestor</div>
                 </SidebarHeader>
 
                 <SidebarContent>

@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import { getAnalytics, isSupported, logEvent, type Analytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, doc, setDoc, increment, serverTimestamp } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -33,8 +33,13 @@ export async function initAnalytics() {
 }
 
 export function trackEvent(name: string, params?: Record<string, any>) {
-    if (!FirebaseAnalytics) return;
-    try { logEvent(FirebaseAnalytics, name, params); } catch { }
+    if (FirebaseAnalytics) {
+        try { logEvent(FirebaseAnalytics, name, params); } catch { }
+    }
+    try {
+        const d = doc(FirebaseDB, 'analytics_events', name)
+        setDoc(d, { count: increment(1), lastAt: serverTimestamp() }, { merge: true })
+    } catch {}
 }
 
 export function trackPageView(path: string) {

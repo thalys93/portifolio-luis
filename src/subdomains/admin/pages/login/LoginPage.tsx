@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import { FirebaseAuth, AuthProviders } from '@/services/firebase';
 import { Github } from 'lucide-react';
+import AuroraBackground from './components/animated-shader-bg';
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -33,6 +34,7 @@ function LoginPage() {
 
     return (
         <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background text-foreground">
+            <AuroraBackground />
             <div aria-hidden className="pointer-events-none absolute inset-0">
                 <div className="absolute inset-0 opacity-15 mix-blend-overlay bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:32px_32px]" />
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-900/40 via-background to-slate-900/20" />
