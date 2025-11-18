@@ -7,13 +7,14 @@ import { Routes } from "./routes";
 
 const App = () => {
   const { platform, isProduction } = getPlatform();
-  const basename = !isProduction && platform !== Platform.PORTIFOLIO ? `/${platform}` : undefined;
+  
+  const basename = platform === Platform.ADMIN ? "/admin" : undefined;
 
   return (
-    <BrowserRouter basename={basename}>      
-          <Routes rule={Platform.PORTIFOLIO} isProduction={isProduction} />              
+    <BrowserRouter basename={basename}>
+      <Routes rule={platform} isProduction={isProduction} />
     </BrowserRouter>
-  )
+  );
 };
 
 export default App;

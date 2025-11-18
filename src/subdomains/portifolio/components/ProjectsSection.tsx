@@ -1,71 +1,65 @@
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ExternalLink, Github, Calendar, Code, Smartphone, Globe, Rocket, DollarSign } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
+import { FirebaseDB } from '@/services/firebase'
+import { collection, getDocs } from 'firebase/firestore'
 
 const ProjectsSection = () => {
-  const { t } = useTranslation();
-  const projects = [
-    {
-      title: "Prompt Forge",
-      description: t('projects.promptForge.description'),
-      image: "https://res.cloudinary.com/dlz0kwel5/image/upload/v1760006006/site_preview_pnpns1.png",
-      technologies: ['React', 'Tailwind CSS', 'Shadcn UI', "Nest.JS", "Docker", "Groq"],
-      category: 'SASS',
-      icon: Code,
-      github: null,
-      demo: "https://prompt-forge.org",
-      date: '2025'
-    },
-    {
-      title: t("projects.meuTroco"),
-      description: t('projects.meuTrocoDescription'),
-      image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1752518016/4jeUVj98RXQgO9PtUkkCOziTt6q2.png",
-      technologies: ['React', 'Nest.js', 'PostgreSQL', 'Docker', 'Tailwind CSS', 'Shadcn UI'],
-      category: t('projects.categories.platform'),
-      icon: DollarSign,
-      github: null,
-      demo: "https://meu-troco-app-3fe9b.web.app/",
-      date: '2025'
-    },
-    {
-      title: t("projects.tchepi"),
-      description: t('projects.tchepiDescription'),
-      image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1750106821/projects-images/tchepi_dark_p3hy7e.jpg",
-      technologies: ['React', 'Nest.js', 'PostgreSQL', 'Docker', 'Tailwind CSS', 'Shadcn UI'],
-      category: 'Eccomerce',
-      icon: Globe,
-      github: null,
-      demo: "https://tchepi-hml.web.app/",
-      date: '2025'
-    },
-    {
-      title: t("projects.docgen"),
-      description: t("projects.docgenDescription"),
-      image: "https://res.cloudinary.com/dh39ahmpj/image/upload/v1750107244/projects-images/docgen_yekrmx.jpg",
-      technologies: ['React', 'Nest.js', 'PostgreSQL', 'Docker', 'Shadcn UI', "Python"],
-      category: 'SASS',
-      icon: Rocket,
-      github: null,
-      demo: "https://docgen.com.br/",
-      date: '2025'
-    }, 
-    {
-      title: t('projects.portifolio'),
-      description: t('projects.portifolioDescription'),
-      image: 'https://avatars.githubusercontent.com/u/102838847?v=4',
-      technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'Vercel', 'Shadcn UI'],
-      category: 'Front-End',
-      icon: Code,
-      github: 'https://github.com/thalys93/portifolio-luis',
-      demo: 'https://portifolio-luis-thalys.web.app/home',
-      date: '2024'
-    },    
-  ];
+  const { t, i18n } = useTranslation();
+  const [projects, setProjects] = useState<any[]>([]);
+  const [catList, setCatList] = useState<any[]>([]);
 
-  const categories = ['Todos', 'Fullstack', 'Frontend', 'Mobile'];
+  React.useEffect(() => {
+    const load = async () => {
+      try {
+        const snap = await getDocs(collection(FirebaseDB, 'projects'))
+        const items = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) }))
+        setProjects(items)
+      } catch { }
+    }
+    load()
+  }, [])
+
+  React.useEffect(() => {
+    const loadCats = async () => {
+      try {
+        const snap = await getDocs(collection(FirebaseDB, 'categories'))
+        setCatList(snap.docs.map((d) => ({ ...(d.data() as any) })))
+      } catch {}
+    }
+    loadCats()
+  }, [])
+
+  const categories = React.useMemo(() => {
+    const set = new Set<string>(['Todos'])
+    projects.forEach((p) => { if (p.category) set.add(p.category) })
+    return Array.from(set)
+  }, [projects])
+
+  const iconMap: Record<string, any> = { 'code': Code, 'globe': Globe, 'rocket': Rocket, 'dollar-sign': DollarSign }
+
+  const getText = (p: any) => {
+    const lang = (i18n.language || 'ptbr') as 'ptbr' | 'en' | 'es'
+    const fallbackTitle = p?.i18n?.[lang]?.title || p?.i18n?.ptbr?.title || ''
+    const fallbackDesc = p?.i18n?.[lang]?.description || p?.i18n?.ptbr?.description || ''
+    return {
+      title: p.i18nKey ? t(`${p.i18nKey}.title`, { defaultValue: fallbackTitle }) : fallbackTitle,
+      description: p.i18nKey ? t(`${p.i18nKey}.description`, { defaultValue: fallbackDesc }) : fallbackDesc,
+    }
+  }
+
+  const getCategoryName = (slug: string) => {
+    if (!slug || slug === 'Todos') return slug
+    const c = catList.find((x) => x.slug === slug)
+    if (!c) return slug
+    const lang = (i18n.language || 'ptbr') as 'ptbr' | 'en' | 'es'
+    const fallback = c?.i18n?.[lang]?.name || c?.i18n?.ptbr?.name || slug
+    return c.i18nKey ? t(`${c.i18nKey}.name`, { defaultValue: fallback }) : fallback
+  }
+
   const [activeCategory, setActiveCategory] = useState('Todos');
 
   const filteredProjects = activeCategory === 'Todos'
@@ -84,8 +78,7 @@ const ProjectsSection = () => {
             {t('projects.description')}
           </p>
         </div>
-
-        {/* Category Filter */}
+        
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category) => (
             <button
@@ -96,7 +89,7 @@ const ProjectsSection = () => {
                 : 'glass-effect text-slate-300 hover:bg-slate-500/20 hover:text-slate-400'
                 }`}
             >
-              {category}
+              {category === 'Todos' ? 'Todos' : getCategoryName(category)}
             </button>
           ))}
         </div>
@@ -105,7 +98,7 @@ const ProjectsSection = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, index) => (
             <div
-              key={project.title}
+              key={project.id}
               className="glass-effect rounded-2xl overflow-hidden hover:bg-slate-500/5 transition-all duration-500 hover-lift group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
@@ -113,16 +106,16 @@ const ProjectsSection = () => {
               <div className="relative overflow-hidden h-48">
                 <img
                   src={project.image}
-                  alt={project.title}
+                  alt={getText(project).title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1 bg-black/60 backdrop-blur-sm rounded-full">
-                  <project.icon className="w-4 h-4 text-slate-400" />
+                  {React.createElement(iconMap[project.icon] || Code, { className: "w-4 h-4 text-slate-400" })}
                   <span className="text-slate-400 text-sm font-medium">
-                    {project.category}
+                    {getCategoryName(project.category)}
                   </span>
                 </div>
 
@@ -138,11 +131,11 @@ const ProjectsSection = () => {
               {/* Project Content */}
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-slate-400 mb-3 group-hover:text-slate-300 transition-colors">
-                  {project.title}
+                  {getText(project).title}
                 </h3>
 
                 <p className="text-slate-300 mb-4 leading-relaxed">
-                  {project.description}
+                  {getText(project).description}
                 </p>
 
                 {/* Technologies */}
