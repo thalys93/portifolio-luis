@@ -2,6 +2,8 @@
 import { ArrowDown, Github, Instagram, Linkedin, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
+import { trackEvent } from '@/services/firebase';
 
 const HeroSection = () => {
   const scrollToAbout = () => {
@@ -9,6 +11,10 @@ const HeroSection = () => {
   };
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+    trackEvent("hero_section_viewed", { section: "hero" });
+  }, [])
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">

@@ -1,5 +1,7 @@
 
+import { trackEvent } from '@/services/firebase';
 import { Code, Coffee, Lightbulb, Users } from 'lucide-react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const AboutSection = () => {
@@ -26,6 +28,10 @@ const AboutSection = () => {
       description: t('about.cards.dedicationDescription')
     }
   ];
+
+  useEffect(() => {
+    trackEvent("about_section_viewed", { section: "about" });
+  }, [])
 
   return (
     <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">

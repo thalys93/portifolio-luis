@@ -1,5 +1,7 @@
 
+import { trackEvent } from '@/services/firebase';
 import { Database, Globe, Smartphone, Server, Palette, Zap } from 'lucide-react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const SkillsSection = () => {
@@ -76,6 +78,10 @@ const SkillsSection = () => {
   ];
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+      trackEvent("skills_section_viewed", { section: "skills" });
+    }, [])
 
 
   return (

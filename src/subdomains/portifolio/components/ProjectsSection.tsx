@@ -4,13 +4,17 @@ import { ExternalLink, Github, Calendar, Code, Smartphone, Globe, Rocket, Dollar
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-import { FirebaseDB } from '@/services/firebase'
+import { FirebaseDB, trackEvent } from '@/services/firebase'
 import { collection, getDocs } from 'firebase/firestore'
 
 const ProjectsSection = () => {
   const { t, i18n } = useTranslation();
   const [projects, setProjects] = useState<any[]>([]);
   const [catList, setCatList] = useState<any[]>([]);
+
+  React.useEffect(() => {
+    trackEvent("projects_section_viewed", { section: "projects" });
+  }, [])
 
   React.useEffect(() => {
     const load = async () => {

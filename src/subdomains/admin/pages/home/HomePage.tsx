@@ -1,14 +1,33 @@
+import { useEffect, useState } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { FolderGit2, Languages, Globe } from 'lucide-react'
+import { FolderGit2, Languages, Globe, PlusCircle, Tags, List } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import PrivateLayout from '../../layout/private-layout'
+import { getFirestore, collection, getDocs } from 'firebase/firestore'
+
+const locales = import.meta.glob('/src/locale/*.json')
 
 function HomePage() {
+  const [projectCount, setProjectCount] = useState<number | null>(null)
+  const [localeCount, setLocaleCount] = useState<number>(0)
+
+  useEffect(() => {    
+    const fetchProjects = async () => {
+      const db = getFirestore()
+      const querySnapshot = await getDocs(collection(db, 'projects'))
+      setProjectCount(querySnapshot.size)
+    }
+
+    fetchProjects()
+    
+    setLocaleCount(Object.keys(locales).length)
+  }, [])
+
   const metrics = [
-    { label: 'Projetos cadastrados', value: 12, icon: FolderGit2 },
-    { label: 'Projetos traduzidos', value: 8, icon: Languages },
-    { label: 'Idiomas suportados', value: 3, icon: Globe },
+    { label: 'Projetos cadastrados', value: projectCount ?? '...', icon: FolderGit2 },
+    { label: 'Projetos traduzidos', value: projectCount ?? '...', icon: Languages },
+    { label: 'Idiomas suportados', value: localeCount, icon: Globe },
   ]
 
   return (
@@ -33,16 +52,48 @@ function HomePage() {
           <CardHeader>
             <CardTitle className="font-poppins">Ações rápidas</CardTitle>
           </CardHeader>
-          <CardContent className="flex gap-3">
-            <Button asChild>
-              <Link to="/projects">Gerenciar projetos</Link>
+          <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <Button
+              asChild
+              className="group flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-transparent hover:border-sky-400 transition-all duration-200 bg-neutral-800 shadow-md h-24 w-full hover:text-sky-500 font-semibold"
+            >
+              <Link to="/projects">
+                <FolderGit2 className="h-6 w-6 group-hover:text-sky-400 transition-colors" />
+                Gerenciar projetos
+              </Link>
             </Button>
-            <Button variant="outline" asChild>
-              <Link to="/projects">Cadastrar novo</Link>
+            <Button
+              variant="outline"
+              asChild
+              className="group flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-transparent hover:border-green-400 transition-all duration-200 bg-neutral-800 shadow-md h-24 w-full hover:text-emerald-500 font-semibold"
+            >
+              <Link to="/projects/new">
+                <PlusCircle className="h-6 w-6 group-hover:text-green-400 transition-colors" />
+                Cadastrar novo
+              </Link>
+            </Button>
+            <Button
+              variant="outline"
+              asChild
+              className="group flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-transparent hover:border-purple-400 transition-all duration-200 bg-neutral-800 shadow-md h-24 w-full hover:text-purple-500 font-semibold"
+            >
+              <Link to="/categories">
+                <Tags className="h-6 w-6 group-hover:text-purple-400 transition-colors" />
+                Categorias
+              </Link>
+            </Button>
+            <Button
+              variant="outline"
+              asChild
+              className="group flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-transparent hover:border-orange-400 transition-all duration-200 bg-neutral-800 shadow-md h-24 w-full hover:text-orange-500 font-semibold"
+            >
+              <Link to="/projects/list">
+                <List className="h-6 w-6 group-hover:text-orange-400 transition-colors" />
+                Listar projetos
+              </Link>
             </Button>
           </CardContent>
         </Card>
-
         <Card className="glass-effect">
           <CardHeader>
             <CardTitle className="font-poppins">Google Ads (teste)</CardTitle>

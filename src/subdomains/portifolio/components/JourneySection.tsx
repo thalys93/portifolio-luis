@@ -1,9 +1,14 @@
 
+import { trackEvent } from '@/services/firebase';
 import { User, Code2, Heart, Lightbulb } from 'lucide-react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const JourneySection = () => {
   const { t } = useTranslation();
+  useEffect(() => {
+      trackEvent("journey_section_viewed", { section: "journey" });
+    }, [])
   return (
     <section id="journey" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background decoration */}

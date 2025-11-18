@@ -13,7 +13,7 @@ import ImageDropzone from '@/components/dropzone'
 import { FirebaseDB, FirebaseStorage } from '@/services/firebase'
 import { collection, addDoc, doc, getDoc, updateDoc, getDocs } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { Code, DollarSign, Globe, Image, List, Rocket } from 'lucide-react'
+import { Globe, Image, List } from 'lucide-react'
 import { IconsSelect } from '@/shared/consts/Icons'
 
 type FormValues = {
