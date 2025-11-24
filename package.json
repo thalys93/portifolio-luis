@@ -9,7 +9,7 @@
     "build:dev": "vite build --mode development",
     "deploy": "vite build && firebase deploy",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview"    
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

@@ -28,7 +28,7 @@ function LanguageSwitcher() {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger className='glass-effect hover:bg-orange-700/50 transition-all p-2 rounded relative md:top-3'>
+            <DropdownMenuTrigger className='glass-effect hover:bg-slate-700/50 transition-all p-2 rounded relative md:top-3'>
                 <Languages className='size-4' />
             </DropdownMenuTrigger>
             <DropdownMenuContent>

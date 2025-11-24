@@ -15,25 +15,7 @@ import { collection, addDoc, doc, getDoc, updateDoc, getDocs } from 'firebase/fi
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { Globe, Image, List } from 'lucide-react'
 import { IconsSelect } from '@/shared/consts/Icons'
-
-type FormValues = {
-    title: string
-    description: string
-    image: string
-    technologies: string
-    category: string
-    icon: string
-    github: string
-    demo: string
-    date: string
-    i18nKey: string
-    title_ptbr: string
-    description_ptbr: string
-    title_en: string
-    description_en: string
-    title_es: string
-    description_es: string
-}
+import { ProjectForm } from '@/types/form/project.form'
 
 function ProjectPage() {
     const { id } = useParams()
@@ -43,7 +25,7 @@ function ProjectPage() {
     const [initialImage, setInitialImage] = useState<string | null>(null)
     const [categories, setCategories] = useState<{ slug: string; i18nKey?: string; i18n?: any }[]>([])
 
-    const form = useForm<FormValues>({
+    const form = useForm<ProjectForm>({
         defaultValues: {
             title: '',
             description: '',

@@ -10,7 +10,7 @@ import { useEffect } from "react";
 const App = () => {
   const { platform, isProduction } = getPlatform();
   
-  const basename = platform === Platform.ADMIN ? "/admin" : undefined;
+  const basename = platform === Platform.ADMIN ? '/admin' : undefined;
 
   useEffect(() => {
     initAnalytics();

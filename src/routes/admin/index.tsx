@@ -2,11 +2,13 @@ import { adminRoutes } from "./routes";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "@/subdomains/portifolio/layout/NotFound";
 import AdminGuard from "@/middlewares/AdminGuard";
+import LoginPage from "@/subdomains/admin/pages/login/LoginPage";
 
 export function AdminRoutes() {
     const routes = Object.entries(adminRoutes);
     return (
         <Routes>
+            <Route index element={<LoginPage />} />
             {routes.map(([key, route]) => {
                 const Element = route.element;
                 const isPublic = route.path === "oauth/login";

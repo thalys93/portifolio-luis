@@ -15,7 +15,7 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Link, useLocation } from "react-router-dom";
-import { Home, FolderGit2, LogOut, Tag, Globe } from "lucide-react";
+import { Home, FolderGit2, LogOut, Tag, Globe, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signOut } from "firebase/auth";
 import { FirebaseAuth } from "@/services/firebase";
@@ -58,6 +58,13 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
                                     <SidebarMenuButton asChild isActive={isActive("/categories")}>
                                         <Link to="/categories">
                                             <Tag className="h-4 w-4" /> Categorias
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton asChild isActive={isActive("/skills")}>
+                                        <Link to="/skills">
+                                            <Brain className="h-4 w-4" /> Habilidades
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>

@@ -12,9 +12,9 @@ const JourneySection = () => {
   return (
     <section id="journey" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent" />
-      <div className="absolute top-10 right-10 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-10 left-10 w-24 h-24 bg-orange-400/10 rounded-full blur-2xl animate-float" style={{ animationDelay: '1s' }} />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-500/5 to-transparent" />
+      <div className="absolute top-10 right-10 w-32 h-32 bg-slate-500/10 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-10 left-10 w-24 h-24 bg-slate-400/10 rounded-full blur-2xl animate-float" style={{ animationDelay: '1s' }} />
 
       <div className="max-w-7xl mx-auto relative">
         {/* Section Header */}
@@ -49,7 +49,7 @@ const JourneySection = () => {
                 <Code2 className="w-6 h-6 text-slate-400" />
               </div>
               <div className="absolute -bottom-4 -left-4 glass-effect p-3 rounded-xl hover-lift">
-                <Heart className="w-6 h-6 text-slate-500 fill-current" />
+                <Heart className="w-6 h-6 text-red-500 fill-current" />
               </div>
             </div>
           </div>

@@ -4,6 +4,8 @@ import ProjectPage from "@/subdomains/admin/pages/projects/ProjectPage";
 import ProjectsPage from "@/subdomains/admin/pages/projects/ProjectsPage";
 import CategoryPage from "@/subdomains/admin/pages/categories/CategoryPage";
 import CategoriesPage from "@/subdomains/admin/pages/categories/CategoriesPage";
+import SkillsPage from "@/subdomains/admin/pages/skills/SkillsPage";
+import SkillPage from "@/subdomains/admin/pages/skills/SkillPage";
 
 export const adminRoutes = [
   {
@@ -29,5 +31,13 @@ export const adminRoutes = [
   {
     path: "categories/:id?",
     element: CategoryPage,
+  },
+  {
+    path: "skills",
+    element: SkillsPage,
+  },
+  {
+    path: "skills/:id?",
+    element: SkillPage,
   }
 ];

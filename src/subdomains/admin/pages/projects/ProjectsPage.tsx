@@ -5,10 +5,11 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
 import { FirebaseDB, FirebaseStorage } from '@/services/firebase'
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
+import { collection, getDocs, deleteDoc, doc, writeBatch } from 'firebase/firestore'
 import { deleteObject, ref as storageRef } from 'firebase/storage'
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog'
 import { getIcon } from '@/shared/consts/Icons'
+import { ArrowUp, ArrowDown } from 'lucide-react'
 
 type Project = {
   id: string
@@ -26,6 +27,7 @@ type Project = {
     en?: { title?: string; description?: string }
     es?: { title?: string; description?: string }
   }
+  order?: number
 }
 
 function ProjectsPage() {
@@ -40,7 +42,11 @@ function ProjectsPage() {
       try {
         const snap = await getDocs(collection(FirebaseDB, 'projects'))
         const items: Project[] = snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<Project, 'id'>) }))
-        setProjects(items)
+        // Normaliza apenas em memória para exibição; sem escrever no Firestore aqui
+        const normalized = items.map((it, i) => ({ ...it, order: typeof it.order === 'number' ? it.order : i }))
+        // GARANTE que a exibição respeite a ordem já definida
+        normalized.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+        setProjects(normalized)
       } catch (e: any) {
         setError(e?.message ?? 'Erro ao carregar projetos')
       } finally {
@@ -66,8 +72,36 @@ function ProjectsPage() {
     }
   }
 
+  const moveRow = async (from: number, to: number) => {
+    if (to < 0 || to >= projects.length || from === to) return
+
+    const next = [...projects]
+    const [item] = next.splice(from, 1)
+    next.splice(to, 0, item)
+
+    const nextWithOrder = next.map((p, idx) => ({ ...p, order: idx }))
+    setProjects(nextWithOrder)
+
+    try {
+      const batch = writeBatch(FirebaseDB)
+      // Salva "order" para todos os itens: garante que quem não tinha passa a ter
+      for (const p of nextWithOrder) {
+        batch.update(doc(FirebaseDB, 'projects', p.id), { order: p.order })
+      }
+      await batch.commit()
+    } catch (e: any) {
+      console.error('Falha ao salvar ordenação de projetos', e)
+      setError(e?.message ?? 'Falha ao salvar ordenação de projetos')
+    }
+  }
+
   return (
     <PrivateLayout>
+      {error && (
+        <div className="mb-3 rounded border border-red-500/40 bg-red-500/10 text-red-300 px-3 py-2 text-sm">
+          {error}
+        </div>
+      )}
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-xl font-poppins">Projetos</h1>
         <Button asChild>
@@ -95,7 +129,7 @@ function ProjectsPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {projects.map((p) => (
+                {projects.map((p, index) => (
                   <TableRow key={p.id}>
                     <TableCell className="w-12">
                       {getIcon(p.icon)}
@@ -107,6 +141,26 @@ function ProjectsPage() {
                     <TableCell>{p.github ? <a href={p.github} target="_blank" rel="noopener noreferrer" className="text-slate-300 underline">Repo</a> : '—'}</TableCell>
                     <TableCell>{p.date}</TableCell>
                     <TableCell className="flex gap-2">
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => moveRow(index, index - 1)}
+                        disabled={index === 0}
+                        aria-label="Mover para cima"
+                      >
+                        <ArrowUp className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => moveRow(index, index + 1)}
+                        disabled={index === projects.length - 1}
+                        aria-label="Mover para baixo"
+                      >
+                        <ArrowDown className="h-4 w-4" />
+                      </Button>
                       <Button variant="outline" size="sm" asChild>
                         <Link to={`/projects/${p.id}`}>Editar</Link>
                       </Button>

@@ -48,7 +48,7 @@ const HeroSection = () => {
               href="https://github.com/thalys93"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 glass-effect rounded-full hover:bg-orange-500/20 transition-all duration-300 hover-lift group"
+              className="p-3 glass-effect rounded-full hover:bg-slate-500/20 transition-all duration-300 hover-lift group"
             >
               <Github className="w-6 h-6 text-gray-300 group-hover:text-slate-400 transition-colors" />
             </a>

@@ -38,7 +38,7 @@ function LoginPage() {
             <div aria-hidden className="pointer-events-none absolute inset-0">
                 <div className="absolute inset-0 opacity-15 mix-blend-overlay bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:32px_32px]" />
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-900/40 via-background to-slate-900/20" />
-                <div className="absolute -top-24 -left-24 w-48 h-48 bg-orange-500/10 rounded-full blur-3xl" />
+                <div className="absolute -top-24 -left-24 w-48 h-48 bg-slate-500/10 rounded-full blur-3xl" />
                 <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-slate-500/10 rounded-full blur-3xl" />
             </div>
 

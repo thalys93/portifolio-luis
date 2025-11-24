@@ -86,7 +86,7 @@ const Navigation = () => {
             <LanguageSwitcher />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-300 hover:text-orange-400 p-2"
+              className="text-gray-300 hover:text-slate-400 p-2"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

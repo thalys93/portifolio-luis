@@ -67,8 +67,8 @@ const ProjectsSection = () => {
   const [activeCategory, setActiveCategory] = useState('Todos');
 
   const filteredProjects = activeCategory === 'Todos'
-    ? projects
-    : projects.filter(project => project.category === activeCategory);
+    ? projects.sort((a, b) => a.order - b.order)
+    : projects?.filter(project => project?.category === activeCategory);
 
   return (
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
@@ -100,7 +100,7 @@ const ProjectsSection = () => {
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
+          {filteredProjects?.map((project, index) => (
             <div
               key={project.id}
               className="glass-effect rounded-2xl overflow-hidden hover:bg-slate-500/5 transition-all duration-500 hover-lift group"
