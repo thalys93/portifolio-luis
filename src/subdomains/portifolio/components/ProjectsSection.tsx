@@ -77,8 +77,8 @@ const ProjectsSection = () => {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-poppins mb-4">
             {t('projects.title_my')} <span className="text-gradient">{t('projects.title_projects')}</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-slate-500 to-slate-600 mx-auto rounded-full mb-6" />
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mb-6" />
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             {t('projects.description')}
           </p>
         </div>
@@ -89,8 +89,8 @@ const ProjectsSection = () => {
               key={category}
               onClick={() => setActiveCategory(category)}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${activeCategory === category
-                ? 'bg-gradient-to-r from-slate-500 to-slate-600 text-white shadow-lg'
-                : 'glass-effect text-slate-300 hover:bg-slate-500/20 hover:text-slate-400'
+                ? 'bg-primary text-primary-foreground shadow-lg'
+                : 'glass-effect text-muted-foreground hover:bg-primary/20 hover:text-primary'
                 }`}
             >
               {category === 'Todos' ? 'Todos' : getCategoryName(category)}
@@ -103,7 +103,7 @@ const ProjectsSection = () => {
           {filteredProjects?.map((project, index) => (
             <div
               key={project.id}
-              className="glass-effect rounded-2xl overflow-hidden hover:bg-slate-500/5 transition-all duration-500 hover-lift group"
+              className="glass-effect rounded-2xl overflow-hidden hover:bg-primary/5 transition-all duration-500 hover-lift group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Project Image */}
@@ -117,8 +117,8 @@ const ProjectsSection = () => {
 
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1 bg-black/60 backdrop-blur-sm rounded-full">
-                  {React.createElement(iconMap[project.icon] || Code, { className: "w-4 h-4 text-slate-400" })}
-                  <span className="text-slate-400 text-sm font-medium">
+                  {React.createElement(iconMap[project.icon] || Code, { className: "w-4 h-4 text-slate-200" })}
+                  <span className="text-slate-200 text-sm font-medium">
                     {getCategoryName(project.category)}
                   </span>
                 </div>
@@ -134,11 +134,11 @@ const ProjectsSection = () => {
 
               {/* Project Content */}
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-slate-400 mb-3 group-hover:text-slate-300 transition-colors">
+                <h3 className="text-xl font-semibold text-primary mb-3 group-hover:text-primary/80 transition-colors">
                   {getText(project).title}
                 </h3>
 
-                <p className="text-slate-300 mb-4 leading-relaxed">
+                <p className="text-muted-foreground mb-4 leading-relaxed">
                   {getText(project).description}
                 </p>
 
@@ -147,7 +147,7 @@ const ProjectsSection = () => {
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-slate-500/20 text-slate-300 rounded text-xs font-medium"
+                      className="px-2 py-1 bg-primary/20 text-muted-foreground rounded text-xs font-medium"
                     >
                       {tech}
                     </span>
@@ -159,7 +159,7 @@ const ProjectsSection = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    className={cn("border-slate-500 text-slate-400 hover:bg-slate-500 hover:text-white flex-1 select-none", !project.github && "opacity-50 cursor-not-allowed")}
+                    className={cn("border-primary text-primary hover:bg-primary hover:text-primary-foreground flex-1 select-none", !project.github && "opacity-50 cursor-not-allowed")}
                     asChild
                     disabled={!project.github}
                   >
@@ -171,7 +171,7 @@ const ProjectsSection = () => {
 
                   <Button
                     size="sm"
-                    className={cn("bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 flex-1 select-none", !project.demo && "opacity-50 cursor-not-allowed")}
+                    className={cn("bg-primary hover:bg-primary/90 flex-1 select-none", !project.demo && "opacity-50 cursor-not-allowed")}
                     asChild
                     disabled={!project.demo}
                   >
@@ -188,12 +188,12 @@ const ProjectsSection = () => {
 
         {/* CTA */}
         <div className="text-center mt-16">
-          <p className="text-gray-400 mb-6">
+          <p className="text-muted-foreground mb-6">
             {t('projects.interest')}
           </p>
           <Button
             size="lg"
-            className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 px-8 py-3"
+            className="bg-primary hover:bg-primary/90 px-8 py-3"
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
             {t('projects.interestButton')}

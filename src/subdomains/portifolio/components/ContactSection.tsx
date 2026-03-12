@@ -116,14 +116,14 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-t from-slate-950/10 to-background">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-t from-black/20 to-background">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-poppins mb-4">
             {t("contact.title_start")} <span className="text-gradient">{t("contact.title_contact")}</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-slate-500 to-slate-600 mx-auto rounded-full mb-6" />
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mb-6" />
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             {t("contact.description")}
           </p>
         </div>
@@ -132,7 +132,7 @@ const ContactSection = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             <div className="glass-effect p-8 rounded-2xl">
-              <h3 className="text-2xl font-semibold text-slate-400 mb-6">
+              <h3 className="text-2xl font-semibold text-primary mb-6">
                 {t("contact.contactInfo")}
               </h3>
 
@@ -141,17 +141,17 @@ const ContactSection = () => {
                   <a
                     key={info.title}
                     href={info.link}
-                    className="flex items-center gap-4 p-4 rounded-lg hover:bg-slate-500/10 transition-all duration-300 hover-lift group"
+                    className="flex items-center gap-4 p-4 rounded-lg hover:bg-primary/10 transition-all duration-300 hover-lift group"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="flex-shrink-0 p-3 bg-gradient-to-r from-slate-500 to-slate-600 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                      <info.icon className="w-5 h-5 text-white" />
+                    <div className="flex-shrink-0 p-3 bg-gradient-to-r from-primary to-accent rounded-lg group-hover:scale-110 transition-transform duration-300">
+                      <info.icon className="w-5 h-5 text-primary-foreground" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-slate-400 mb-1">
+                      <h4 className="font-semibold text-primary mb-1">
                         {info.title}
                       </h4>
-                      <p className="text-slate-300 group-hover:text-slate-300 transition-colors">
+                      <p className="text-muted-foreground group-hover:text-muted-foreground transition-colors">
                         {info.value}
                       </p>
                     </div>
@@ -162,7 +162,7 @@ const ContactSection = () => {
 
             {/* Social Links */}
             <div className="glass-effect p-8 rounded-2xl">
-              <h3 className="text-xl font-semibold text-slate-400 mb-6">
+              <h3 className="text-xl font-semibold text-primary mb-6">
                 {t("contact.socialMedia")}
               </h3>
 
@@ -175,7 +175,7 @@ const ContactSection = () => {
                     rel="noopener noreferrer"
                     className={`p-3 glass-effect rounded-full transition-all duration-300 hover-lift group ${social.color}`}
                   >
-                    <social.icon className="w-5 h-5 text-slate-300 group-hover:scale-110 transition-transform duration-300" />
+                    <social.icon className="w-5 h-5 text-muted-foreground group-hover:scale-110 transition-transform duration-300" />
                   </a>
                 ))}
               </div>
@@ -183,16 +183,16 @@ const ContactSection = () => {
 
             {/* Availability */}
             <div className="glass-effect p-8 rounded-2xl">
-              <h3 className="text-xl font-semibold text-slate-400 mb-4">
+              <h3 className="text-xl font-semibold text-primary mb-4">
                 {t("contact.avaliability")}
               </h3>
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-slate-300">
+                <span className="text-muted-foreground">
                   {t("contact.avaliability_text1")}
                 </span>
               </div>
-              <p className="text-slate-400 text-sm">
+              <p className="text-muted-foreground text-sm">
                 {t("contact.avaliability_text2")}
               </p>
             </div>
@@ -200,15 +200,15 @@ const ContactSection = () => {
 
           {/* Contact Form */}
           <div className="glass-effect p-8 rounded-2xl">
-            <h3 className="text-2xl font-semibold text-slate-400 mb-6">
+            <h3 className="text-2xl font-semibold text-primary mb-6">
               {t("contact.form.contactForm")}
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
-                    {t("contact.form.name")} <b className='text-red-500'>*</b>
+                  <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-2">
+                    {t("contact.form.name")} <b className='text-destructive'>*</b>
                   </label>
                   <Input
                     id="name"
@@ -217,14 +217,14 @@ const ContactSection = () => {
                     required
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="bg-gray-800/50 border-gray-600 text-white placeholder-gray-400 focus:border-slate-500 focus:ring-slate-500"
+                    className="bg-input border-border text-foreground placeholder-muted-foreground focus:border-primary focus:ring-primary"
                     placeholder={t("contact.form.placeholder")}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
-                    {t("contact.form.email")} <b className='text-red-500'>*</b>
+                  <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-2">
+                    {t("contact.form.email")} <b className='text-destructive'>*</b>
                   </label>
                   <Input
                     id="email"
@@ -233,15 +233,15 @@ const ContactSection = () => {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="bg-gray-800/50 border-gray-600 text-white placeholder-gray-400 focus:border-slate-500 focus:ring-slate-500"
+                    className="bg-input border-border text-foreground placeholder-muted-foreground focus:border-primary focus:ring-primary"
                     placeholder={t("contact.form.placeholder_email")}
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-slate-300 mb-2">
-                  {t("contact.form.subject")} <b className='text-red-500'>*</b>
+                <label htmlFor="subject" className="block text-sm font-medium text-muted-foreground mb-2">
+                  {t("contact.form.subject")} <b className='text-destructive'>*</b>
                 </label>
                 <Input
                   id="subject"
@@ -250,14 +250,14 @@ const ContactSection = () => {
                   required
                   value={formData.subject}
                   onChange={handleInputChange}
-                  className="bg-gray-800/50 border-gray-600 text-white placeholder-gray-400 focus:border-slate-500 focus:ring-slate-500"
+                  className="bg-input border-border text-foreground placeholder-muted-foreground focus:border-primary focus:ring-primary"
                   placeholder={t("contact.form.placeholder_subject")}
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
-                  {t("contact.form.message")} <b className='text-red-500'>*</b>
+                <label htmlFor="message" className="block text-sm font-medium text-muted-foreground mb-2">
+                  {t("contact.form.message")} <b className='text-destructive'>*</b>
                 </label>
                 <Textarea
                   id="message"
@@ -266,7 +266,7 @@ const ContactSection = () => {
                   rows={5}
                   value={formData.message}
                   onChange={handleInputChange}
-                  className="bg-gray-800/50 border-gray-600 text-white placeholder-gray-400 focus:border-slate-500 focus:ring-slate-500 resize-none" 
+                  className="bg-input border-border text-foreground placeholder-muted-foreground focus:border-primary focus:ring-primary resize-none" 
                   placeholder={t("contact.form.placeholder_message")}
                 />
               </div>
@@ -275,7 +275,7 @@ const ContactSection = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white py-3 text-lg font-medium transition-all duration-300 hover-lift disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 text-lg font-medium transition-all duration-300 hover-lift disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <div className="flex items-center gap-2">
@@ -294,7 +294,7 @@ const ContactSection = () => {
                   type="reset"
                   onClick={handleResetForm}
                   variant='ghost'
-                  className="w-full border border-slate-500 text-slate-500 hover:text-slate-400 hover:border-slate-400 py-3 text-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full border border-border text-muted-foreground hover:text-primary hover:border-primary py-3 text-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="flex items-center gap-2">
                     <Trash className="w-5 h-5" />

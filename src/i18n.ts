@@ -21,7 +21,17 @@ i18n.use(initReactI18next).init({
             translation: es,
         },
     },
-    lng: localStorage.getItem('language') || 'en',
+    lng: (() => {
+        if (typeof window === 'undefined') return 'pt-BR';
+        const params = new URLSearchParams(window.location.search);
+        const hl = params.get('hl');
+        const supported = ['pt-BR', 'en', 'es'];
+        if (hl && supported.includes(hl)) {
+            localStorage.setItem('language', hl);
+            return hl;
+        }
+        return localStorage.getItem('language') || 'pt-BR';
+    })(),
 });
 
 export default i18n;

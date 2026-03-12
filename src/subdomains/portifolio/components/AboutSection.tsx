@@ -40,18 +40,18 @@ const AboutSection = () => {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-poppins mb-4">
             {t("about.title_about")} <span className="text-gradient">{t("about.title_me")}</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-slate-500 to-slate-600 mx-auto rounded-full" />
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Text content */}
           <div className="animate-slide-in-left">
             <div className="glass-effect p-8 rounded-2xl">
-              <h3 className="text-2xl font-semibold text-slate-400 mb-6">
+              <h3 className="text-2xl font-semibold text-primary mb-6">
                 {t("about.cardTitle")}
               </h3>
 
-              <div className="space-y-4 text-gray-300 leading-relaxed">
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
                   {t("about.cardParagraph1")}
                 </p>
@@ -65,15 +65,15 @@ const AboutSection = () => {
                 </p>
               </div>
 
-              <div className="mt-8 pt-8 border-t border-gray-700">
-                <h4 className="text-lg font-semibold text-slate-400 mb-4">
+              <div className="mt-8 pt-8 border-t border-border">
+                <h4 className="text-lg font-semibold text-primary mb-4">
                   {t("about.primaryTechs")}
                 </h4>
                 <div className="flex flex-wrap gap-3">
                   {['React', 'Node.js', 'TypeScript', 'React Native', 'PostgreSQL', 'MongoDB', 'Nest.js', 'Docker'].map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 bg-slate-500/20 text-slate-300 rounded-full text-sm font-medium"
+                      className="px-3 py-1 bg-primary/20 text-primary-foreground rounded-full text-sm font-medium"
                     >
                       {tech}
                     </span>
@@ -88,17 +88,17 @@ const AboutSection = () => {
             {highlights.map((item, index) => (
               <div
                 key={item.title}
-                className="flex items-start gap-4 glass-effect p-6 rounded-xl hover:bg-slate-500/5 transition-all duration-300 hover-lift"
+                className="flex items-start gap-4 glass-effect p-6 rounded-xl hover:bg-primary/5 transition-all duration-300 hover-lift"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="flex-shrink-0 p-3 bg-gradient-to-r from-slate-500 to-slate-600 rounded-lg">
-                  <item.icon className="w-6 h-6 text-white" />
+                <div className="flex-shrink-0 p-3 bg-gradient-to-r from-primary to-accent rounded-lg">
+                  <item.icon className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-slate-400 mb-2">
+                  <h4 className="text-lg font-semibold text-primary mb-2">
                     {item.title}
                   </h4>
-                  <p className="text-gray-300 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -123,7 +123,7 @@ const AboutSection = () => {
               <div className="text-3xl font-bold text-gradient mb-2">
                 {stat.number}
               </div>
-              <div className="text-gray-400 text-sm">
+              <div className="text-muted-foreground text-sm">
                 {stat.label}
               </div>
             </div>

@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // HABILIDADES
+     match /skills/{skillId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // PROJETOS
+  	match /projects/{projectId} {
+      allow read: if true;
+      allow update, create, delete: if request.auth != null;
+    }
+
+    // CATEGORIAS
+   match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // TEMAS
+    match /themes/{themeId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // SETTINGS (Global Configs)
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // ANALYTICS
+    match /analytics_events/{eventId} {
+      allow read: if true;
+      allow write: if request.resource.data.keys().hasOnly(['count','lastAt']) &&
+                    (!resource.exists || request.resource.data.count == resource.data.count + 1);
+    }
+
+    // fallback: negar tudo
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

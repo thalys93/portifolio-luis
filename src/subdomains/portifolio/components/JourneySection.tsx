@@ -7,14 +7,14 @@ import { useTranslation } from 'react-i18next';
 const JourneySection = () => {
   const { t } = useTranslation();
   useEffect(() => {
-      trackEvent("journey_section_viewed", { section: "journey" });
-    }, [])
+    trackEvent("journey_section_viewed", { section: "journey" });
+  }, [])
   return (
     <section id="journey" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-500/5 to-transparent" />
-      <div className="absolute top-10 right-10 w-32 h-32 bg-slate-500/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-10 left-10 w-24 h-24 bg-slate-400/10 rounded-full blur-2xl animate-float" style={{ animationDelay: '1s' }} />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
+      <div className="absolute top-10 right-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-10 left-10 w-24 h-24 bg-secondary/10 rounded-full blur-2xl animate-float" style={{ animationDelay: '1s' }} />
 
       <div className="max-w-7xl mx-auto relative">
         {/* Section Header */}
@@ -22,7 +22,7 @@ const JourneySection = () => {
           <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-4">
             {t("journey.title_my")} <span className="text-gradient">{t("journey.title_journey")}</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             {t("journey.description")}
           </p>
         </div>
@@ -35,7 +35,7 @@ const JourneySection = () => {
               {/* Main image container */}
               <div className="relative overflow-hidden rounded-2xl glass-effect p-1">
                 <img
-                  src="https://res.cloudinary.com/dlz0kwel5/image/upload/v1760558227/Desenvolvedor_ke6ec1.png"
+                  src="https://res.cloudinary.com/dlz0kwel5/image/upload/v1767623486/thalys_26_opbyhx.png"
                   alt="Thalys Xavier - Desenvolvedor Full Stack"
                   className="w-full h-[600px] object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
                 />
@@ -46,10 +46,10 @@ const JourneySection = () => {
 
               {/* Floating elements */}
               <div className="absolute -top-4 -right-4 glass-effect p-3 rounded-xl hover-lift">
-                <Code2 className="w-6 h-6 text-slate-400" />
+                <Code2 className="w-6 h-6 text-primary" />
               </div>
               <div className="absolute -bottom-4 -left-4 glass-effect p-3 rounded-xl hover-lift">
-                <Heart className="w-6 h-6 text-red-500 fill-current" />
+                <Heart className="w-6 h-6 text-destructive fill-current" />
               </div>
             </div>
           </div>
@@ -59,42 +59,42 @@ const JourneySection = () => {
             {/* Story blocks */}
             <div className="space-y-8">
               <div className="flex gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-slate-500/20 transition-all duration-300">
-                  <Lightbulb className="w-6 h-6 text-slate-400" />
+                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
+                  <Lightbulb className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-slate-400 mb-2 font-poppins">
+                  <h3 className="text-xl font-semibold text-primary mb-2 font-poppins">
                     {t("journey.firstClick")}
                   </h3>
-                  <p className="text-gray-300 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {t("journey.firstDescription")}
                   </p>
                 </div>
               </div>
 
               <div className="flex gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-slate-500/20 transition-all duration-300">
-                  <Code2 className="w-6 h-6 text-slate-400" />
+                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
+                  <Code2 className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-slate-400 mb-2 font-poppins">
+                  <h3 className="text-xl font-semibold text-primary mb-2 font-poppins">
                     {t("journey.continousLearning")}
                   </h3>
-                  <p className="text-gray-300 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {t("journey.continousDescription")}
                   </p>
                 </div>
               </div>
 
               <div className="flex gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-slate-500/20 transition-all duration-300">
-                  <User className="w-6 h-6 text-slate-400" />
+                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
+                  <User className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-slate-400 mb-2 font-poppins">
+                  <h3 className="text-xl font-semibold text-primary mb-2 font-poppins">
                     {t("journey.connectingPeople")}
                   </h3>
-                  <p className="text-gray-300 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {t("journey.connectingPeopleDescription")}
                   </p>
                 </div>
@@ -103,11 +103,11 @@ const JourneySection = () => {
 
             {/* Call to action */}
             <div className="pt-6">
-              <div className="glass-effect p-6 rounded-xl border border-slate-500/20">
-                <p className="text-gray-300 mb-4 italic">
+              <div className="glass-effect p-6 rounded-xl border border-primary/20">
+                <p className="text-muted-foreground mb-4 italic">
                   {t("journey.quote")}
                 </p>
-                <p className="text-slate-400 font-medium">
+                <p className="text-primary font-medium">
                   {t("journey.quoteConnect")}
                 </p>
               </div>

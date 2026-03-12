@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -7,6 +6,7 @@
 
 @layer base {
   :root {
+    /* Default Theme (Dark) */
     --background: 20 14% 4%;
     --foreground: 60 9% 98%;
 
@@ -16,14 +16,15 @@
     --popover: 20 14% 6%;
     --popover-foreground: 60 9% 98%;
 
-    --primary: 20 14% 4%;
-    --primary-foreground: 60 9% 98%;
+    /* Updated Primary- was blending with background. Now Slate-500 like */
+    --primary: 215 16% 47%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 12 6% 15%;
     --secondary-foreground: 60 9% 98%;
 
     --muted: 12 6% 15%;
-    --muted-foreground: 24 5% 64%;
+    --muted-foreground: 215 20% 65%; /* Slate 400 approx */
 
     --accent: 12 6% 15%;
     --accent-foreground: 60 9% 98%;
@@ -33,9 +34,54 @@
 
     --border: 12 6% 15%;
     --input: 12 6% 15%;
-    --ring: 20 14% 4%;
+    --ring: 215 16% 47%;
 
     --radius: 0.75rem;
+
+    /* Text Gradient Vars */
+    --gradient-start: #94a3b8; /* Slate 400 */
+    --gradient-end: #475569;   /* Slate 600 */
+  }
+
+  /* Christmas Theme */
+  .christmas {
+    /* Deep Pine Green Background */
+    --background: 155 40% 5%;
+    --foreground: 0 0% 98%;
+
+    /* Darker Green for Cards */
+    --card: 155 40% 8%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 155 40% 8%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Holiday Red */
+    --primary: 350 80% 50%;
+    --primary-foreground: 0 0% 98%;
+
+    /* Gold/Amber */
+    --secondary: 45 90% 50%;
+    --secondary-foreground: 20 14% 4%;
+
+    /* Soft Green Muted */
+    --muted: 140 30% 20%;
+    --muted-foreground: 140 20% 80%;
+
+    /* Holly Green Accent */
+    --accent: 140 60% 30%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 140 30% 20%;
+    --input: 140 30% 20%;
+    --ring: 350 80% 50%;
+
+    /* Text Gradient Vars */
+    --gradient-start: #fbbf24; /* Amber 400 (Gold) */
+    --gradient-end: #ef4444;   /* Red 500 */
   }
 }
 
@@ -55,15 +101,16 @@
 
 @layer utilities {
   .font-inter {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
   }
-  
+
   .font-poppins {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-slate-400 to-slate-600 bg-clip-text text-transparent;
+    background-image: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+    @apply bg-clip-text text-transparent;
   }
 
   .hover-lift {

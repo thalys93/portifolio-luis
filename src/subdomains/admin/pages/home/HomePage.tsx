@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { FolderGit2, Languages, Globe, PlusCircle, Tags, List } from 'lucide-react'
+import { FolderGit2, Languages, Globe, PlusCircle, Tags, ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import PrivateLayout from '../../layout/private-layout'
 import { getFirestore, collection, getDocs } from 'firebase/firestore'
-import AuroraBackground from '../login/components/animated-shader-bg'
+import { ThemeSelector } from '../../components/ThemeSelector'
+import { useTheme } from '@/shared/context/ThemeContext'
 
 const locales = import.meta.glob('/src/locale/*.json')
 
@@ -13,6 +14,7 @@ function HomePage() {
   const [projectCount, setProjectCount] = useState<number | null>(null)
   const [localeCount, setLocaleCount] = useState<number>(0)
   const [events, setEvents] = useState<{ name: string; count: number }[]>([])
+  const { theme } = useTheme();
 
   useEffect(() => {
     const db = getFirestore()
@@ -39,68 +41,60 @@ function HomePage() {
   ]
 
   return (
-    <PrivateLayout>      
-        <div className="grid gap-6 md:grid-cols-3">
+    <PrivateLayout>
+      <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex-1 grid gap-6 md:grid-cols-3">
           {metrics.map((m) => (
-            <Card key={m.label} className="glass-effect">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <CardTitle className="text-sm font-medium">{m.label}</CardTitle>
-              <m.icon className="h-5 w-5 text-slate-400" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">{m.value}</div>
-              <div className="text-sm text-muted-foreground mt-1">Atualizado recentemente</div>
-            </CardContent>
-          </Card>
-        ))}
+            <Card key={m.label} className={`glass-effect border-l-4 ${theme === 'christmas' ? 'border-l-primary' : 'border-l-primary'} shadow-sm hover:shadow-md transition-all duration-300`}>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">{m.label}</CardTitle>
+                <m.icon className={`h-5 w-5 ${theme === 'christmas' ? 'text-primary' : 'text-primary'}`} />
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-foreground">{m.value}</div>
+                <div className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                  <ArrowUpRight className="h-3 w-3 text-green-500" />
+                  <span>Atualizado agora</span>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        {/* Theme Selector Column */}
+        <div className="md:w-80">
+          <ThemeSelector />
+        </div>
       </div>
 
       <div className="mt-6 grid gap-6 md:grid-cols-3">
-        <Card className="glass-effect md:col-span-2">
+        <Card className="glass-effect md:col-span-2 shadow-sm">
           <CardHeader>
             <CardTitle className="font-poppins">Ações rápidas</CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Button
-              asChild
-              className="group flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-transparent hover:border-sky-400 transition-all duration-200 bg-neutral-800 shadow-md h-24 w-full hover:text-sky-500 font-semibold"
-            >
-              <Link to="/projects">
-                <FolderGit2 className="h-6 w-6 group-hover:text-sky-400 transition-colors" />
-                Gerenciar projetos
-              </Link>
-            </Button>
-            <Button
-              variant="outline"
-              asChild
-              className="group flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-transparent hover:border-green-400 transition-all duration-200 bg-neutral-800 shadow-md h-24 w-full hover:text-emerald-500 font-semibold"
-            >
-              <Link to="/projects/new">
-                <PlusCircle className="h-6 w-6 group-hover:text-green-400 transition-colors" />
-                Cadastrar Projeto
-              </Link>
-            </Button>
-            <Button
-              variant="outline"
-              asChild
-              className="group flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-transparent hover:border-purple-400 transition-all duration-200 bg-neutral-800 shadow-md h-24 w-full hover:text-purple-500 font-semibold"
-            >
-              <Link to="/categories">
-                <Tags className="h-6 w-6 group-hover:text-purple-400 transition-colors" />
-                Categorias
-              </Link>
-            </Button>
-            
-            <Button
-              variant="outline"
-              asChild
-              className="group flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-transparent hover:border-purple-400 transition-all duration-200 bg-neutral-800 shadow-md h-24 w-full hover:text-purple-500 font-semibold"
-            >
-              <Link to="/categories/new">
-                <PlusCircle className="h-6 w-6 group-hover:text-purple-400 transition-colors" />
-                Cadastrar Categoria
-              </Link>
-            </Button>
+            {[
+              { to: "/projects", icon: FolderGit2, label: "Gerenciar projetos", color: "sky" },
+              { to: "/projects/new", icon: PlusCircle, label: "Novo Projeto", color: "green" },
+              { to: "/categories", icon: Tags, label: "Categorias", color: "purple" },
+              { to: "/categories/new", icon: PlusCircle, label: "Nova Categoria", color: "pink" },
+            ].map((action) => (
+              <Button
+                key={action.to}
+                asChild
+                variant="outline"
+                className={`group flex flex-col items-center justify-center gap-2 h-28 w-full border-2 border-transparent bg-secondary/5 hover:bg-secondary/10 shadow-sm hover:shadow-md transition-all duration-300
+                  ${theme === 'christmas'
+                    ? 'hover:border-primary/50 text-foreground'
+                    : 'hover:border-primary/50 text-foreground'}`}
+              >
+                <Link to={action.to}>
+                  <div className={`p-3 rounded-full mb-1 transition-colors duration-300 ${theme === 'christmas' ? 'bg-primary/10 group-hover:bg-primary/20 text-primary' : 'bg-primary/10 group-hover:bg-primary/20 text-primary'}`}>
+                    <action.icon className="h-6 w-6" />
+                  </div>
+                  <span className="font-semibold">{action.label}</span>
+                </Link>
+              </Button>
+            ))}
           </CardContent>
         </Card>
         <Card className="glass-effect">
@@ -124,7 +118,7 @@ function HomePage() {
             )}
           </CardContent>
         </Card>
-      </div>      
+      </div>
     </PrivateLayout>
   )
 }

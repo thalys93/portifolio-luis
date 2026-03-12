@@ -68,9 +68,9 @@ const Navigation = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-slate-400 ${activeSection === item.id
-                      ? 'text-slate-500 border-b-2 border-slate-500'
-                      : 'text-gray-300 hover:text-slate-400'
+                  className={`px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-primary ${activeSection === item.id
+                      ? 'text-primary border-b-2 border-primary'
+                      : 'text-muted-foreground hover:text-primary'
                     }`}
                 >
                   {item.label}
@@ -86,7 +86,7 @@ const Navigation = () => {
             <LanguageSwitcher />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-300 hover:text-slate-400 p-2"
+              className="text-muted-foreground hover:text-primary p-2"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -103,8 +103,8 @@ const Navigation = () => {
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
                 className={`block w-full text-left px-3 py-2 text-base font-medium transition-colors duration-300 ${activeSection === item.id
-                    ? 'text-slate-500 bg-slate-500/10'
-                    : 'text-gray-300 hover:text-slate-400 hover:bg-slate-400/10'
+                    ? 'text-primary bg-primary/10'
+                    : 'text-muted-foreground hover:text-primary hover:bg-primary/10'
                   }`}
               >
                 {item.label}

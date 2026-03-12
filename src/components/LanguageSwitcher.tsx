@@ -14,8 +14,16 @@ function LanguageSwitcher() {
     ]
 
     const updateLanguage = (lng: string) => {
-        i18n.changeLanguage(lng)
+        i18n.changeLanguage(lng);
         localStorage.setItem('language', lng);
+        // Atualiza URL com ?hl= para SEO e links compartilháveis (thalysdev.com?hl=en)
+        const url = new URL(window.location.href);
+        if (lng === 'pt-BR') {
+            url.searchParams.delete('hl');
+        } else {
+            url.searchParams.set('hl', lng);
+        }
+        window.history.replaceState({}, '', url.pathname + url.search);
     }
 
     React.useEffect(() => {
@@ -28,7 +36,7 @@ function LanguageSwitcher() {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger className='glass-effect hover:bg-slate-700/50 transition-all p-2 rounded relative md:top-3'>
+            <DropdownMenuTrigger className='glass-effect hover:bg-slate-700/50 transition-all p-2 rounded relative md:top-1'>
                 <Languages className='size-4' />
             </DropdownMenuTrigger>
             <DropdownMenuContent>

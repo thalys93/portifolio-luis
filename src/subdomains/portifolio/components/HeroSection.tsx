@@ -22,9 +22,9 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-background to-slate-800/10" />
 
       {/* Floating elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-slate-500/10 rounded-full blur-xl animate-float" />
-      <div className="absolute bottom-20 right-10 w-32 h-32 bg-slate-400/10 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }} />
-      <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-slate-600/10 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }} />
+      <div className="absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl animate-float" />
+      <div className="absolute bottom-20 right-10 w-32 h-32 bg-secondary/10 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-accent/10 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }} />
 
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
         <div className="animate-fade-in">
@@ -35,11 +35,11 @@ const HeroSection = () => {
             </span>
           </h1>
 
-          <p className="text-xl sm:text-2xl lg:text-3xl text-gray-300 mb-8 font-light">
+          <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground mb-8 font-light">
             {t("hero.subtitle")}
           </p>
 
-          <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
             {t("hero.description")}
           </p>
 
@@ -48,31 +48,31 @@ const HeroSection = () => {
               href="https://github.com/thalys93"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 glass-effect rounded-full hover:bg-slate-500/20 transition-all duration-300 hover-lift group"
+              className="p-3 glass-effect rounded-full hover:bg-primary/20 transition-all duration-300 hover-lift group"
             >
-              <Github className="w-6 h-6 text-gray-300 group-hover:text-slate-400 transition-colors" />
+              <Github className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
             <a
               href="https://linkedin.com/in/thalys-dev202/"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 glass-effect rounded-full hover:bg-slate-500/20 transition-all duration-300 hover-lift group"
+              className="p-3 glass-effect rounded-full hover:bg-primary/20 transition-all duration-300 hover-lift group"
             >
-              <Linkedin className="w-6 h-6 text-gray-300 group-hover:text-slate-400 transition-colors" />
+              <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
             <a
               href="mailto:thalys.dev@gmail.com"
-              className="p-3 glass-effect rounded-full hover:bg-slate-500/20 transition-all duration-300 hover-lift group"
+              className="p-3 glass-effect rounded-full hover:bg-primary/20 transition-all duration-300 hover-lift group"
             >
-              <Mail className="w-6 h-6 text-gray-300 group-hover:text-slate-400 transition-colors" />
+              <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
             <a
               href="https://www.instagram.com/thalys.dev25/"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 glass-effect rounded-full hover:bg-slate-500/20 transition-all duration-300 hover-lift group"
+              className="p-3 glass-effect rounded-full hover:bg-primary/20 transition-all duration-300 hover-lift group"
             >
-              <Instagram className="w-6 h-6 text-gray-300 group-hover:text-slate-400 transition-colors" />
+              <Instagram className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
           </div>
 
@@ -80,7 +80,7 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white px-8 py-3 text-lg font-medium transition-all duration-300 hover-lift"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg font-medium transition-all duration-300 hover-lift"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             >
               {t("hero.button_one")}
@@ -89,7 +89,7 @@ const HeroSection = () => {
             <Button
               variant="outline"
               size="lg"
-              className="border-slate-500 text-slate-400 hover:bg-slate-500 hover:text-white px-8 py-3 text-lg font-medium transition-all duration-300 hover-lift"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-3 text-lg font-medium transition-all duration-300 hover-lift"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
               {t("hero.button_two")}
@@ -101,7 +101,7 @@ const HeroSection = () => {
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
           <button
             onClick={scrollToAbout}
-            className="text-slate-400 hover:text-slate-300 transition-colors"
+            className="text-muted-foreground hover:text-primary transition-colors"
             aria-label="Scroll to about section"
           >
             <ArrowDown className="w-6 h-6" />

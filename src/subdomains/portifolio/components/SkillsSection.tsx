@@ -28,14 +28,14 @@ const SkillsSection = () => {
   }, []);
 
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-slate-950/10">
+    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-black/20">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-poppins mb-4">
             {t("skills.title_my")} <span className="text-gradient">{t("skills.title_skills")}</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-slate-500 to-slate-600 mx-auto rounded-full mb-6" />
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mb-6" />
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             {t("skills.description")}
           </p>
         </div>
@@ -44,21 +44,21 @@ const SkillsSection = () => {
           {skillGroups.sort((a, b) => a.order - b.order).map((category, categoryIndex) => {
             const gradient = category?.color
               ? `bg-gradient-to-r ${category.color}`
-              : 'bg-slate-700';
+              : 'bg-primary';
             const IconComp = getIcon(category?.icon);
 
             return (
               <div
                 key={category.id || category.title}
-                className="glass-effect p-6 rounded-2xl hover:bg-slate-500/5 transition-all duration-300 hover-lift group"
+                className="glass-effect p-6 rounded-2xl hover:bg-primary/5 transition-all duration-300 hover-lift group"
                 style={{ animationDelay: `${categoryIndex * 0.1}s` }}
               >
                 {/* Cabeçalho da Categoria */}
                 <div className="flex items-center gap-4 mb-6">
                   <div className={`p-3 rounded-lg ${gradient} group-hover:scale-110 transition-transform duration-300`}>
-                    {React.cloneElement(IconComp, { className: 'w-6 h-6 text-white' })}
+                    {React.cloneElement(IconComp, { className: 'w-6 h-6 text-primary-foreground' })}
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-400">
+                  <h3 className="text-xl font-semibold text-primary">
                     {category?.title ?? '—'}
                   </h3>
                 </div>
@@ -68,16 +68,16 @@ const SkillsSection = () => {
                   {(category?.skills ?? []).map((skill: any, skillIndex: number) => (
                     <div key={`${category.id}-${skill?.name}-${skillIndex}`} className="group/skill">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-slate-300 font-medium">
+                        <span className="text-muted-foreground font-medium">
                           {skill?.name ?? '—'}
                         </span>
-                        <span className="text-slate-400 text-sm font-semibold">
+                        <span className="text-muted-foreground text-sm font-semibold">
                           {Number(skill?.level ?? 0)}%
                         </span>
                       </div>
 
                       {/* Barra de Progresso */}
-                      <div className="w-full bg-slate-700 rounded-full h-2 overflow-hidden">
+                      <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
                         <div
                           className={`h-full ${gradient} rounded-full transition-all duration-1000 ease-out group-hover/skill:animate-pulse`}
                           style={{
@@ -96,7 +96,7 @@ const SkillsSection = () => {
 
         {/* Skills adicionais (mantido como antes) */}
         <div className="mt-16 text-center">
-          <h3 className="text-2xl font-semibold text-slate-400 mb-8">
+          <h3 className="text-2xl font-semibold text-primary mb-8">
             {t("skills.otherSkills")}
           </h3>
           <div className="flex flex-wrap justify-center gap-4">
@@ -114,7 +114,7 @@ const SkillsSection = () => {
             ].map((skill) => (
               <span
                 key={skill}
-                className="px-4 py-2 glass-effect rounded-full text-slate-300 hover:bg-slate-500/20 hover:text-slate-300 transition-all duration-300 hover-lift"
+                className="px-4 py-2 glass-effect rounded-full text-muted-foreground hover:bg-primary/20 hover:text-primary transition-all duration-300 hover-lift"
               >
                 {skill}
               </span>
