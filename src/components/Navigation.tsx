@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState, useEffect } from 'react';
-import { Languages, Menu, X } from 'lucide-react';
-import { DropdownMenu, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { Menu, X } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 

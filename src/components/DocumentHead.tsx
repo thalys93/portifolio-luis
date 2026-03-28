@@ -3,10 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 const BASE_URL = 'https://thalysdev.com';
 
-/**
- * Atualiza title, meta description e lang do documento conforme o idioma (i18n).
- * Melhora SEO e acessibilidade quando o usuário troca de idioma.
- */
+
 export function DocumentHead() {
     const { i18n, t } = useTranslation();
 
