@@ -2,14 +2,16 @@ import React from 'react'
 import PrivateLayout from '../../layout/private-layout'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
-import { SkillEntity, SkillsForms } from '@/types/form/skills.form'
+import { SkillEntity } from '@/types/form/skills.form'
 import { collection, deleteDoc, doc, getDocs, writeBatch } from 'firebase/firestore'
-import { FirebaseDB, FirebaseStorage } from '@/services/firebase'
-import { deleteObject } from 'firebase/storage'
+import { FirebaseDB } from '@/services/firebase'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { getIcon } from '@/shared/consts/Icons'
-import { ArrowUp, ArrowDown } from 'lucide-react'
+import { ArrowUp, ArrowDown, EllipsisVertical } from 'lucide-react'
+import { AdminPageHeader } from '@/subdomains/admin/components/AdminPageHeader'
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 
 function SkillsPage() {
     const [skills, setSkills] = React.useState<SkillEntity[]>([])
@@ -39,7 +41,6 @@ function SkillsPage() {
         if (!deleteId) return
         setDeleting(true)
         try {
-            const p = skills.find((x) => x.id === deleteId)
             await deleteDoc(doc(FirebaseDB, 'skills', deleteId))
             setSkills((prev) => prev.filter((p) => p.id !== deleteId))
         } finally {
@@ -75,21 +76,78 @@ function SkillsPage() {
 
     return (
         <PrivateLayout>
-            <div className="flex items-center justify-between mb-4">
-                <h1 className='text-xl font-poppins'>Habilidades</h1>
+            {error && (
+                <div className="mb-3 rounded border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-300">
+                    {error}
+                </div>
+            )}
+            <AdminPageHeader
+                title="Habilidades"
+                description="Gerencie setores, gradientes e itens de skill."
+                action={(
                 <Button asChild>
                     <Link to="/skills/new">
                         Nova Habilidade
                     </Link>
                 </Button>
-            </div>
+                )}
+            />
 
-            {skills.length > 0 ? (
-                <Card>
+            {loading ? (
+                <Card className="border-border/80 bg-card/50 shadow-none">
+                    <CardContent className="py-10 text-center text-sm text-muted-foreground">
+                        Carregando habilidades...
+                    </CardContent>
+                </Card>
+            ) : skills.length > 0 ? (
+                <Card className="border-border/80 bg-card/50 shadow-none">
                     <CardHeader>
                         <CardTitle className="text-sm text-muted-foreground">Listagem</CardTitle>
                     </CardHeader>
-                    <CardContent className='p-0'>
+                    <CardContent className='p-3 md:p-0'>
+                        <div className="grid gap-3 md:hidden">
+                            {skills.map((skill, index) => (
+                                <div key={skill.id} className="rounded-md border border-border/80 bg-card/60 p-3">
+                                    <div className="flex items-start justify-between gap-3">
+                                        <div className="min-w-0 space-y-1">
+                                            <p className="flex items-center gap-2 text-sm font-semibold">
+                                                <span className="shrink-0">{getIcon(skill.icon)}</span>
+                                                <span className="truncate">{skill.title}</span>
+                                            </p>
+                                            <p className="text-xs text-muted-foreground">Habilidades: {skill.skills.length}</p>
+                                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                                <div className={`h-3 w-8 rounded bg-gradient-to-r ${skill.color}`} />
+                                                <span className="truncate">{skill.color}</span>
+                                            </div>
+                                        </div>
+
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button variant="outline" size="icon" aria-label="Abrir ações da habilidade">
+                                                    <EllipsisVertical className="h-4 w-4" />
+                                                </Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent align="end">
+                                                <DropdownMenuItem onClick={() => moveRow(index, index - 1)} disabled={index === 0}>
+                                                    Mover para cima
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => moveRow(index, index + 1)} disabled={index === skills.length - 1}>
+                                                    Mover para baixo
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem asChild>
+                                                    <Link to={`/skills/${skill.id}`}>Editar</Link>
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => setDeleteId(skill.id)} className="text-destructive focus:text-destructive">
+                                                    Excluir
+                                                </DropdownMenuItem>
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="hidden md:block">
                         <Table>
                             <TableHeader>
                                 <TableRow>
@@ -103,18 +161,18 @@ function SkillsPage() {
                             <TableBody>
                                 {skills.map((skill, index) => (
                                     <TableRow key={skill.id}>
-                                        <TableHead className="w-12">
+                                        <TableCell className="w-12">
                                             {getIcon(skill.icon)}
-                                        </TableHead>
-                                        <TableHead>{skill.title}</TableHead>
-                                        <TableHead className='flex flex-row gap-2 items-center'>
+                                        </TableCell>
+                                        <TableCell>{skill.title}</TableCell>
+                                        <TableCell className='flex flex-row gap-2 items-center'>
                                             <div className={`w-5 h-5 rounded-full bg-gradient-to-r ${skill.color}`}></div>
                                             <span className='ml-2'>{skill.color}</span>
-                                        </TableHead>
-                                        <TableHead>
+                                        </TableCell>
+                                        <TableCell>
                                             {skill.skills.length} habilidades
-                                        </TableHead>
-                                        <TableHead className="w-12">
+                                        </TableCell>
+                                        <TableCell className="w-12">
                                             <div className="flex items-center gap-2">
                                                 <Button
                                                     type="button"
@@ -141,16 +199,20 @@ function SkillsPage() {
                                                         Editar
                                                     </Link>
                                                 </Button>
+                                                <Button variant="destructive" size="sm" onClick={() => setDeleteId(skill.id)}>
+                                                    Excluir
+                                                </Button>
                                             </div>
-                                        </TableHead>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
+                        </div>
                     </CardContent>
                 </Card>
             ) : (
-                <Card className="glass-effect">
+                <Card className="border-border/80 bg-card/50 shadow-none">
                     <CardContent className='mt-5'>
                         <div className="rounded-md border border-dashed border-slate-600/50 h-32 grid place-items-center text-sm text-muted-foreground">
                             Nenhuma habilidade cadastrada
@@ -161,6 +223,19 @@ function SkillsPage() {
                     </CardContent>
                 </Card>
             )}
+
+            <AlertDialog open={!!deleteId} onOpenChange={(o) => !o && setDeleteId(null)}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Excluir habilidade?</AlertDialogTitle>
+                        <AlertDialogDescription>Esta ação não pode ser desfeita.</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel disabled={deleting}>Cancelar</AlertDialogCancel>
+                        <AlertDialogAction onClick={confirmDelete} disabled={deleting}>Confirmar</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </PrivateLayout>
     )
 }

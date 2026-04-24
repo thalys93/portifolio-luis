@@ -1,133 +1,106 @@
-
-import { trackEvent } from '@/services/firebase';
-import { Code, Coffee, Lightbulb, Users } from 'lucide-react';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { trackEvent } from "@/services/firebase";
+import { Code, Coffee, Lightbulb, Users } from "lucide-react";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { SectionHeader } from "@/components/SectionHeader";
 
 const AboutSection = () => {
   const { t } = useTranslation();
   const highlights = [
     {
       icon: Code,
-      title: t('about.cards.cleanCode'),
-      description: t('about.cards.cleanCodeDescription')
+      title: t("about.cards.cleanCode"),
+      description: t("about.cards.cleanCodeDescription"),
     },
     {
       icon: Lightbulb,
-      title: t('about.cards.innovation'),
-      description: t('about.cards.innovationDescription')
+      title: t("about.cards.innovation"),
+      description: t("about.cards.innovationDescription"),
     },
     {
       icon: Users,
-      title: t('about.cards.collaboration'),
-      description: t('about.cards.collaborationDescription')
+      title: t("about.cards.collaboration"),
+      description: t("about.cards.collaborationDescription"),
     },
     {
       icon: Coffee,
-      title: t('about.cards.dedication'),
-      description: t('about.cards.dedicationDescription')
-    }
+      title: t("about.cards.dedication"),
+      description: t("about.cards.dedicationDescription"),
+    },
   ];
 
   useEffect(() => {
     trackEvent("about_section_viewed", { section: "about" });
-  }, [])
+  }, []);
 
   return (
-    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-poppins mb-4">
-            {t("about.title_about")} <span className="text-gradient">{t("about.title_me")}</span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
-        </div>
+    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 lg:py-28">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader
+          eyebrow={t("navigation.about")}
+          title={t("about.title_about")}
+          highlight={t("about.title_me")}
+          description={undefined}
+        />
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left side - Text content */}
-          <div className="animate-slide-in-left">
-            <div className="glass-effect p-8 rounded-2xl">
-              <h3 className="text-2xl font-semibold text-primary mb-6">
-                {t("about.cardTitle")}
-              </h3>
+        <div className="grid items-start gap-14 lg:grid-cols-2 lg:gap-20">
+          <div className="border border-border/80 bg-card/40 p-8 sm:p-10">
+            <h3 className="font-display text-2xl font-semibold text-primary sm:text-3xl">
+              {t("about.cardTitle")}
+            </h3>
 
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>
-                  {t("about.cardParagraph1")}
-                </p>
+            <div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">
+              <p>{t("about.cardParagraph1")}</p>
+              <p>{t("about.cardParagraph2")}</p>
+              <p>{t("about.cardParagraph3")}</p>
+            </div>
 
-                <p>
-                  {t("about.cardParagraph2")}
-                </p>
-
-                <p>
-                  {t("about.cardParagraph3")}
-                </p>
-              </div>
-
-              <div className="mt-8 pt-8 border-t border-border">
-                <h4 className="text-lg font-semibold text-primary mb-4">
-                  {t("about.primaryTechs")}
-                </h4>
-                <div className="flex flex-wrap gap-3">
-                  {['React', 'Node.js', 'TypeScript', 'React Native', 'PostgreSQL', 'MongoDB', 'Nest.js', 'Docker'].map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 bg-primary/20 text-primary-foreground rounded-full text-sm font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+            <div className="mt-10 border-t border-border/70 pt-10">
+              <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                {t("about.primaryTechs")}
+              </h4>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {[
+                  "React",
+                  "Node.js",
+                  "TypeScript",
+                  "React Native",
+                  "PostgreSQL",
+                  "MongoDB",
+                  "Nest.js",
+                  "Docker",
+                ].map((tech) => (
+                  <span
+                    key={tech}
+                    className="border border-border/80 px-3 py-1 text-xs font-medium text-foreground/90"
+                  >
+                    {tech}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Right side - Highlights */}
-          <div className="space-y-6">
-            {highlights.map((item, index) => (
+          <div className="space-y-4">
+            {highlights.map((item) => (
               <div
                 key={item.title}
-                className="flex items-start gap-4 glass-effect p-6 rounded-xl hover:bg-primary/5 transition-all duration-300 hover-lift"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="group flex gap-5 border border-border/60 bg-card/30 p-6 transition-colors hover:border-primary/40"
               >
-                <div className="flex-shrink-0 p-3 bg-gradient-to-r from-primary to-accent rounded-lg">
-                  <item.icon className="w-6 h-6 text-primary-foreground" />
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center border border-primary/50 text-primary">
+                  <item.icon className="h-5 w-5" aria-hidden />
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-primary mb-2">
+                  <h4 className="font-display text-xl font-semibold text-foreground">
                     {item.title}
                   </h4>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     {item.description}
                   </p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Stats */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
-          {[
-            { number: '10+', label: t('about.expCards.projectsDone') },
-            { number: '5+', label: t('about.expCards.yearsOfExperience') },
-            { number: '20+', label: t('about.expCards.clientSatisfaction') },
-            { number: '100%', label: t('about.expCards.commitment') },
-          ].map((stat, index) => (
-            <div
-              key={stat.label}
-              className="text-center glass-effect p-6 rounded-xl hover-lift"
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              <div className="text-3xl font-bold text-gradient mb-2">
-                {stat.number}
-              </div>
-              <div className="text-muted-foreground text-sm">
-                {stat.label}
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </section>

@@ -36,12 +36,12 @@ function LanguageSwitcher() {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger className='glass-effect hover:bg-slate-700/50 transition-all p-2 rounded relative md:top-1'>
-                <Languages className='size-4' />
+            <DropdownMenuTrigger className="flex h-9 w-9 items-center justify-center border border-border/80 bg-background/80 text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background">
+                <Languages className="size-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
                 {languages.map((lang) => (
-                    <DropdownMenuItem onClick={(e) => { e.preventDefault(), updateLanguage(lang.key) }}>{lang.label}</DropdownMenuItem>
+                    <DropdownMenuItem key={lang.key} onClick={(e) => { e.preventDefault(); updateLanguage(lang.key); }}>{lang.label}</DropdownMenuItem>
                 ))}
             </DropdownMenuContent>
         </DropdownMenu>

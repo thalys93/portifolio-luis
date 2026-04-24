@@ -19,6 +19,15 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+				display: [
+					'"Cormorant Garamond"',
+					"ui-serif",
+					"Georgia",
+					"serif",
+				],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

@@ -1,82 +1,81 @@
 
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { getFirestore, collection, onSnapshot, getDocs, doc, setDoc } from "firebase/firestore";
+import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { getFirestore, collection, onSnapshot, doc } from "firebase/firestore";
 
-type Theme = string; // Allows dynamic strings
+type Theme = string;
+
+export type ColorMode = "light" | "dark";
 
 interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme | null) => void;
   availableThemes: any[];
   globalTheme: Theme;
+  colorMode: ColorMode;
+  setColorMode: (mode: ColorMode) => void;
+  toggleColorMode: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const hexToHsl = (hex: string) => {
-  // Basic hex to HSL/Tw format converter (H S% L%)
-  let c = hex.substring(1).split('')
-  if (c.length === 3) c = [c[0], c[0], c[1], c[1], c[2], c[2]]
-  const cVal = parseInt(c.join(''), 16)
-  let r = (cVal >> 16) & 255
-  let g = (cVal >> 8) & 255
-  let b = cVal & 255
+const COLOR_MODE_KEY = "portfolio-color-mode";
 
-  r /= 255; g /= 255; b /= 255;
-  const max = Math.max(r, g, b), min = Math.min(r, g, b)
-  let h = 0, s = 0, l = (max + min) / 2
-  if (max !== min) {
-    const d = max - min
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
-    switch (max) {
-      case r: h = (g - b) / d + (g < b ? 6 : 0); break
-      case g: h = (b - r) / d + 2; break
-      case b: h = (r - g) / d + 4; break
-    }
-    h /= 6
-  }
-  return `${(h * 360).toFixed(1)} ${(s * 100).toFixed(1)}% ${(l * 100).toFixed(1)}%`
-}
+/** Variáveis que o painel antigo aplicava em linha — removemos para o CSS (:root / data-color-mode) mandar. */
+const INLINE_THEME_VAR_KEYS = [
+  "--primary",
+  "--secondary",
+  "--background",
+  "--foreground",
+  "--accent",
+  "--card",
+  "--popover",
+  "--border",
+  "--input",
+  "--card-foreground",
+  "--popover-foreground",
+  "--gradient-start",
+  "--gradient-end",
+] as const;
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Local state (override)
   const [localTheme, setLocalTheme] = useState<Theme | null>(() => {
     return localStorage.getItem("app-theme") as Theme | null;
   });
 
-  // Global state (from firestore)
   const [globalTheme, setGlobalTheme] = useState<Theme>("default");
 
-  // Computed active theme
   const theme = localTheme || globalTheme;
 
-  const [availableThemes, setAvailableThemes] = useState<any[]>([])
+  const [availableThemes, setAvailableThemes] = useState<any[]>([]);
 
-  // Load themes from Firestore
+  const [colorMode, setColorModeState] = useState<ColorMode>(() => {
+    if (typeof window === "undefined") return "dark";
+    const stored = localStorage.getItem(COLOR_MODE_KEY);
+    return stored === "light" ? "light" : "dark";
+  });
+
   useEffect(() => {
-    const db = getFirestore()
-    const unsubThemes = onSnapshot(collection(db, 'themes'), (snap) => {
-      const items = snap.docs.map(d => ({ id: d.id, ...d.data() }))
-      setAvailableThemes(items)
-    })
+    const db = getFirestore();
+    const unsubThemes = onSnapshot(collection(db, "themes"), (snap) => {
+      const items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      setAvailableThemes(items);
+    });
 
-    // Listen to Global Settings
-    const unsubSettings = onSnapshot(doc(db, 'settings', 'global'), (snap) => {
+    const unsubSettings = onSnapshot(doc(db, "settings", "global"), (snap) => {
       if (snap.exists()) {
         const data = snap.data();
         if (data.activeThemeId) {
-          setGlobalTheme(data.activeThemeId)
+          setGlobalTheme(data.activeThemeId);
         }
       }
-    })
+    });
 
     return () => {
       unsubThemes();
       unsubSettings();
-    }
-  }, [])
+    };
+  }, []);
 
-  // Helper to update local theme
   const setTheme = (val: Theme | null) => {
     if (val === null) {
       localStorage.removeItem("app-theme");
@@ -85,66 +84,56 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem("app-theme", val);
       setLocalTheme(val);
     }
-  }
+  };
 
-  // Apply Theme Logic including dynamic colors
+  const setColorMode = useCallback((mode: ColorMode) => {
+    localStorage.setItem(COLOR_MODE_KEY, mode);
+    setColorModeState(mode);
+  }, []);
+
+  const toggleColorMode = useCallback(() => {
+    setColorModeState((prev) => {
+      const next: ColorMode = prev === "dark" ? "light" : "dark";
+      localStorage.setItem(COLOR_MODE_KEY, next);
+      return next;
+    });
+  }, []);
+
+  /* Modo claro/escuro: atributo dedicado (evita conflito com tema Firestore cujo value é "light"). */
+  useEffect(() => {
+    document.documentElement.setAttribute("data-color-mode", colorMode);
+  }, [colorMode]);
+
+  /* Tema editorial (default / christmas / ids do Firestore): só data-app-theme + tokens em CSS — sem cores inline do dashboard. */
   useEffect(() => {
     const root = window.document.documentElement;
-    // Clear known/prev classes
-    root.classList.remove("default", "christmas");
-    availableThemes.forEach(t => {
-      if (t.value) root.classList.remove(t.value)
-    })
 
-    root.classList.add(theme);
+    root.classList.remove("default", "christmas", "light");
+    availableThemes.forEach((t) => {
+      if (t.value) root.classList.remove(t.value);
+    });
 
-    // Apply Dynamic Colors
-    const activeThemeData = availableThemes.find(t => t.value === theme)
-    if (activeThemeData && activeThemeData.colors) {
-      const { primary, secondary, background, foreground, accent } = activeThemeData.colors
-      if (primary) {
-        root.style.setProperty('--primary', hexToHsl(primary))
-        root.style.setProperty('--gradient-start', `hsl(${hexToHsl(primary)})`)
-      }
-      if (secondary) {
-        root.style.setProperty('--secondary', hexToHsl(secondary))
-        root.style.setProperty('--gradient-end', `hsl(${hexToHsl(secondary)})`)
-        root.style.setProperty('--border', hexToHsl(secondary))
-        root.style.setProperty('--input', hexToHsl(secondary))
-      }
-      if (background) {
-        root.style.setProperty('--background', hexToHsl(background))
-        root.style.setProperty('--card', hexToHsl(background))
-        root.style.setProperty('--popover', hexToHsl(background))
-      }
-      if (foreground) {
-        root.style.setProperty('--foreground', hexToHsl(foreground))
-        root.style.setProperty('--card-foreground', hexToHsl(foreground))
-        root.style.setProperty('--popover-foreground', hexToHsl(foreground))
-      }
-      if (accent) root.style.setProperty('--accent', hexToHsl(accent))
+    if (theme && theme !== "default") {
+      root.setAttribute("data-app-theme", theme);
     } else {
-      // Reset inline styles
-      root.style.removeProperty('--primary')
-      root.style.removeProperty('--secondary')
-      root.style.removeProperty('--background')
-      root.style.removeProperty('--foreground')
-      root.style.removeProperty('--accent')
-      root.style.removeProperty('--card')
-      root.style.removeProperty('--popover')
-      root.style.removeProperty('--border')
-      root.style.removeProperty('--input')
-      root.style.removeProperty('--card-foreground')
-      root.style.removeProperty('--popover-foreground')
-      root.style.removeProperty('--gradient-start')
-      root.style.removeProperty('--gradient-end')
+      root.removeAttribute("data-app-theme");
     }
 
+    INLINE_THEME_VAR_KEYS.forEach((key) => root.style.removeProperty(key));
   }, [theme, availableThemes]);
 
-
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, availableThemes, globalTheme }}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        setTheme,
+        availableThemes,
+        globalTheme,
+        colorMode,
+        setColorMode,
+        toggleColorMode,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );

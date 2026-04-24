@@ -1,11 +1,11 @@
-
-import React, { useState } from 'react';
-import { ExternalLink, Github, Calendar, Code, Smartphone, Globe, Rocket, DollarSign } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { useTranslation } from 'react-i18next';
-import { FirebaseDB, trackEvent } from '@/services/firebase'
-import { collection, getDocs } from 'firebase/firestore'
+import React, { useState } from "react";
+import { ExternalLink, Github, Calendar, Code, Globe, Rocket, DollarSign } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
+import { FirebaseDB, trackEvent } from "@/services/firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { SectionHeader } from "@/components/SectionHeader";
 
 const ProjectsSection = () => {
   const { t, i18n } = useTranslation();
@@ -14,189 +14,200 @@ const ProjectsSection = () => {
 
   React.useEffect(() => {
     trackEvent("projects_section_viewed", { section: "projects" });
-  }, [])
+  }, []);
 
   React.useEffect(() => {
     const load = async () => {
       try {
-        const snap = await getDocs(collection(FirebaseDB, 'projects'))
-        const items = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) }))
-        setProjects(items)
-      } catch { }
-    }
-    load()
-  }, [])
+        const snap = await getDocs(collection(FirebaseDB, "projects"));
+        const items = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) }));
+        setProjects(items);
+      } catch {
+        /* empty */
+      }
+    };
+    load();
+  }, []);
 
   React.useEffect(() => {
     const loadCats = async () => {
       try {
-        const snap = await getDocs(collection(FirebaseDB, 'categories'))
-        setCatList(snap.docs.map((d) => ({ ...(d.data() as any) })))
-      } catch {}
-    }
-    loadCats()
-  }, [])
+        const snap = await getDocs(collection(FirebaseDB, "categories"));
+        setCatList(snap.docs.map((d) => ({ ...(d.data() as any) })));
+      } catch {
+        /* empty */
+      }
+    };
+    loadCats();
+  }, []);
 
   const categories = React.useMemo(() => {
-    const set = new Set<string>(['Todos'])
-    projects.forEach((p) => { if (p.category) set.add(p.category) })
-    return Array.from(set)
-  }, [projects])
+    const set = new Set<string>(["Todos"]);
+    projects.forEach((p) => {
+      if (p.category) set.add(p.category);
+    });
+    return Array.from(set);
+  }, [projects]);
 
-  const iconMap: Record<string, any> = { 'code': Code, 'globe': Globe, 'rocket': Rocket, 'dollar-sign': DollarSign }
+  const iconMap: Record<string, any> = {
+    code: Code,
+    globe: Globe,
+    rocket: Rocket,
+    "dollar-sign": DollarSign,
+  };
 
   const getText = (p: any) => {
-    const lang = (i18n.language || 'ptbr') as 'ptbr' | 'en' | 'es'
-    const fallbackTitle = p?.i18n?.[lang]?.title || p?.i18n?.ptbr?.title || ''
-    const fallbackDesc = p?.i18n?.[lang]?.description || p?.i18n?.ptbr?.description || ''
+    const lang = (i18n.language || "ptbr") as "ptbr" | "en" | "es";
+    const fallbackTitle = p?.i18n?.[lang]?.title || p?.i18n?.ptbr?.title || "";
+    const fallbackDesc =
+      p?.i18n?.[lang]?.description || p?.i18n?.ptbr?.description || "";
     return {
-      title: p.i18nKey ? t(`${p.i18nKey}.title`, { defaultValue: fallbackTitle }) : fallbackTitle,
-      description: p.i18nKey ? t(`${p.i18nKey}.description`, { defaultValue: fallbackDesc }) : fallbackDesc,
-    }
-  }
+      title: p.i18nKey
+        ? t(`${p.i18nKey}.title`, { defaultValue: fallbackTitle })
+        : fallbackTitle,
+      description: p.i18nKey
+        ? t(`${p.i18nKey}.description`, { defaultValue: fallbackDesc })
+        : fallbackDesc,
+    };
+  };
 
   const getCategoryName = (slug: string) => {
-    if (!slug || slug === 'Todos') return slug
-    const c = catList.find((x) => x.slug === slug)
-    if (!c) return slug
-    const lang = (i18n.language || 'ptbr') as 'ptbr' | 'en' | 'es'
-    const fallback = c?.i18n?.[lang]?.name || c?.i18n?.ptbr?.name || slug
-    return c.i18nKey ? t(`${c.i18nKey}.name`, { defaultValue: fallback }) : fallback
-  }
+    if (!slug || slug === "Todos") return slug;
+    const c = catList.find((x) => x.slug === slug);
+    if (!c) return slug;
+    const lang = (i18n.language || "ptbr") as "ptbr" | "en" | "es";
+    const fallback = c?.i18n?.[lang]?.name || c?.i18n?.ptbr?.name || slug;
+    return c.i18nKey ? t(`${c.i18nKey}.name`, { defaultValue: fallback }) : fallback;
+  };
 
-  const [activeCategory, setActiveCategory] = useState('Todos');
+  const [activeCategory, setActiveCategory] = useState("Todos");
 
-  const filteredProjects = activeCategory === 'Todos'
-    ? projects.sort((a, b) => a.order - b.order)
-    : projects?.filter(project => project?.category === activeCategory);
+  const filteredProjects =
+    activeCategory === "Todos"
+      ? projects.sort((a, b) => a.order - b.order)
+      : projects?.filter((project) => project?.category === activeCategory);
 
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-poppins mb-4">
-            {t('projects.title_my')} <span className="text-gradient">{t('projects.title_projects')}</span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mb-6" />
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {t('projects.description')}
-          </p>
-        </div>
-        
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 lg:py-28">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader
+          eyebrow={t("navigation.projects")}
+          title={t("projects.title_my")}
+          highlight={t("projects.title_projects")}
+          description={t("projects.description")}
+        />
+
+        <div className="mb-12 flex flex-wrap justify-center gap-2">
           {categories.map((category) => (
             <button
               key={category}
+              type="button"
               onClick={() => setActiveCategory(category)}
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${activeCategory === category
-                ? 'bg-primary text-primary-foreground shadow-lg'
-                : 'glass-effect text-muted-foreground hover:bg-primary/20 hover:text-primary'
-                }`}
+              className={cn(
+                "border px-5 py-2 text-xs font-medium uppercase tracking-[0.15em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                activeCategory === category
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border/80 text-muted-foreground hover:border-primary/50 hover:text-foreground"
+              )}
             >
-              {category === 'Todos' ? 'Todos' : getCategoryName(category)}
+              {category === "Todos" ? "Todos" : getCategoryName(category)}
             </button>
           ))}
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects?.map((project, index) => (
-            <div
+        <div className="grid gap-8 md:grid-cols-2">
+          {filteredProjects?.map((project) => (
+            <article
               key={project.id}
-              className="glass-effect rounded-2xl overflow-hidden hover:bg-primary/5 transition-all duration-500 hover-lift group"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="group border border-border/70 bg-card/30 transition-colors hover:border-primary/35"
             >
-              {/* Project Image */}
-              <div className="relative overflow-hidden h-48">
+              <div className="relative h-52 overflow-hidden">
                 <img
                   src={project.image}
                   alt={getText(project).title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
 
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1 bg-black/60 backdrop-blur-sm rounded-full">
-                  {React.createElement(iconMap[project.icon] || Code, { className: "w-4 h-4 text-slate-200" })}
-                  <span className="text-slate-200 text-sm font-medium">
-                    {getCategoryName(project.category)}
-                  </span>
+                <div className="absolute left-4 top-4 flex items-center gap-2 border border-border/80 bg-background/80 px-3 py-1 text-xs text-foreground backdrop-blur-sm">
+                  {React.createElement(iconMap[project.icon] || Code, {
+                    className: "h-3.5 w-3.5 text-primary",
+                  })}
+                  <span>{getCategoryName(project.category)}</span>
                 </div>
 
-                {/* Date */}
-                <div className="absolute top-4 right-4 flex items-center gap-1 px-2 py-1 bg-black/60 backdrop-blur-sm rounded-full">
-                  <Calendar className="w-3 h-3 text-gray-300" />
-                  <span className="text-gray-300 text-xs">
-                    {project.date}
-                  </span>
+                <div className="absolute right-4 top-4 flex items-center gap-1 border border-border/80 bg-background/80 px-2 py-1 text-[10px] uppercase tracking-wider text-muted-foreground backdrop-blur-sm">
+                  <Calendar className="h-3 w-3" aria-hidden />
+                  {project.date}
                 </div>
               </div>
 
-              {/* Project Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-primary mb-3 group-hover:text-primary/80 transition-colors">
+              <div className="border-t border-border/60 p-6">
+                <h3 className="font-display text-2xl font-semibold text-primary">
                   {getText(project).title}
                 </h3>
-
-                <p className="text-muted-foreground mb-4 leading-relaxed">
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {getText(project).description}
                 </p>
 
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech) => (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {project.technologies.map((tech: string) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-primary/20 text-muted-foreground rounded text-xs font-medium"
+                      className="border border-border/60 px-2 py-0.5 text-[11px] text-muted-foreground"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex gap-3">
+                <div className="mt-6 flex gap-3">
                   <Button
                     variant="outline"
                     size="sm"
-                    className={cn("border-primary text-primary hover:bg-primary hover:text-primary-foreground flex-1 select-none", !project.github && "opacity-50 cursor-not-allowed")}
+                    className={cn(
+                      "flex-1 rounded-none border-primary text-primary hover:bg-primary hover:text-primary-foreground",
+                      !project.github && "pointer-events-none opacity-40"
+                    )}
                     asChild
                     disabled={!project.github}
                   >
                     <a href={project.github} target="_blank" rel="noopener noreferrer">
-                      <Github className="w-4 h-4 mr-2" />
-                      {project.github ? 'GitHub' : t('projects.unavaliable')}
+                      <Github className="mr-2 h-4 w-4" />
+                      {project.github ? "GitHub" : t("projects.unavaliable")}
                     </a>
                   </Button>
 
                   <Button
                     size="sm"
-                    className={cn("bg-primary hover:bg-primary/90 flex-1 select-none", !project.demo && "opacity-50 cursor-not-allowed")}
+                    className={cn(
+                      "flex-1 rounded-none bg-primary text-primary-foreground hover:bg-primary/90",
+                      !project.demo && "pointer-events-none opacity-40"
+                    )}
                     asChild
                     disabled={!project.demo}
                   >
                     <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      {project.demo ? 'Live' : t('projects.unavaliable')}
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      {project.demo ? "Live" : t("projects.unavaliable")}
                     </a>
                   </Button>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="text-center mt-16">
-          <p className="text-muted-foreground mb-6">
-            {t('projects.interest')}
-          </p>
+        <div className="mt-16 text-center">
+          <p className="text-muted-foreground">{t("projects.interest")}</p>
           <Button
             size="lg"
-            className="bg-primary hover:bg-primary/90 px-8 py-3"
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            className="mt-6 rounded-none border border-primary bg-transparent px-10 text-primary hover:bg-primary hover:text-primary-foreground"
+            onClick={() =>
+              document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+            }
           >
-            {t('projects.interestButton')}
+            {t("projects.interestButton")}
           </Button>
         </div>
       </div>

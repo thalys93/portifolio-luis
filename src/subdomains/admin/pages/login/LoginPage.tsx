@@ -42,7 +42,7 @@ function LoginPage() {
                 <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-slate-500/10 rounded-full blur-3xl" />
             </div>
 
-            <Card className="relative mx-5 md:mx-auto w-full max-w-md glass-effect animate-fade-in select-none">
+            <Card className="relative mx-5 md:mx-auto w-full max-w-md border-border/80 bg-card/50 shadow-none animate-fade-in select-none">
                 <CardHeader>
                     <CardTitle className="text-2xl font-poppins">Bem-vindo</CardTitle>
                     <CardDescription>Use sua conta do GitHub para acessar o Gerenciador de Projetos</CardDescription>

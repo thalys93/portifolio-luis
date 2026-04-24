@@ -7,9 +7,6 @@ import CategoriesPage from "@/subdomains/admin/pages/categories/CategoriesPage";
 import SkillsPage from "@/subdomains/admin/pages/skills/SkillsPage";
 import SkillPage from "@/subdomains/admin/pages/skills/SkillPage";
 
-import ThemesPage from '@/subdomains/admin/pages/themes/ThemesPage';
-import ThemePage from '@/subdomains/admin/pages/themes/ThemePage';
-
 export const adminRoutes = [
   {
     path: "oauth/login",
@@ -42,13 +39,5 @@ export const adminRoutes = [
   {
     path: "skills/:id?",
     element: SkillPage,
-  },
-  {
-    path: "themes",
-    element: ThemesPage,
-  },
-  {
-    path: "themes/:id?",
-    element: ThemePage,
   }
 ];

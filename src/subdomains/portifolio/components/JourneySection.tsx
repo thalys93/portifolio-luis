@@ -1,116 +1,73 @@
-
-import { trackEvent } from '@/services/firebase';
-import { User, Code2, Heart, Lightbulb } from 'lucide-react';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { trackEvent } from "@/services/firebase";
+import { User, Code2, Lightbulb } from "lucide-react";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { SectionHeader } from "@/components/SectionHeader";
 
 const JourneySection = () => {
   const { t } = useTranslation();
   useEffect(() => {
     trackEvent("journey_section_viewed", { section: "journey" });
-  }, [])
+  }, []);
+
   return (
-    <section id="journey" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
-      <div className="absolute top-10 right-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-10 left-10 w-24 h-24 bg-secondary/10 rounded-full blur-2xl animate-float" style={{ animationDelay: '1s' }} />
+    <section
+      id="journey"
+      className="border-t border-border/60 bg-muted/10 py-20 px-4 sm:px-6 lg:px-8 lg:py-28"
+    >
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader
+          eyebrow={t("navigation.journey")}
+          title={t("journey.title_my")}
+          highlight={t("journey.title_journey")}
+          description={t("journey.description")}
+        />
 
-      <div className="max-w-7xl mx-auto relative">
-        {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-4">
-            {t("journey.title_my")} <span className="text-gradient">{t("journey.title_journey")}</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {t("journey.description")}
-          </p>
-        </div>
-
-        {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Image Column */}
-          <div className="animate-slide-in-left">
-            <div className="relative group">
-              {/* Main image container */}
-              <div className="relative overflow-hidden rounded-2xl glass-effect p-1">
-                <img
-                  src="https://res.cloudinary.com/dlz0kwel5/image/upload/v1767623486/thalys_26_opbyhx.png"
-                  alt="Thalys Xavier - Desenvolvedor Full Stack"
-                  className="w-full h-[600px] object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
-                />
-
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/30 to-transparent rounded-xl" />
-              </div>
-
-              {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 glass-effect p-3 rounded-xl hover-lift">
-                <Code2 className="w-6 h-6 text-primary" />
-              </div>
-              <div className="absolute -bottom-4 -left-4 glass-effect p-3 rounded-xl hover-lift">
-                <Heart className="w-6 h-6 text-destructive fill-current" />
-              </div>
+        <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <div className="relative border border-border/70 bg-card/30 p-1">
+              <img
+                src="me_2.png"
+                alt="Thalys Xavier - Desenvolvedor Full Stack"
+                className="aspect-[4/5] w-full object-cover object-top"
+              />
             </div>
           </div>
 
-          {/* Text Column */}
-          <div className="space-y-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            {/* Story blocks */}
-            <div className="space-y-8">
-              <div className="flex gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
-                  <Lightbulb className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+          <div className="space-y-10">
+            {[
+              {
+                Icon: Lightbulb,
+                title: t("journey.firstClick"),
+                body: t("journey.firstDescription"),
+              },
+              {
+                Icon: Code2,
+                title: t("journey.continousLearning"),
+                body: t("journey.continousDescription"),
+              },
+              {
+                Icon: User,
+                title: t("journey.connectingPeople"),
+                body: t("journey.connectingPeopleDescription"),
+              },
+            ].map(({ Icon, title, body }) => (
+              <div key={title} className="flex gap-5">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center border border-border/80 text-primary">
+                  <Icon className="h-5 w-5" aria-hidden />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-primary mb-2 font-poppins">
-                    {t("journey.firstClick")}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {t("journey.firstDescription")}
-                  </p>
+                  <h3 className="font-display text-xl font-semibold text-foreground">{title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
                 </div>
               </div>
+            ))}
 
-              <div className="flex gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
-                  <Code2 className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-primary mb-2 font-poppins">
-                    {t("journey.continousLearning")}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {t("journey.continousDescription")}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 glass-effect rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
-                  <User className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-primary mb-2 font-poppins">
-                    {t("journey.connectingPeople")}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {t("journey.connectingPeopleDescription")}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Call to action */}
-            <div className="pt-6">
-              <div className="glass-effect p-6 rounded-xl border border-primary/20">
-                <p className="text-muted-foreground mb-4 italic">
-                  {t("journey.quote")}
-                </p>
-                <p className="text-primary font-medium">
-                  {t("journey.quoteConnect")}
-                </p>
-              </div>
+            <div className="border border-primary/30 bg-card/40 p-6">
+              <p className="text-sm italic leading-relaxed text-muted-foreground">
+                {t("journey.quote")}
+              </p>
+              <p className="mt-4 text-sm font-medium text-primary">{t("journey.quoteConnect")}</p>
             </div>
           </div>
         </div>

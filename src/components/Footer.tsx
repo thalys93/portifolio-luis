@@ -1,73 +1,90 @@
-
-import { Heart, ArrowUp } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
+import { ArrowUp, Coffee } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const { t } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const links = [
+    { label: t("navigation.home"), id: "home" },
+    { label: t("navigation.about"), id: "about" },
+    { label: t("navigation.journey"), id: "journey" },
+    { label: t("navigation.habilities"), id: "skills" },
+    { label: t("navigation.projects"), id: "projects" },
+    { label: t("navigation.contact"), id: "contact" },
+  ];
+
+  const handleLinkClick = (sectionId: string) => {
+    if (sectionId === "projects") {
+      navigate("/projects");
+      return;
+    }
+
+    if (location.pathname !== "/") {
+      navigate("/");
+      window.setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+      }, 80);
+      return;
+    }
+
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <footer className="bg-background border-t border-border py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          {/* Logo and Description */}
+    <footer className="border-t border-border/70 bg-background px-4 py-14 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex flex-col items-center justify-between gap-10 md:flex-row md:items-start">
           <div className="text-center md:text-left">
-            <h3 className="text-2xl font-bold font-poppins text-gradient mb-2">
-              Thalys Xavier
-            </h3>
-            <p className="text-muted-foreground max-w-md">
-              {t('footer.footerSlogan')}
+            <p className="font-display text-2xl font-semibold text-foreground">
+              Thalys<span className="text-primary">.</span>
+            </p>
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
+              {t("footer.footerSlogan")}
             </p>
           </div>
 
-          {/* Quick Links */}
-          <div className="flex flex-wrap justify-center gap-6">
-            {[
-              { label: t("navigation.home"), id: 'home' },
-              { label: t("navigation.about"), id: 'about' },
-              { label: t("navigation.journey"), id: 'journey' },
-              { label: t("navigation.habilities"), id: 'skills' },
-              { label: t("navigation.projects"), id: 'projects' },
-              { label: t("navigation.contact"), id: 'contact' }
-            ].map((link) => (
+          <nav
+            aria-label="Links do rodapé"
+            className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:justify-end"
+          >
+            {links.map((link) => (
               <button
                 key={link.id}
-                onClick={() => document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-muted-foreground hover:text-primary transition-colors duration-300 text-sm"
+                type="button"
+                onClick={() => handleLinkClick(link.id)}
+                className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 {link.label}
               </button>
             ))}
-          </div>
+          </nav>
 
-          {/* Scroll to Top */}
           <button
+            type="button"
             onClick={scrollToTop}
-            className="p-3 glass-effect rounded-full hover:bg-primary/20 transition-all duration-300 hover-lift group"
-            aria-label="Scroll to top"
+            className="flex h-11 w-11 shrink-0 items-center justify-center border border-border/80 text-muted-foreground transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            aria-label="Voltar ao topo"
           >
-            <ArrowUp className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+            <ArrowUp className="h-5 w-5" />
           </button>
         </div>
 
-        {/* Divider */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent my-8" />
+        <div className="mt-12 h-px w-full bg-border/60" />
 
-        {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <span>© {new Date().getFullYear()} Thalys Xavier. {t('footer.rights')}.</span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span>{t("footer.made")}</span>
-            <Heart className="w-4 h-4 text-destructive fill-current animate-pulse" />
-            <span>{t("footer.andMuch")}</span>
-            <span className="text-primary">☕</span>
-          </div>
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 text-xs text-muted-foreground sm:flex-row">
+          <span>
+            © {new Date().getFullYear()} Thalys Xavier. {t("footer.rights")}.
+          </span>
+          <span className="text-center sm:text-right">
+            {t("footer.made")} {t("footer.andMuch")} <Coffee className="inline-block h-4 w-4 mb-1 ml-1 text-primary animate-pulse" />
+          </span>
         </div>
       </div>
     </footer>

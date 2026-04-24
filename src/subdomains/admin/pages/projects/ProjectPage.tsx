@@ -16,6 +16,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { Globe, Image, List } from 'lucide-react'
 import { IconsSelect } from '@/shared/consts/Icons'
 import { ProjectForm } from '@/types/form/project.form'
+import { AdminPageHeader } from '@/subdomains/admin/components/AdminPageHeader'
 
 function ProjectPage() {
     const { id } = useParams()
@@ -136,13 +137,14 @@ function ProjectPage() {
     return (
         <PrivateLayout>
             <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                    <h1 className="text-xl font-poppins">{isNew ? 'Novo Projeto' : `Projeto ${id}`}</h1>
-                </div>
+                <AdminPageHeader
+                    title={isNew ? 'Novo projeto' : 'Editar projeto'}
+                    description="Configure conteúdo, metadados e mídia do projeto."
+                />
 
                 <Form {...form}>
                     <form onSubmit={onSubmit} className="grid gap-6 md:grid-cols-2">
-                        <Card className="glass-effect md:col-span-2">
+                        <Card className="border-border/80 bg-card/50 shadow-none md:col-span-2">
                             <CardHeader>
                                 <CardTitle className="font-poppins"><Globe className='w-5 h-5 mr-1 inline-block' /> Tradução</CardTitle>
                             </CardHeader>
@@ -224,7 +226,7 @@ function ProjectPage() {
                             </CardContent>
                         </Card>
 
-                        <Card className="glass-effect">
+                        <Card className="border-border/80 bg-card/50 shadow-none">
                             <CardHeader>
                                 <CardTitle className="font-poppins"><List className='w-5 h-5 mr-1 inline-block' /> Detalhes</CardTitle>
                             </CardHeader>
@@ -250,7 +252,7 @@ function ProjectPage() {
                                             </FormControl>
                                             <SelectContent>
                                                 {IconsSelect.map(ic => (
-                                                    <SelectItem value={ic.value}>{ic.icon} {ic.label}</SelectItem>
+                                                    <SelectItem key={ic.value} value={ic.value}>{ic.icon} {ic.label}</SelectItem>
                                                 ))}
                                             </SelectContent>
                                         </Select>
@@ -313,7 +315,7 @@ function ProjectPage() {
                             </CardContent>
                         </Card>
 
-                        <Card className="glass-effect">
+                        <Card className="border-border/80 bg-card/50 shadow-none">
                             <CardHeader>
                                 <CardTitle className="font-poppins"><Image className='w-5 h-5 mr-1 inline-block' /> Imagem</CardTitle>
                             </CardHeader>
@@ -333,11 +335,11 @@ function ProjectPage() {
                             </CardContent>
                         </Card>
 
-                        <div className="md:col-span-2 flex justify-end gap-2">
-                            <Button type="button" variant="outline" asChild>
+                        <div className="md:col-span-2 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                            <Button type="button" variant="outline" className="w-full sm:w-auto" asChild>
                                 <Link to="/projects">Cancelar</Link>
                             </Button>
-                            <Button type="submit">Salvar</Button>
+                            <Button type="submit" className="w-full sm:w-auto">Salvar</Button>
                         </div>
                     </form>
                 </Form>

@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { FirebaseDB } from '@/services/firebase'
 import { collection, addDoc, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { AdminPageHeader } from '@/subdomains/admin/components/AdminPageHeader'
 
 type FormValues = {
     slug: string
@@ -84,13 +85,14 @@ function CategoryPage() {
     return (
         <PrivateLayout>
             <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                    <h1 className="text-xl font-poppins">{isNew ? 'Nova Categoria' : `Categoria ${id}`}</h1>
-                </div>
+                <AdminPageHeader
+                    title={isNew ? 'Nova categoria' : 'Editar categoria'}
+                    description="Preencha os dados e traduções da categoria."
+                />
 
                 <Form {...form}>
                     <form onSubmit={onSubmit} className="grid gap-6 md:grid-cols-2">
-                        <Card className="glass-effect md:col-span-2">
+                        <Card className="border-border/80 bg-card/50 shadow-none md:col-span-2">
                             <CardHeader>
                                 <CardTitle className="font-poppins">Tradução</CardTitle>
                             </CardHeader>
@@ -166,7 +168,7 @@ function CategoryPage() {
                             </CardContent>
                         </Card>
 
-                        <Card className="glass-effect">
+                        <Card className="border-border/80 bg-card/50 shadow-none">
                             <CardHeader>
                                 <CardTitle className="font-poppins">Detalhes</CardTitle>
                             </CardHeader>
@@ -183,11 +185,11 @@ function CategoryPage() {
                             </CardContent>
                         </Card>
 
-                        <div className="md:col-span-2 flex justify-end gap-2">
-                            <Button type="button" variant="outline" asChild>
+                        <div className="md:col-span-2 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                            <Button type="button" variant="outline" className="w-full sm:w-auto" asChild>
                                 <Link to="/categories">Cancelar</Link>
                             </Button>
-                            <Button type="submit">Salvar</Button>
+                            <Button type="submit" className="w-full sm:w-auto">Salvar</Button>
                         </div>
                     </form>
                 </Form>

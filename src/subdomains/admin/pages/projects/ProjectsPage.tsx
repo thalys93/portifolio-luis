@@ -9,7 +9,9 @@ import { collection, getDocs, deleteDoc, doc, writeBatch } from 'firebase/firest
 import { deleteObject, ref as storageRef } from 'firebase/storage'
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog'
 import { getIcon } from '@/shared/consts/Icons'
-import { ArrowUp, ArrowDown } from 'lucide-react'
+import { ArrowUp, ArrowDown, EllipsisVertical } from 'lucide-react'
+import { AdminPageHeader } from '@/subdomains/admin/components/AdminPageHeader'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 
 type Project = {
   id: string
@@ -102,19 +104,77 @@ function ProjectsPage() {
           {error}
         </div>
       )}
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-xl font-poppins">Projetos</h1>
+      <AdminPageHeader
+        title="Projetos"
+        description="Gerencie portfólio, links e ordem de exibição."
+        action={(
         <Button asChild>
           <Link to="/projects/new">Novo projeto</Link>
         </Button>
-      </div>
+        )}
+      />
 
-      {projects.length > 0 ? (
-        <Card className="glass-effect">
+      {loading ? (
+        <Card className="border-border/80 bg-card/50 shadow-none">
+          <CardContent className="py-10 text-center text-sm text-muted-foreground">
+            Carregando projetos...
+          </CardContent>
+        </Card>
+      ) : projects.length > 0 ? (
+        <Card className="border-border/80 bg-card/50 shadow-none">
           <CardHeader>
             <CardTitle className="text-sm text-muted-foreground">Listagem</CardTitle>
           </CardHeader>
-          <CardContent className="p-0">
+          <CardContent className="p-3 md:p-0">
+            <div className="grid gap-3 md:hidden">
+              {projects.map((p, index) => (
+                <div key={p.id} className="rounded-md border border-border/80 bg-card/60 p-2">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0 flex-1 space-y-1">
+                      <p className="flex items-center gap-1.5 text-xs font-semibold leading-tight">
+                        <span className="shrink-0">{getIcon(p.icon)}</span>
+                        <span className="min-w-0 flex-1 truncate">{p.i18n?.ptbr?.title ?? '—'}</span>
+                      </p>
+                      <div className="flex flex-wrap items-center gap-1">
+                        <span className="inline-flex max-w-full items-center rounded-full border border-border/70 bg-muted/40 px-2 py-0.5 text-[10px] text-muted-foreground">
+                          <span className="truncate">Categoria: {p.category || '—'}</span>
+                        </span>
+                        <span className="inline-flex items-center rounded-full border border-border/70 bg-muted/40 px-2 py-0.5 text-[10px] text-muted-foreground">
+                          Ano: {p.date || '—'}
+                        </span>
+                      </div>
+                      <p className="truncate text-[10px] text-muted-foreground">
+                        Tecnologias: {p.technologies.length > 0 ? `${p.technologies.length} itens` : '—'}
+                      </p>
+                    </div>
+
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="icon" className="h-8 w-8" aria-label="Abrir ações do projeto">
+                          <EllipsisVertical className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={() => moveRow(index, index - 1)} disabled={index === 0}>
+                          Mover para cima
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => moveRow(index, index + 1)} disabled={index === projects.length - 1}>
+                          Mover para baixo
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link to={`/projects/${p.id}`}>Editar</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setDeleteId(p.id)} className="text-destructive focus:text-destructive">
+                          Excluir
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="hidden md:block">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -172,10 +232,11 @@ function ProjectsPage() {
                 ))}
               </TableBody>
             </Table>
+            </div>
           </CardContent>
         </Card>
       ) : (
-        <Card className="glass-effect">
+        <Card className="border-border/80 bg-card/50 shadow-none">
           <CardContent className='mt-5'>
             <div className="rounded-md border border-dashed border-slate-600/50 h-32 grid place-items-center text-sm text-muted-foreground">
               Nenhum projeto cadastrado

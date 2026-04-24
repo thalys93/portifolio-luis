@@ -1,32 +1,60 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import LanguageSwitcher from './LanguageSwitcher';
-import { useTranslation } from 'react-i18next';
+import { useState, useEffect, useMemo } from "react";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "@/shared/context/ThemeContext";
+import { cn } from "@/lib/utils";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navigation = () => {
-  const [activeSection, setActiveSection] = useState('home');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
   const { t } = useTranslation();
+  const { colorMode } = useTheme();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const navItems = [
-    { id: 'home', label: t("navigation.home") },
-    { id: 'about', label: t("navigation.about") },
-    { id: 'journey', label: t("navigation.journey") },
-    { id: 'skills', label: t("navigation.habilities") },
-    { id: 'projects', label: t("navigation.projects") },
-    { id: 'contact', label: t("navigation.contact") },
-  ];
+  const navItems = useMemo(
+    () => [
+      { id: "home", label: t("navigation.home") },
+      { id: "about", label: t("navigation.about") },
+      { id: "journey", label: t("navigation.journey") },
+      { id: "skills", label: t("navigation.habilities") },
+      { id: "projects", label: t("navigation.projects") },
+      { id: "contact", label: t("navigation.contact") },
+    ],
+    [t]
+  );
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    const isProjectsRoute =
+      location.pathname.startsWith("/projects") || location.pathname.startsWith("/project/");
 
-      // Update active section based on scroll position
-      const sections = navItems.map(item => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 100;
+    if (isProjectsRoute) {
+      setActiveSection("projects");
+      setIsScrolled(true);
+      return;
+    }
+
+    if (location.pathname !== "/") {
+      setActiveSection("home");
+      setIsScrolled(true);
+      return;
+    }
+
+    setIsScrolled(window.scrollY > 24);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (location.pathname !== "/") return;
+
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 24);
+
+      const sections = navItems.map((item) => document.getElementById(item.id));
+      const scrollPosition = window.scrollY + 120;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
@@ -37,82 +65,96 @@ const Navigation = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [location.pathname, navItems]);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
+  const scrollToElementWithOffset = (element: HTMLElement) => {
+    const HEADER_OFFSET = 92;
+    const top = Math.max(0, element.offsetTop - HEADER_OFFSET);
+    window.scrollTo({ top, behavior: "smooth" });
   };
 
+  const scrollToSection = (sectionId: string) => {
+    if (sectionId === "projects") {
+      navigate("/projects");
+      return;
+    }
+
+    if (location.pathname !== "/") {
+      navigate("/");
+      window.setTimeout(() => {
+        const target = document.getElementById(sectionId);
+        if (target) {
+          scrollToElementWithOffset(target);
+        }
+      }, 80);
+      return;
+    }
+
+    const element = document.getElementById(sectionId);
+    if (element) {
+      scrollToElementWithOffset(element);
+    }
+  };
+
+  const isHomeLightHero = colorMode === "light" && activeSection === "home" && !isScrolled;
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-effect shadow-lg' : 'bg-transparent'
-      }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0">
-            <span className="text-2xl font-bold font-poppins text-gradient">
-              Thalys Dev
-            </span>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-primary ${activeSection === item.id
-                      ? 'text-primary border-b-2 border-primary'
-                      : 'text-muted-foreground hover:text-primary'
-                    }`}
-                >
-                  {item.label}
-                </button>
-              ))}
-
-              <LanguageSwitcher />
-            </div>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex flex-row gap-2 items-center">
-            <LanguageSwitcher />
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-muted-foreground hover:text-primary p-2"
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color] duration-300 ${
+        isScrolled ? "border-b border-border/70 bg-background/85 backdrop-blur-md" : "bg-transparent"
+      }`}
+    >
+      <nav aria-label="Principal" className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between gap-4 md:h-[4.25rem]">
+          <button
+            type="button"
+            onClick={() => scrollToSection("home")}
+            className="shrink-0 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <span
+              className={cn(
+                "font-display text-xl font-semibold tracking-tight sm:text-2xl",
+                isHomeLightHero
+                  ? "text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]"
+                  : "text-foreground"
+              )}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-      </div>
+              Thalys<span className="text-primary">.</span>
+            </span>
+          </button>
 
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden glass-effect">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <div className="hidden items-center gap-1 md:flex">
             {navItems.map((item) => (
               <button
                 key={item.id}
+                type="button"
                 onClick={() => scrollToSection(item.id)}
-                className={`block w-full text-left px-3 py-2 text-base font-medium transition-colors duration-300 ${activeSection === item.id
-                    ? 'text-primary bg-primary/10'
-                    : 'text-muted-foreground hover:text-primary hover:bg-primary/10'
-                  }`}
+                className={cn(
+                  "px-3 py-2 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                  isHomeLightHero
+                    ? activeSection === item.id
+                      ? "text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)]"
+                      : "text-white/80 hover:text-white"
+                    : activeSection === item.id
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                )}
               >
                 {item.label}
               </button>
             ))}
           </div>
+
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <LanguageSwitcher />
+          </div>
         </div>
-      )}
-    </nav>
+      </nav>
+    </header>
   );
 };
 

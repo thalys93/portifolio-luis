@@ -19,6 +19,9 @@
   "hero": {
     "title": "Hola, soy",
     "subtitle": "Desarrollador Full Stack",
+    "headline_sans": "Desarrollador",
+    "headline_serif": "Full Stack",
+    "available": "Disponible",
     "description": "Transformo ideas en experiencias digitales increíbles. Especializado en React, Node.js y tecnologías modernas para crear soluciones web robustas y escalables.",
     "button_one": "Ver Proyectos",
     "button_two": "Contacto"
@@ -94,6 +97,23 @@
     "promptForge": {
       "description": "Prompt Forge es una herramienta que permite crear indicaciones personalizadas para usar en modelos de lenguaje. Con una interfaz intuitiva, los usuarios pueden definir los parámetros deseados, como el tema, el público objetivo y el formato de respuesta. Prompt Forge también permite guardar las indicaciones creadas para su uso posterior."
     }
+  },
+  "projectsPage": {
+    "titleStart": "Todos los",
+    "titleHighlight": "Proyectos",
+    "description": "Explora proyectos con filtros por categoría, búsqueda rápida y vista detallada.",
+    "searchPlaceholder": "Buscar por proyecto, tecnología o categoría...",
+    "filters": {
+      "all": "Todos"
+    },
+    "openProject": "Ver Proyecto",
+    "empty": "No se encontraron proyectos para los filtros seleccionados.",
+    "openLive": "Abrir Demo",
+    "previewTitle": "Vista previa de la aplicación",
+    "embedBlocked": "Este sitio bloquea la visualización en iframe. Ábrelo en una nueva pestaña para ver la vista completa.",
+    "backToProjects": "Volver a proyectos",
+    "detailNotFound": "Proyecto no encontrado o no disponible.",
+    "noPreviewAvailable": "Este proyecto aún no tiene una vista previa disponible. Puedes usar los enlaces externos cuando estén publicados."
   },
   "contact": {
     "title_start": "Entra en ",

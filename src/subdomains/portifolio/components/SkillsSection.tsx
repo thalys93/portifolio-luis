@@ -1,16 +1,32 @@
+import { trackEvent } from "@/services/firebase";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { FirebaseDB } from "@/services/firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { getIcon } from "@/shared/consts/Icons";
+import { SectionHeader } from "@/components/SectionHeader";
 
-import { trackEvent } from '@/services/firebase';
-import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { FirebaseDB } from '@/services/firebase';
-import { collection, getDocs } from 'firebase/firestore';
-import { Code, Globe, Rocket, DollarSign, List, Image, Computer } from 'lucide-react';
-import { getIcon } from '@/shared/consts/Icons';
-
-const SkillsSection = () => {  
-  const { t } = useTranslation();  
+const SkillsSection = () => {
+  const { t } = useTranslation();
 
   const [skillGroups, setSkillGroups] = useState<any[]>([]);
+  const otherSkills = [
+    "Agile Methods",
+    "Scrum",
+    "TDD",
+    "Clean Architecture",
+    "Microservices",
+    "RESTful APIs",
+    "WebSockets",
+    "Performance Optimization",
+    "SEO",
+    "Accessibility",
+  ];
+  const splitIndex = Math.ceil(otherSkills.length / 2);
+  const firstRowBaseSkills = otherSkills.slice(0, splitIndex);
+  const secondRowBaseSkills = otherSkills.slice(splitIndex);
+  const firstRowSkills = [...firstRowBaseSkills, ...firstRowBaseSkills];
+  const secondRowSkills = [...secondRowBaseSkills, ...secondRowBaseSkills];
 
   useEffect(() => {
     trackEvent("skills_section_viewed", { section: "skills" });
@@ -19,109 +35,148 @@ const SkillsSection = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        const snap = await getDocs(collection(FirebaseDB, 'skills'));
+        const snap = await getDocs(collection(FirebaseDB, "skills"));
         const items = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) }));
         setSkillGroups(items);
-      } catch {}
+      } catch { }
     };
     load();
   }, []);
 
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-black/20">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-poppins mb-4">
-            {t("skills.title_my")} <span className="text-gradient">{t("skills.title_skills")}</span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mb-6" />
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {t("skills.description")}
-          </p>
-        </div>
+    <section
+      id="skills"
+      className="border-t border-border/60 bg-muted/10 py-20 px-4 sm:px-6 lg:px-8 lg:py-28"
+    >
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader
+          eyebrow={t("navigation.habilities")}
+          title={t("skills.title_my")}
+          highlight={t("skills.title_skills")}
+          description={t("skills.description")}
+        />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skillGroups.sort((a, b) => a.order - b.order).map((category, categoryIndex) => {
-            const gradient = category?.color
-              ? `bg-gradient-to-r ${category.color}`
-              : 'bg-primary';
-            const IconComp = getIcon(category?.icon);
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {skillGroups
+            .sort((a, b) => a.order - b.order)
+            .map((category) => {
+              const gradient = category?.color
+                ? `bg-gradient-to-r ${category.color}`
+                : "bg-primary";
+              const IconComp = getIcon(category?.icon);
 
-            return (
-              <div
-                key={category.id || category.title}
-                className="glass-effect p-6 rounded-2xl hover:bg-primary/5 transition-all duration-300 hover-lift group"
-                style={{ animationDelay: `${categoryIndex * 0.1}s` }}
-              >
-                {/* Cabeçalho da Categoria */}
-                <div className="flex items-center gap-4 mb-6">
-                  <div className={`p-3 rounded-lg ${gradient} group-hover:scale-110 transition-transform duration-300`}>
-                    {React.cloneElement(IconComp, { className: 'w-6 h-6 text-primary-foreground' })}
-                  </div>
-                  <h3 className="text-xl font-semibold text-primary">
-                    {category?.title ?? '—'}
-                  </h3>
-                </div>
-
-                {/* Lista de Skills */}
-                <div className="space-y-4">
-                  {(category?.skills ?? []).map((skill: any, skillIndex: number) => (
-                    <div key={`${category.id}-${skill?.name}-${skillIndex}`} className="group/skill">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-muted-foreground font-medium">
-                          {skill?.name ?? '—'}
-                        </span>
-                        <span className="text-muted-foreground text-sm font-semibold">
-                          {Number(skill?.level ?? 0)}%
-                        </span>
-                      </div>
-
-                      {/* Barra de Progresso */}
-                      <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
-                        <div
-                          className={`h-full ${gradient} rounded-full transition-all duration-1000 ease-out group-hover/skill:animate-pulse`}
-                          style={{
-                            width: `${Number(skill?.level ?? 0)}%`,
-                            animationDelay: `${(categoryIndex * 0.1) + (skillIndex * 0.05)}s`
-                          }}
-                        />
-                      </div>
+              return (
+                <div
+                  key={category.id || category.title}
+                  className="border border-border/70 bg-card/40 p-6 transition-colors hover:border-primary/35"
+                >
+                  <div className="mb-6 flex items-center gap-4">
+                    <div
+                      className={`flex h-12 w-12 items-center justify-center rounded-sm ${gradient}`}
+                    >
+                      {React.cloneElement(IconComp, {
+                        className: "h-6 w-6 text-primary-foreground",
+                      })}
                     </div>
-                  ))}
+                    <h3 className="font-display text-xl font-semibold text-foreground">
+                      {category?.title ?? "—"}
+                    </h3>
+                  </div>
+
+                  <div className="space-y-4">
+                    {(category?.skills ?? []).map((skill: any, skillIndex: number) => (
+                      <div key={`${category.id}-${skill?.name}-${skillIndex}`}>
+                        <div className="mb-2 flex items-center justify-between">
+                          <span className="text-sm font-medium text-muted-foreground">
+                            {skill?.name ?? "—"}
+                          </span>
+                          <span className="text-xs font-semibold tabular-nums text-primary">
+                            {Number(skill?.level ?? 0)}%
+                          </span>
+                        </div>
+                        <div className="h-1 w-full overflow-hidden bg-muted">
+                          <div
+                            className={`h-full ${gradient} transition-all duration-700`}
+                            style={{ width: `${Number(skill?.level ?? 0)}%` }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
 
-        {/* Skills adicionais (mantido como antes) */}
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl font-semibold text-primary mb-8">
+        <div className="mt-16 border-t border-border/60 pt-14">
+          <h3 className="text-center font-display text-2xl font-semibold text-primary">
             {t("skills.otherSkills")}
           </h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {[
-              'Metodologias Ágeis',
-              'Scrum',
-              'TDD',
-              'Clean Architecture',
-              'Microservices',
-              'RESTful APIs',
-              'WebSockets',
-              'Performance Optimization',
-              'SEO',
-              'Accessibility'
-            ].map((skill) => (
-              <span
-                key={skill}
-                className="px-4 py-2 glass-effect rounded-full text-muted-foreground hover:bg-primary/20 hover:text-primary transition-all duration-300 hover-lift"
-              >
-                {skill}
-              </span>
-            ))}
+          <div className="mt-8 space-y-3 md:hidden">
+            <div className="overflow-hidden">
+              <div className="flex w-max animate-[skills-marquee-left_30s_linear_infinite] gap-2 pr-2">
+                {firstRowSkills.map((skill, index) => (
+                  <span
+                    key={`first-row-${skill}-${index}`}
+                    className="whitespace-nowrap border border-border/70 px-4 py-2 text-xs text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="overflow-hidden">
+              <div className="ml-[-50%] flex w-max animate-[skills-marquee-right_26s_linear_infinite] gap-2 pr-2">
+                {secondRowSkills.map((skill, index) => (
+                  <span
+                    key={`second-row-${skill}-${index}`}
+                    className="whitespace-nowrap border border-border/70 px-4 py-2 text-xs text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 hidden space-y-3 md:block">
+            <div className="flex flex-wrap justify-center gap-2">
+              {firstRowBaseSkills.map((skill) => (
+                <span
+                  key={`desktop-first-row-${skill}`}
+                  className="whitespace-nowrap border border-border/70 px-4 py-2 text-xs text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+            <div className="flex flex-wrap justify-center gap-2">
+              {secondRowBaseSkills.map((skill) => (
+                <span
+                  key={`desktop-second-row-${skill}`}
+                  className="whitespace-nowrap border border-border/70 px-4 py-2 text-xs text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
+      <style>
+        {`
+          @keyframes skills-marquee-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+
+          @keyframes skills-marquee-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+          }
+        `}
+      </style>
     </section>
   );
 };

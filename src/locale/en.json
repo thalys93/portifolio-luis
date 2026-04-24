@@ -19,6 +19,9 @@
   "hero": {
     "title": "Hi, I'm",
     "subtitle": "Full Stack Developer",
+    "headline_sans": "Developer",
+    "headline_serif": "Full Stack",
+    "available": "Available",
     "description": "I turn ideas into amazing digital experiences. Specialized in React, Node.js and modern technologies to create scalable and robust web solutions.",
     "button_one": "View Projects",
     "button_two": "Get in Touch"
@@ -94,6 +97,23 @@
     "promptForge": {
       "description": "Prompt Forge is a tool that allows users to create custom prompts for use in language models. With an intuitive interface, users can define desired parameters, such as topic, target audience, and response format. Prompt Forge also offers the option to save created prompts for future use."
     }
+  },
+  "projectsPage": {
+    "titleStart": "All",
+    "titleHighlight": "Projects",
+    "description": "Explore projects with category filters, quick search, and detailed preview.",
+    "searchPlaceholder": "Search by project, technology, or category...",
+    "filters": {
+      "all": "All"
+    },
+    "openProject": "Open Project",
+    "empty": "No projects found for the selected filters.",
+    "openLive": "Open Live Demo",
+    "previewTitle": "Application preview",
+    "embedBlocked": "This website blocks iframe embedding. Open it in a new tab to view the full preview.",
+    "backToProjects": "Back to projects",
+    "detailNotFound": "Project not found or unavailable.",
+    "noPreviewAvailable": "This project does not have a preview yet. You can use the external links once they are published."
   },
   "contact": {
     "title_start": "Get in ",

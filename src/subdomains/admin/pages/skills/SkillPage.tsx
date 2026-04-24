@@ -1,6 +1,6 @@
 import { FirebaseDB } from '@/services/firebase'
 import { SkillsForms } from '@/types/form/skills.form'
-import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
 import React, { useMemo, useState } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -16,6 +16,7 @@ import { IconsSelect } from '@/shared/consts/Icons'
 import { buildSuggestions } from '@/shared/consts/tw-colors';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { AdminPageHeader } from '@/subdomains/admin/components/AdminPageHeader'
 
 function SkillPage() {
   const { id } = useParams()
@@ -71,12 +72,13 @@ function SkillPage() {
   return (
     <PrivateLayout>
       <div className='space-y-6'>
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-poppins">{isNew ? 'Nova Habilidade' : `Habilidade ${id}`}</h1>
-        </div>
+        <AdminPageHeader
+          title={isNew ? 'Nova habilidade' : 'Editar habilidade'}
+          description="Configure setor, gradiente e habilidades relacionadas."
+        />
         <Form {...form}>
           <form onSubmit={onSubmit}>
-            <Card className='glass-effect md:col-span-2'>
+            <Card className='border-border/80 bg-card/50 shadow-none md:col-span-2'>
               <CardHeader>
                 <CardTitle className='font-poppins'>
                   <h3>
@@ -85,7 +87,7 @@ function SkillPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className='grid grid-cols-2 gap-4'>
+                <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
                   <FormItem>
                     <FormField control={form.control} name="icon" render={({ field }) => (
                       <FormItem >
@@ -98,7 +100,7 @@ function SkillPage() {
                           </FormControl>
                           <SelectContent>
                             {IconsSelect.map(ic => (
-                              <SelectItem value={ic.value}>{ic.icon} {ic.label}</SelectItem>
+                              <SelectItem key={ic.value} value={ic.value}>{ic.icon} {ic.label}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
@@ -208,18 +210,18 @@ function SkillPage() {
                   </FormItem>
                 </div>
 
-                <div className="md:col-span-2 flex justify-end gap-2">
-                  <Button type="button" variant="outline" asChild>
+                <div className="md:col-span-2 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                  <Button type="button" variant="outline" className="w-full sm:w-auto" asChild>
                     <Link to="/skills">Cancelar</Link>
                   </Button>
-                  <Button type="submit">Salvar</Button>
+                  <Button type="submit" className="w-full sm:w-auto">Salvar</Button>
                 </div>
               </CardContent>
             </Card>
           </form>
 
           {!isNew && (
-            <Card className="glass-effect mt-6">
+            <Card className="border-border/80 bg-card/50 shadow-none mt-6">
               <CardHeader>
                 <CardTitle className='font-poppins'>Habilidades</CardTitle>
               </CardHeader>
@@ -270,7 +272,7 @@ function SkillPage() {
                         </Button>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                         <FormItem>
                           <FormField
                             control={form.control}
