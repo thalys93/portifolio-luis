@@ -202,14 +202,14 @@ function ProjectsPage() {
                   <article
                     key={project.id}
                     onClick={() => navigate(`/projects/${project.id}`)}
-                    className="group border border-border/70 bg-card/30 transition-colors hover:border-primary/40"
+                    className="group border border-border/70 bg-card/30 transition-all hover:rounded-b-lg hover:border-primary/40 duration-200"
                   >
                     <div className="relative h-44 overflow-hidden border-b border-border/60">
                       {project.image ? (
                         <img
                           src={project.image}
                           alt={text.title}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                          className="h-full w-full object-cover duration-500"
                         />
                       ) : (
                         <div className="grid h-full place-items-center bg-muted/20 text-muted-foreground">
