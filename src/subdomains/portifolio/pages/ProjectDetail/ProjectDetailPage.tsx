@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import PublicLayout from "@/subdomains/portifolio/layout/public-layout";
 import { FirebaseDB, trackEvent } from "@/services/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { ArrowLeft, ExternalLink, Github, ShieldAlert } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router-dom";
@@ -30,7 +30,6 @@ function ProjectDetailPage() {
   const { t, i18n } = useTranslation();
   const [project, setProject] = React.useState<Project | null>(null);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [iframeBlocked, setIframeBlocked] = React.useState(false);
 
   React.useEffect(() => {
     const run = async () => {
@@ -47,10 +46,6 @@ function ProjectDetailPage() {
     };
     run();
   }, [id]);
-
-  React.useEffect(() => {
-    setIframeBlocked(false);
-  }, [project?.demo]);
 
   const text = React.useMemo(() => {
     if (!project) return { title: "", description: "" };
@@ -86,16 +81,7 @@ function ProjectDetailPage() {
               </Button>
             </div>
           ) : (
-            <div className="space-y-6">
-              <div>
-                <Button variant="outline" className="rounded-none" asChild>
-                  <Link to="/projects">
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    {t("projectsPage.backToProjects")}
-                  </Link>
-                </Button>
-              </div>
-
+            <div className="space-y-6">              
               <div className="border border-border/70 bg-card/40 p-5 sm:p-8">
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge variant="outline" className="rounded-none uppercase tracking-[0.12em]">
@@ -147,47 +133,17 @@ function ProjectDetailPage() {
                 <div className="border-b border-border/60 px-4 py-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">
                   {t("projectsPage.previewTitle")}
                 </div>
-                {!project.demo ? (
-                  <div className="grid min-h-[380px] place-items-center p-6 text-center">
-                    <div className="max-w-xl">
-                      {project.image ? (
-                        <img
-                          src={project.image}
-                          alt={text.title}
-                          className="mx-auto mb-5 max-h-72 w-full border border-border/60 object-cover"
-                        />
-                      ) : null}
-                      <p className="mt-3 text-sm text-muted-foreground">
-                        {t("projectsPage.noPreviewAvailable")}
-                      </p>
-                    </div>
-                  </div>
-                ) : iframeBlocked ? (
-                  <div className="grid min-h-[380px] place-items-center p-6 text-center">
-                    <div className="max-w-md">
-                      <ShieldAlert className="mx-auto h-8 w-8 text-primary" />
-                      <p className="mt-3 text-sm text-muted-foreground">
-                        {t("projectsPage.embedBlocked")}
-                      </p>
-                      {project.demo ? (
-                        <Button className="mt-4 rounded-none" asChild>
-                          <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="mr-2 h-4 w-4" />
-                            {t("projectsPage.openLive")}
-                          </a>
-                        </Button>
-                      ) : null}
-                    </div>
-                  </div>
-                ) : (
-                  <iframe
-                    title={`${text.title} preview`}
-                    src={project.demo}
-                    className="h-[65vh] w-full bg-background"
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={text.title}
+                    className="w-full object-cover object-center"
                     loading="lazy"
-                    onError={() => setIframeBlocked(true)}
-                    sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
                   />
+                ) : (
+                  <div className="grid min-h-[380px] place-items-center p-6 text-center">
+                    <p className="text-sm text-muted-foreground">{t("projectsPage.noPreviewAvailable")}</p>
+                  </div>
                 )}
               </div>
             </div>
