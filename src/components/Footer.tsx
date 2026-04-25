@@ -83,7 +83,7 @@ const Footer = () => {
             © {new Date().getFullYear()} Thalys Xavier. {t("footer.rights")}.
           </span>
           <span className="text-center sm:text-right">
-            {t("footer.made")} {t("footer.andMuch")} <Coffee className="inline-block h-4 w-4 mb-1 ml-1 text-primary animate-pulse" />
+            {t("footer.made")} {t("footer.andMuch")} <Coffee onClick={() => window.open("/admin/oauth/login", "_self")} className="inline-block h-4 w-4 mb-1 ml-1 text-primary animate-pulse" />
           </span>
         </div>
       </div>
