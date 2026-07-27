@@ -99,9 +99,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  /* Modo claro/escuro: atributo dedicado (evita conflito com tema Firestore cujo value é "light"). */
   useEffect(() => {
-    document.documentElement.setAttribute("data-color-mode", colorMode);
+    const root = document.documentElement;
+    root.setAttribute("data-color-mode", colorMode);
+    root.classList.toggle("dark", colorMode === "dark");
+    root.classList.toggle("light", colorMode === "light");
   }, [colorMode]);
 
   /* Tema editorial (default / christmas / ids do Firestore): só data-app-theme + tokens em CSS — sem cores inline do dashboard. */

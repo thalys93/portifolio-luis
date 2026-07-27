@@ -1,94 +1,27 @@
-import React, { useState } from "react";
-import { ExternalLink, Github, Calendar, Code, Globe, Rocket, DollarSign } from "lucide-react";
+import { ArrowRight, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
-import { FirebaseDB, trackEvent } from "@/services/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { useEffect } from "react";
+import { trackEvent } from "@/services/firebase";
 import { SectionHeader } from "@/components/SectionHeader";
+import { useFeaturedProjects } from "@/hooks/use-projects";
+import { useCategories } from "@/hooks/use-categories";
+import { getCategoryName, getProjectText } from "@/lib/project-i18n";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProjectsSection = () => {
   const { t, i18n } = useTranslation();
-  const [projects, setProjects] = useState<any[]>([]);
-  const [catList, setCatList] = useState<any[]>([]);
+  const navigate = useNavigate();
+  const { data: projects, isLoading } = useFeaturedProjects(4);
+  const { data: categories = [] } = useCategories();
 
-  React.useEffect(() => {
+  useEffect(() => {
     trackEvent("projects_section_viewed", { section: "projects" });
   }, []);
 
-  React.useEffect(() => {
-    const load = async () => {
-      try {
-        const snap = await getDocs(collection(FirebaseDB, "projects"));
-        const items = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) }));
-        setProjects(items);
-      } catch {
-        /* empty */
-      }
-    };
-    load();
-  }, []);
-
-  React.useEffect(() => {
-    const loadCats = async () => {
-      try {
-        const snap = await getDocs(collection(FirebaseDB, "categories"));
-        setCatList(snap.docs.map((d) => ({ ...(d.data() as any) })));
-      } catch {
-        /* empty */
-      }
-    };
-    loadCats();
-  }, []);
-
-  const categories = React.useMemo(() => {
-    const set = new Set<string>(["Todos"]);
-    projects.forEach((p) => {
-      if (p.category) set.add(p.category);
-    });
-    return Array.from(set);
-  }, [projects]);
-
-  const iconMap: Record<string, any> = {
-    code: Code,
-    globe: Globe,
-    rocket: Rocket,
-    "dollar-sign": DollarSign,
-  };
-
-  const getText = (p: any) => {
-    const lang = (i18n.language || "ptbr") as "ptbr" | "en" | "es";
-    const fallbackTitle = p?.i18n?.[lang]?.title || p?.i18n?.ptbr?.title || "";
-    const fallbackDesc =
-      p?.i18n?.[lang]?.description || p?.i18n?.ptbr?.description || "";
-    return {
-      title: p.i18nKey
-        ? t(`${p.i18nKey}.title`, { defaultValue: fallbackTitle })
-        : fallbackTitle,
-      description: p.i18nKey
-        ? t(`${p.i18nKey}.description`, { defaultValue: fallbackDesc })
-        : fallbackDesc,
-    };
-  };
-
-  const getCategoryName = (slug: string) => {
-    if (!slug || slug === "Todos") return slug;
-    const c = catList.find((x) => x.slug === slug);
-    if (!c) return slug;
-    const lang = (i18n.language || "ptbr") as "ptbr" | "en" | "es";
-    const fallback = c?.i18n?.[lang]?.name || c?.i18n?.ptbr?.name || slug;
-    return c.i18nKey ? t(`${c.i18nKey}.name`, { defaultValue: fallback }) : fallback;
-  };
-
-  const [activeCategory, setActiveCategory] = useState("Todos");
-
-  const filteredProjects =
-    activeCategory === "Todos"
-      ? projects.sort((a, b) => a.order - b.order)
-      : projects?.filter((project) => project?.category === activeCategory);
-
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 lg:py-28">
+    <section id="projects" className="bg-grid-saas px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeader
           eyebrow={t("navigation.projects")}
@@ -97,112 +30,90 @@ const ProjectsSection = () => {
           description={t("projects.description")}
         />
 
-        <div className="mb-12 flex flex-wrap justify-center gap-2">
-          {categories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              onClick={() => setActiveCategory(category)}
-              className={cn(
-                "border px-5 py-2 text-xs font-medium uppercase tracking-[0.15em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                activeCategory === category
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border/80 text-muted-foreground hover:border-primary/50 hover:text-foreground"
-              )}
-            >
-              {category === "Todos" ? "Todos" : getCategoryName(category)}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-2">
-          {filteredProjects?.map((project) => (
-            <article
-              key={project.id}
-              className="group border border-border/70 bg-card/30 transition-colors hover:border-primary/35"
-            >
-              <div className="relative h-52 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={getText(project).title}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-
-                <div className="absolute left-4 top-4 flex items-center gap-2 border border-border/80 bg-background/80 px-3 py-1 text-xs text-foreground backdrop-blur-sm">
-                  {React.createElement(iconMap[project.icon] || Code, {
-                    className: "h-3.5 w-3.5 text-primary",
-                  })}
-                  <span>{getCategoryName(project.category)}</span>
+        {isLoading ? (
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <article key={index} className="border border-border/70 bg-card/30">
+                <Skeleton className="h-44 w-full" />
+                <div className="space-y-4 p-5">
+                  <Skeleton className="h-5 w-3/4" />
+                  <Skeleton className="h-8 w-28" />
                 </div>
-
-                <div className="absolute right-4 top-4 flex items-center gap-1 border border-border/80 bg-background/80 px-2 py-1 text-[10px] uppercase tracking-wider text-muted-foreground backdrop-blur-sm">
-                  <Calendar className="h-3 w-3" aria-hidden />
-                  {project.date}
-                </div>
-              </div>
-
-              <div className="border-t border-border/60 p-6">
-                <h3 className="font-display text-2xl font-semibold text-primary">
-                  {getText(project).title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {getText(project).description}
-                </p>
-
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {project.technologies.map((tech: string) => (
-                    <span
-                      key={tech}
-                      className="border border-border/60 px-2 py-0.5 text-[11px] text-muted-foreground"
-                    >
-                      {tech}
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {(projects ?? []).map((project, index) => {
+              const text = getProjectText(project, i18n.language, t);
+              return (
+                <article
+                  key={project.id}
+                  onClick={() => navigate(`/projects/${project.id}`)}
+                  className="group flex cursor-pointer flex-col border border-border/70 bg-card/25 transition-colors duration-300 hover:border-primary/40"
+                  style={{ animationDelay: `${index * 80}ms` }}
+                >
+                  <div className="relative h-44 overflow-hidden">
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={text.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    ) : (
+                      <div className="grid h-full place-items-center bg-muted/30 text-muted-foreground">
+                        <Code className="h-7 w-7" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/15 to-transparent" />
+                    <span className="absolute left-3 top-3 border border-border/80 bg-background/80 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.12em] text-foreground backdrop-blur-sm">
+                      {getCategoryName(
+                        project.category,
+                        categories,
+                        i18n.language,
+                        t,
+                        t("projectsPage.filters.all")
+                      )}
                     </span>
-                  ))}
-                </div>
+                  </div>
 
-                <div className="mt-6 flex gap-3">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className={cn(
-                      "flex-1 rounded-none border-primary text-primary hover:bg-primary hover:text-primary-foreground",
-                      !project.github && "pointer-events-none opacity-40"
-                    )}
-                    asChild
-                    disabled={!project.github}
-                  >
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
-                      <Github className="mr-2 h-4 w-4" />
-                      {project.github ? "GitHub" : t("projects.unavaliable")}
-                    </a>
-                  </Button>
+                  <div className="flex flex-1 flex-col gap-5 border-t border-border/60 p-5">
+                    <h3 className="truncate text-lg font-semibold tracking-tight text-foreground">
+                      {text.shortTitle}
+                    </h3>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="mt-auto h-9 w-fit rounded-none border-border/80 px-3 text-[11px] uppercase tracking-[0.12em] text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        navigate(`/projects/${project.id}`);
+                      }}
+                    >
+                      {t("projectsPage.openProject")}
+                      <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                    </Button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
 
-                  <Button
-                    size="sm"
-                    className={cn(
-                      "flex-1 rounded-none bg-primary text-primary-foreground hover:bg-primary/90",
-                      !project.demo && "pointer-events-none opacity-40"
-                    )}
-                    asChild
-                    disabled={!project.demo}
-                  >
-                    <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      {project.demo ? "Live" : t("projects.unavaliable")}
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <div className="mt-16 text-center">
-          <p className="text-muted-foreground">{t("projects.interest")}</p>
+        <div className="mt-14 flex flex-col items-center gap-5 text-center">
+          <Button
+            variant="outline"
+            size="lg"
+            className="rounded-none border-primary/60 px-8 text-primary hover:bg-primary hover:text-primary-foreground"
+            asChild
+          >
+            <Link to="/projects">{t("projects.viewAll")}</Link>
+          </Button>
+          <p className="max-w-md text-sm text-muted-foreground">{t("projects.interest")}</p>
           <Button
             size="lg"
-            className="mt-6 rounded-none border border-primary bg-transparent px-10 text-primary hover:bg-primary hover:text-primary-foreground"
+            className="rounded-none bg-primary px-10 text-primary-foreground hover:bg-primary/90"
             onClick={() =>
               document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
             }

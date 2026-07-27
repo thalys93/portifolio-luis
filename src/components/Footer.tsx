@@ -13,19 +13,13 @@ const Footer = () => {
 
   const links = [
     { label: t("navigation.home"), id: "home" },
-    { label: t("navigation.about"), id: "about" },
-    { label: t("navigation.journey"), id: "journey" },
-    { label: t("navigation.habilities"), id: "skills" },
+    { label: t("navigation.services"), id: "services" },
     { label: t("navigation.projects"), id: "projects" },
+    { label: t("navigation.about"), id: "about" },
     { label: t("navigation.contact"), id: "contact" },
   ];
 
   const handleLinkClick = (sectionId: string) => {
-    if (sectionId === "projects") {
-      navigate("/projects");
-      return;
-    }
-
     if (location.pathname !== "/") {
       navigate("/");
       window.setTimeout(() => {
@@ -80,10 +74,14 @@ const Footer = () => {
 
         <div className="mt-8 flex flex-col items-center justify-between gap-4 text-xs text-muted-foreground sm:flex-row">
           <span>
-            © {new Date().getFullYear()} Thalys Xavier. {t("footer.rights")}.
+            © {new Date().getFullYear()} Thalys Dev. {t("footer.rights")}.
           </span>
           <span className="text-center sm:text-right">
-            {t("footer.made")} {t("footer.andMuch")} <Coffee onClick={() => window.open("/admin/oauth/login", "_self")} className="inline-block h-4 w-4 mb-1 ml-1 text-primary animate-pulse" />
+            {t("footer.made")} {t("footer.andMuch")}{" "}
+            <Coffee
+              onClick={() => window.open("/admin/oauth/login", "_self")}
+              className="mb-1 ml-1 inline-block h-4 w-4 animate-pulse text-primary"
+            />
           </span>
         </div>
       </div>

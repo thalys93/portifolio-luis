@@ -1,0 +1,44 @@
+# Thalys Dev
+
+> Estúdio de Luis Thalys para construir MVP, app e SaaS do brief ao produto no ar, com ownership full stack do ciclo.
+
+Thalys Dev is a one-person digital product studio. Luis Thalys designs and builds web and mobile products end to end: landing pages, portfolio sites, company sites, simple e-commerce, MVPs, apps, and SaaS. Stack in production includes React, Node.js, TypeScript, React Native, Nest.js, PostgreSQL, MongoDB, and Docker. Based in Nova Santa Rita, RS, Brazil. Typical response time: within 24 hours.
+
+## Site
+
+- [Home](https://thalysdev.com/): positioning, services, projects, contact
+- [Projects](https://thalysdev.com/projects): public case list and project details
+- [Contact](https://thalysdev.com/#contact): form, email, WhatsApp
+
+## Services
+
+- Landing page
+- Portfolio site
+- Company / institutional site
+- Simple e-commerce
+- MVP, app, and SaaS (end-to-end build)
+
+Price ranges and typical timelines are published on the home page services section and may change with scope.
+
+## Contact
+
+- Email: thalys.dev@gmail.com
+- Phone / WhatsApp: +55 51 99148-5593
+- Location: Nova Santa Rita, RS, Brazil
+- Site: https://thalysdev.com/
+
+## Social
+
+- GitHub: https://github.com/thalys93
+- LinkedIn: https://linkedin.com/in/thalys-dev202/
+- Instagram: https://www.instagram.com/thalys.dev25/
+- Threads: https://www.threads.com/@luiss_xavierr
+
+## Languages
+
+Portuguese (default), English, Spanish via client-side locale switch (`?hl=en`, `?hl=es`).
+
+## Optional
+
+- [Sitemap](https://thalysdev.com/sitemap.xml)
+- [robots.txt](https://thalysdev.com/robots.txt)

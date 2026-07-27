@@ -1,66 +1,29 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useProject } from "@/hooks/use-projects";
+import { getProjectText } from "@/lib/project-i18n";
 import PublicLayout from "@/subdomains/portifolio/layout/public-layout";
-import { FirebaseDB, trackEvent } from "@/services/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { trackEvent } from "@/services/firebase";
 import { ExternalLink, Github } from "lucide-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router-dom";
 
-type Project = {
-  id: string;
-  image?: string;
-  technologies?: string[];
-  category?: string;
-  github?: string | null;
-  demo?: string | null;
-  date?: string;
-  i18nKey?: string;
-  i18n?: {
-    ptbr?: { title?: string; description?: string };
-    en?: { title?: string; description?: string };
-    es?: { title?: string; description?: string };
-  };
-};
-
 function ProjectDetailPage() {
   const { id } = useParams();
   const { t, i18n } = useTranslation();
-  const [project, setProject] = React.useState<Project | null>(null);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const { data: project, isLoading } = useProject(id);
 
   React.useEffect(() => {
-    const run = async () => {
-      if (!id) return;
-      try {
-        const snap = await getDoc(doc(FirebaseDB, "projects", id));
-        if (snap.exists()) {
-          setProject({ id: snap.id, ...(snap.data() as Omit<Project, "id">) });
-          trackEvent("project_detail_viewed", { projectId: snap.id });
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    run();
-  }, [id]);
+    if (project?.id) {
+      trackEvent("project_detail_viewed", { projectId: project.id });
+    }
+  }, [project?.id]);
 
   const text = React.useMemo(() => {
     if (!project) return { title: "", description: "" };
-    const lang = (i18n.language || "ptbr") as "ptbr" | "en" | "es";
-    const fallbackTitle = project?.i18n?.[lang]?.title || project?.i18n?.ptbr?.title || "";
-    const fallbackDesc =
-      project?.i18n?.[lang]?.description || project?.i18n?.ptbr?.description || "";
-    return {
-      title: project.i18nKey
-        ? t(`${project.i18nKey}.title`, { defaultValue: fallbackTitle })
-        : fallbackTitle,
-      description: project.i18nKey
-        ? t(`${project.i18nKey}.description`, { defaultValue: fallbackDesc })
-        : fallbackDesc,
-    };
+    return getProjectText(project, i18n.language, t);
   }, [i18n.language, project, t]);
 
   return (
@@ -81,19 +44,23 @@ function ProjectDetailPage() {
               </Button>
             </div>
           ) : (
-            <div className="space-y-6">              
+            <div className="space-y-6">
               <div className="border border-border/70 bg-card/40 p-5 sm:p-8">
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge variant="outline" className="rounded-none uppercase tracking-[0.12em]">
-                    {project.category || "-"}
+                    {project.category || ""}
                   </Badge>
-                  <Badge variant="secondary" className="rounded-none">
-                    {project.date || "-"}
-                  </Badge>
+                  {project.date ? (
+                    <Badge variant="secondary" className="rounded-none">
+                      {project.date}
+                    </Badge>
+                  ) : null}
                 </div>
 
-                <h1 className="mt-5 font-display text-4xl text-foreground">{text.title}</h1>
-                <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+                <h1 className="mt-5 font-display text-4xl text-foreground sm:text-5xl">
+                  {text.title}
+                </h1>
+                <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
                   {text.description}
                 </p>
 
@@ -113,19 +80,23 @@ function ProjectDetailPage() {
                     <Link to="/projects">{t("projectsPage.backToProjects")}</Link>
                   </Button>
 
-                  <Button variant="outline" className="rounded-none" disabled={!project.demo} asChild>
-                    <a href={project.demo ?? "#"} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      {t("projectsPage.openLive")}
-                    </a>
-                  </Button>
+                  {project.demo ? (
+                    <Button variant="outline" className="rounded-none" asChild>
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        {t("projectsPage.openLive")}
+                      </a>
+                    </Button>
+                  ) : null}
 
-                  <Button variant="outline" className="rounded-none" disabled={!project.github} asChild>
-                    <a href={project.github ?? "#"} target="_blank" rel="noopener noreferrer">
-                      <Github className="mr-2 h-4 w-4" />
-                      GitHub
-                    </a>
-                  </Button>
+                  {project.github ? (
+                    <Button variant="outline" className="rounded-none" asChild>
+                      <a href={project.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="mr-2 h-4 w-4" />
+                        GitHub
+                      </a>
+                    </Button>
+                  ) : null}
                 </div>
               </div>
 
@@ -142,7 +113,9 @@ function ProjectDetailPage() {
                   />
                 ) : (
                   <div className="grid min-h-[380px] place-items-center p-6 text-center">
-                    <p className="text-sm text-muted-foreground">{t("projectsPage.noPreviewAvailable")}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {t("projectsPage.noPreviewAvailable")}
+                    </p>
                   </div>
                 )}
               </div>

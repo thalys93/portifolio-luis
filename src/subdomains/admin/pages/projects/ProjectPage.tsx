@@ -17,6 +17,7 @@ import { Globe, Image, List } from 'lucide-react'
 import { IconsSelect } from '@/shared/consts/Icons'
 import { ProjectForm } from '@/types/form/project.form'
 import { AdminPageHeader } from '@/subdomains/admin/components/AdminPageHeader'
+import { PROJECT_SHORT_TITLE_MAX, toShortTitle } from '@/lib/project-short-title'
 
 function ProjectPage() {
     const { id } = useParams()
@@ -39,10 +40,13 @@ function ProjectPage() {
             date: '',
             i18nKey: '',
             title_ptbr: '',
+            shortTitle_ptbr: '',
             description_ptbr: '',
             title_en: '',
+            shortTitle_en: '',
             description_en: '',
             title_es: '',
+            shortTitle_es: '',
             description_es: ''
         }
     })
@@ -60,9 +64,21 @@ function ProjectPage() {
             technologies: techs,
             i18nKey: values.i18nKey,
             i18n: {
-                ptbr: { title: values.title_ptbr, description: values.description_ptbr },
-                en: { title: values.title_en, description: values.description_en },
-                es: { title: values.title_es, description: values.description_es },
+                ptbr: {
+                    title: values.title_ptbr,
+                    shortTitle: values.shortTitle_ptbr.trim(),
+                    description: values.description_ptbr,
+                },
+                en: {
+                    title: values.title_en,
+                    shortTitle: values.shortTitle_en.trim(),
+                    description: values.description_en,
+                },
+                es: {
+                    title: values.title_es,
+                    shortTitle: values.shortTitle_es.trim(),
+                    description: values.description_es,
+                },
             }
         }
 
@@ -121,10 +137,13 @@ function ProjectPage() {
                         date: data.date || '',
                         i18nKey: data.i18nKey || '',
                         title_ptbr: data.i18n?.ptbr?.title || '',
+                        shortTitle_ptbr: data.i18n?.ptbr?.shortTitle || toShortTitle(data.i18n?.ptbr?.title || ''),
                         description_ptbr: data.i18n?.ptbr?.description || '',
                         title_en: data.i18n?.en?.title || '',
+                        shortTitle_en: data.i18n?.en?.shortTitle || toShortTitle(data.i18n?.en?.title || ''),
                         description_en: data.i18n?.en?.description || '',
                         title_es: data.i18n?.es?.title || '',
+                        shortTitle_es: data.i18n?.es?.shortTitle || toShortTitle(data.i18n?.es?.title || ''),
                         description_es: data.i18n?.es?.description || ''
                     })
                     setInitialImage(data.image || null)
@@ -166,6 +185,22 @@ function ProjectPage() {
                                                         <FormMessage />
                                                     </FormItem>
                                                 )} />
+                                                <FormField control={form.control} name="shortTitle_ptbr" render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>Short title (ptbr)</FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                {...field}
+                                                                maxLength={PROJECT_SHORT_TITLE_MAX}
+                                                                placeholder="Título curto da home"
+                                                            />
+                                                        </FormControl>
+                                                        <p className="text-xs text-muted-foreground">
+                                                            {(field.value ?? '').length}/{PROJECT_SHORT_TITLE_MAX} · uma linha na home
+                                                        </p>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )} />
                                                 <FormField control={form.control} name="description_ptbr" render={({ field }) => (
                                                     <FormItem>
                                                         <FormLabel>Descrição (ptbr)</FormLabel>
@@ -184,6 +219,22 @@ function ProjectPage() {
                                                         <FormMessage />
                                                     </FormItem>
                                                 )} />
+                                                <FormField control={form.control} name="shortTitle_en" render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>Short title (en)</FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                {...field}
+                                                                maxLength={PROJECT_SHORT_TITLE_MAX}
+                                                                placeholder="Home card short title"
+                                                            />
+                                                        </FormControl>
+                                                        <p className="text-xs text-muted-foreground">
+                                                            {(field.value ?? '').length}/{PROJECT_SHORT_TITLE_MAX} · one line on home
+                                                        </p>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )} />
                                                 <FormField control={form.control} name="description_en" render={({ field }) => (
                                                     <FormItem>
                                                         <FormLabel>Descrição (en)</FormLabel>
@@ -199,6 +250,22 @@ function ProjectPage() {
                                                     <FormItem>
                                                         <FormLabel>Título (es)</FormLabel>
                                                         <FormControl><Input {...field} /></FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )} />
+                                                <FormField control={form.control} name="shortTitle_es" render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>Short title (es)</FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                {...field}
+                                                                maxLength={PROJECT_SHORT_TITLE_MAX}
+                                                                placeholder="Título corto del home"
+                                                            />
+                                                        </FormControl>
+                                                        <p className="text-xs text-muted-foreground">
+                                                            {(field.value ?? '').length}/{PROJECT_SHORT_TITLE_MAX} · una línea en el home
+                                                        </p>
                                                         <FormMessage />
                                                     </FormItem>
                                                 )} />

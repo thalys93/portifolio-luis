@@ -1,0 +1,22 @@
+---
+description: Arquitetura do portfólio (subdomains + data layer)
+globs: ["src/**/*.ts", "src/**/*.tsx"]
+alwaysApply: true
+---
+
+# Arquitetura
+
+## Subdomains
+- `src/subdomains/portifolio/` → site público
+- `src/subdomains/admin/` → CMS interno
+- `src/components/` → UI compartilhada (shadcn, nav, footer)
+- `src/hooks/` → data fetching (React Query) e hooks de UI
+- `src/types/` → tipos de domínio compartilhados
+- `src/locale/` → copy i18n (ptbr / en / es)
+- `src/shared/consts/` → constantes de site (contato, sociais, stack)
+
+## Regras
+- Pages/sections públicas não chamam `getDocs` direto: usam hooks em `src/hooks/`
+- Locale de conteúdo Firestore (`ptbr`) via `toContentLocale` em `src/lib/locale.ts`
+- Copy de UI só em `src/locale/*.json`, não hardcoded em JSX (exceto nomes próprios / URLs em `SITE`)
+- Admin sem redesign visual neste ciclo; pode consumir hooks/tipos se o diff for natural

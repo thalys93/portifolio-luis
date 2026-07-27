@@ -12,6 +12,13 @@ import { getIcon } from '@/shared/consts/Icons'
 import { ArrowUp, ArrowDown, EllipsisVertical } from 'lucide-react'
 import { AdminPageHeader } from '@/subdomains/admin/components/AdminPageHeader'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { toShortTitle } from '@/lib/project-short-title'
+
+type ProjectLocale = {
+  title?: string
+  shortTitle?: string
+  description?: string
+}
 
 type Project = {
   id: string
@@ -25,11 +32,34 @@ type Project = {
   date: string
   i18nKey?: string
   i18n?: {
-    ptbr?: { title?: string; description?: string }
-    en?: { title?: string; description?: string }
-    es?: { title?: string; description?: string }
+    ptbr?: ProjectLocale
+    en?: ProjectLocale
+    es?: ProjectLocale
   }
   order?: number
+}
+
+function withShortTitles(i18n: Project['i18n']): { next: Project['i18n']; changed: boolean } {
+  const locales = ['ptbr', 'en', 'es'] as const
+  let changed = false
+  const next: NonNullable<Project['i18n']> = { ...(i18n ?? {}) }
+
+  for (const locale of locales) {
+    const current = i18n?.[locale] ?? {}
+    const title = current.title ?? ''
+    const shortTitle = (current.shortTitle ?? '').trim()
+    if (!shortTitle && title) {
+      changed = true
+      next[locale] = {
+        ...current,
+        shortTitle: toShortTitle(title),
+      }
+    } else {
+      next[locale] = current
+    }
+  }
+
+  return { next, changed }
 }
 
 function ProjectsPage() {
@@ -44,9 +74,26 @@ function ProjectsPage() {
       try {
         const snap = await getDocs(collection(FirebaseDB, 'projects'))
         const items: Project[] = snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<Project, 'id'>) }))
-        // Normaliza apenas em memória para exibição; sem escrever no Firestore aqui
-        const normalized = items.map((it, i) => ({ ...it, order: typeof it.order === 'number' ? it.order : i }))
-        // GARANTE que a exibição respeite a ordem já definida
+        const batch = writeBatch(FirebaseDB)
+        let batchCount = 0
+
+        const normalized = items.map((it, i) => {
+          const { next, changed } = withShortTitles(it.i18n)
+          if (changed) {
+            batch.update(doc(FirebaseDB, 'projects', it.id), { i18n: next })
+            batchCount += 1
+          }
+          return {
+            ...it,
+            i18n: next,
+            order: typeof it.order === 'number' ? it.order : i,
+          }
+        })
+
+        if (batchCount > 0) {
+          await batch.commit()
+        }
+
         normalized.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
         setProjects(normalized)
       } catch (e: any) {

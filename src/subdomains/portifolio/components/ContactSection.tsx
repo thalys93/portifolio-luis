@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send, Github, Linkedin, AtSign, Trash, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Github, Linkedin, AtSign, Trash, Instagram, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "react-i18next";
 import { SectionHeader } from "@/components/SectionHeader";
+import { SITE } from "@/shared/consts/site";
+
+type ContactChannel = "email" | "whatsapp";
 
 const ContactSection = () => {
   const { toast } = useToast();
   const { t } = useTranslation();
+  const [channel, setChannel] = useState<ContactChannel>("email");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,46 +39,71 @@ const ContactSection = () => {
     }));
   };
 
+  const openWhatsApp = () => {
+    const text = t("contact.form.whatsappTemplate", {
+      name: formData.name,
+      subject: formData.subject,
+      message: formData.message,
+    });
+    const url = `https://wa.me/${SITE.whatsappPhone}?text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+    toast({
+      title: t("contact.form.toast.whatsappTitle"),
+      description: t("contact.form.toast.whatsappDescription"),
+    });
+    handleResetForm();
+  };
+
+  const sendEmail = async () => {
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+
+    if (!accessKey) {
+      throw new Error("Missing VITE_WEB3FORMS_ACCESS_KEY");
+    }
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: accessKey,
+        name: formData.name,
+        email: formData.email,
+        from_name: formData.name,
+        replyto: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        botcheck: "",
+      }),
+    });
+
+    const result = (await response.json()) as { success?: boolean };
+
+    if (!response.ok || !result.success) {
+      throw new Error("Failed to submit contact form");
+    }
+
+    toast({
+      title: t("contact.form.toast.title"),
+      description: t("contact.form.toast.description"),
+    });
+    handleResetForm();
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (channel === "whatsapp") {
+      openWhatsApp();
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-
-      if (!accessKey) {
-        throw new Error("Missing VITE_WEB3FORMS_ACCESS_KEY");
-      }
-
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: accessKey,
-          name: formData.name,
-          email: formData.email,
-          from_name: formData.name,
-          replyto: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          botcheck: "",
-        }),
-      });
-
-      const result = (await response.json()) as { success?: boolean };
-
-      if (!response.ok || !result.success) {
-        throw new Error("Failed to submit contact form");
-      }
-
-      toast({
-        title: t("contact.form.toast.title"),
-        description: t("contact.form.toast.description"),
-      });
-      handleResetForm();
+      await sendEmail();
     } catch {
       toast({
         title: t("contact.form.toast.error"),
@@ -90,34 +119,36 @@ const ContactSection = () => {
     {
       icon: Mail,
       title: t("contact.email"),
-      value: "thalys.dev@gmail.com",
-      link: "mailto:thalys.dev@gmail.com",
+      value: SITE.email,
+      link: `mailto:${SITE.email}`,
     },
     {
       icon: Phone,
       title: t("contact.cellphone"),
-      value: "+55 (51) 99148-5593",
-      link: "tel:+555191485593",
+      value: SITE.phoneDisplay,
+      link: `tel:${SITE.phoneTel}`,
     },
     {
       icon: MapPin,
       title: t("contact.localization"),
-      value: "Nova Santa Rita, RS - Brasil",
-      link: "https://www.google.com/maps/place/Nova+Santa+Rita,+RS/data=!4m2!3m1!1s0x95197c0356569155:0x240770d2c2608863?sa=X&ved=1t:155783&ictx=111",
+      value: SITE.location,
+      link: SITE.locationMapUrl,
     },
   ];
 
   const socialLinks = [
-    { icon: Github, name: "GitHub", url: "https://github.com/thalys93" },
-    { icon: Linkedin, name: "LinkedIn", url: "https://linkedin.com/in/thalys-dev202/" },
-    { icon: AtSign, name: "Threads", url: "https://www.threads.com/@luiss_xavierr" },
-    { icon: Instagram, name: "Instagram", url: "https://www.instagram.com/thalys.dev25/" },
+    { icon: Github, name: "GitHub", url: SITE.socials[0].href },
+    { icon: Linkedin, name: "LinkedIn", url: SITE.socials[1].href },
+    { icon: AtSign, name: "Threads", url: SITE.threadsUrl },
+    { icon: Instagram, name: "Instagram", url: SITE.socials[3].href },
   ];
+
+  const isWhatsApp = channel === "whatsapp";
 
   return (
     <section
       id="contact"
-      className="border-t border-border/60 bg-muted/10 py-20 px-4 sm:px-6 lg:px-8 lg:py-28"
+      className="bg-grid-saas border-t border-border/60 px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
     >
       <div className="mx-auto max-w-6xl">
         <SectionHeader
@@ -197,7 +228,45 @@ const ContactSection = () => {
             </h3>
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-              <div className="grid gap-4 md:grid-cols-2">
+              <div>
+                <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  {t("contact.form.channel")}
+                </p>
+                <div
+                  role="group"
+                  aria-label={t("contact.form.channel")}
+                  className="grid grid-cols-2 border border-border"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setChannel("email")}
+                    aria-pressed={channel === "email"}
+                    className={`flex items-center justify-center gap-2 px-4 py-2.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                      channel === "email"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-background text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <Mail className="h-4 w-4" aria-hidden />
+                    {t("contact.form.channelEmail")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setChannel("whatsapp")}
+                    aria-pressed={isWhatsApp}
+                    className={`flex items-center justify-center gap-2 border-l border-border px-4 py-2.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                      isWhatsApp
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-background text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <MessageCircle className="h-4 w-4" aria-hidden />
+                    {t("contact.form.channelWhatsapp")}
+                  </button>
+                </div>
+              </div>
+
+              <div className={isWhatsApp ? undefined : "grid gap-4 md:grid-cols-2"}>
                 <div>
                   <label
                     htmlFor="name"
@@ -216,24 +285,26 @@ const ContactSection = () => {
                     placeholder={t("contact.form.placeholder")}
                   />
                 </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-muted-foreground"
-                  >
-                    {t("contact.form.email")} <span className="text-destructive">*</span>
-                  </label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="rounded-none border-border bg-background focus-visible:ring-ring"
-                    placeholder={t("contact.form.placeholder_email")}
-                  />
-                </div>
+                {!isWhatsApp && (
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="mb-2 block text-xs font-medium uppercase tracking-wider text-muted-foreground"
+                    >
+                      {t("contact.form.email")} <span className="text-destructive">*</span>
+                    </label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="rounded-none border-border bg-background focus-visible:ring-ring"
+                      placeholder={t("contact.form.placeholder_email")}
+                    />
+                  </div>
+                )}
               </div>
 
               <div>
@@ -296,8 +367,14 @@ const ContactSection = () => {
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
-                      <Send className="h-5 w-5" />
-                      {t("contact.form.sendButton")}
+                      {isWhatsApp ? (
+                        <MessageCircle className="h-5 w-5" />
+                      ) : (
+                        <Send className="h-5 w-5" />
+                      )}
+                      {isWhatsApp
+                        ? t("contact.form.sendWhatsapp")
+                        : t("contact.form.sendButton")}
                     </span>
                   )}
                 </Button>

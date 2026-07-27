@@ -1,0 +1,16 @@
+---
+description: Anti-padrões proibidos no portfólio
+globs: ["src/**"]
+alwaysApply: true
+---
+
+# Proibido
+
+- Fabricar depoimentos, métricas ou claims de resultado
+- Travessão `—` ou hífen isolado ` - ` como pontuação na copy
+- Stats genéricos tipo "100% satisfação" sem prova
+- `getDocs` / `getDoc` inline em components do site público (use hooks)
+- `any` em novos tipos de projeto/categoria/skill
+- Importar Inter como fonte principal (body = Instrument Sans; display = Cormorant)
+- Cards decorativos sem interação na home
+- Comentários que explicam o óbvio no código

@@ -6,7 +6,7 @@ import {
   type InteractiveMenuItem,
 } from "@/components/ui/modern-mobile-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Briefcase, Home, Mail, User, Wrench } from "lucide-react";
+import { Briefcase, Home, Mail, User, Tag } from "lucide-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -24,33 +24,28 @@ function PublicLayout({ children }: layoutProps) {
   const mobileItems = React.useMemo<InteractiveMenuItem[]>(
     () => [
       { id: "home", label: t("navigation.home"), icon: Home },
+      { id: "services", label: t("navigation.services"), icon: Tag },
+      { id: "projects", label: t("navigation.projects"), icon: Briefcase },
       { id: "about", label: t("navigation.about"), icon: User },
-      { id: "skills", label: t("navigation.habilities"), icon: Wrench },
-      { id: "projects", label: t("navigation.projects"), icon: Briefcase, to: "/projects" },
       { id: "contact", label: t("navigation.contact"), icon: Mail },
     ],
     [t]
   );
 
-  const handleMobileItemClick = React.useCallback((item: InteractiveMenuItem) => {
-    if (item.id === "projects") {
-      navigate("/projects");
-      return;
-    }
+  const handleMobileItemClick = React.useCallback(
+    (item: InteractiveMenuItem) => {
+      if (location.pathname !== "/") {
+        navigate("/");
+        window.setTimeout(() => {
+          document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
+        }, 80);
+        return;
+      }
 
-    if (location.pathname !== "/") {
-      navigate("/");
-      window.setTimeout(() => {
-        document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
-      }, 80);
-      return;
-    }
-
-    const element = document.getElementById(item.id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [location.pathname, navigate]);
+      document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
+    },
+    [location.pathname, navigate]
+  );
 
   return (
     <main
